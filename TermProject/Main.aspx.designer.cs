@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Class_Library
+namespace TermProject
 {
 
 
-    public partial class Functions
+    public partial class Main
     {
 
         /// <summary>

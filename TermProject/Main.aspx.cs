@@ -4,11 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Utilities;
 
-namespace Class_Library
+namespace TermProject
 {
-    public partial class Functions : System.Web.UI.Page
+    public partial class Main : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
