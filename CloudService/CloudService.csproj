@@ -9,12 +9,12 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{CC12EAD8-69F9-4FDE-84F7-25DC8934083C}</ProjectGuid>
+    <ProjectGuid>{A978C642-7A56-4064-B110-AD42B012FE15}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Class_Library</RootNamespace>
-    <AssemblyName>Class Library</AssemblyName>
+    <RootNamespace>CloudService</RootNamespace>
+    <AssemblyName>CloudService</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -75,31 +75,21 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Functions.aspx" />
+    <Content Include="CloudSVC.asmx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Functions.aspx.cs">
-      <DependentUpon>Functions.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Functions.aspx.designer.cs">
-      <DependentUpon>Functions.aspx</DependentUpon>
+    <Compile Include="CloudSVC.asmx.cs">
+      <DependentUpon>CloudSVC.asmx</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CloudService\CloudService.csproj">
-      <Project>{a978c642-7a56-4064-b110-ad42b012fe15}</Project>
-      <Name>CloudService</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Utilities\Utilities.csproj">
       <Project>{a0afcd7f-451e-4834-97b7-422376228af9}</Project>
       <Name>Utilities</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -114,9 +104,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>63109</DevelopmentServerPort>
+          <DevelopmentServerPort>51543</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:63109/</IISUrl>
+          <IISUrl>http://localhost:51543/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -19,5 +19,23 @@ namespace TermProject
         {
             Response.Redirect("Registration.aspx");
         }
+
+        protected void btnSignin_Click(object sender, EventArgs e)
+        {
+            string email = txtEmail.Text;
+            string password = txtPassword.Text;
+            string response = Functions.attemptLogin(email, password);
+
+            if (response == "Success User" || response == "Success Admin")
+            {
+                Session["Login"] = response;
+                Response.Redirect("Main.aspx");
+            }
+            else
+            {
+                lblDisplayText.Text = response;
+            }
+
+        }
     }
 }

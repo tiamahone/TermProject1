@@ -26,8 +26,9 @@
         <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" Style="z-index: 1; left: 250px; top: 330px; position: absolute"></asp:TextBox>
         <asp:Label ID="lblRemember" runat="server" Style="z-index: 1; left: 250px; top: 360px; position: absolute" Text="Remember Me"></asp:Label>
         <asp:CheckBox ID="chkRemember" runat="server" Style="z-index: 1; left: 350px; top: 360px; position: absolute" Checked="True" />
-        <asp:Button ID="btnSignin" runat="server" style="z-index: 1; left: 250px; top: 390px; position: absolute" Text="Sign In" />
+        <asp:Button ID="btnSignin" runat="server" style="z-index: 1; left: 250px; top: 390px; position: absolute" Text="Sign In" OnClick="btnSignin_Click" />
         <asp:Button ID="btnRegister" runat="server" style="z-index: 1; left: 350px; top: 390px; position: absolute" Text="Sign Up" OnClick="btnRegister_Click" />
+        <asp:Label ID="lblDisplayText" runat="server" Style="z-index: 1; left: 100px; top: 420px; position: absolute" Text=""></asp:Label>
 
 
     </form>
