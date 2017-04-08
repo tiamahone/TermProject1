@@ -10,10 +10,6 @@
     <form id="form1" runat="server">
     <div>
     
-        <asp:Label ID="lblDisplayText" runat="server" style="z-index: 1; left: 10px; top: 200px; position: absolute" Text=""></asp:Label>
-    
-        <asp:Button ID="btnBack" runat="server" style="z-index: 1; left: 10px; top: 250px; position: absolute" Text="Back To Login" OnClick="btnBack_Click" />
-    
     </div>
     </form>
 </body>

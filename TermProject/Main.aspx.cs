@@ -11,7 +11,19 @@ namespace TermProject
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["Login"] != null)
+            {
+                lblDisplayText.Text = Session["Login"].ToString();
+            }
+            else
+            {
+                lblDisplayText.Text = "Error: Must Login in";
+            }
+        }
 
+        protected void btnBack_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Login.aspx");
         }
     }
 }

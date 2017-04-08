@@ -19,5 +19,21 @@ namespace TermProject
         {
             Response.Redirect("Login.aspx");
         }
+
+        protected void btnRegister_Click1(object sender, EventArgs e)
+        {
+            if (txtPassword.Text != txtConfirm.Text)
+            {
+                lblDisplayText.Text = "Passwords must match";
+            }
+            else
+            {
+                string result = Functions.addUser(txtName.Text, txtEmail.Text,
+                    txtPassword.Text, txtPhone.Text);
+
+                lblDisplayText.Text = result;
+            }
+
+        }
     }
 }
