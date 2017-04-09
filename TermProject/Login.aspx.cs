@@ -12,7 +12,18 @@ namespace TermProject
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack && Request.Cookies["Login_Cookie"] != null)
+            {
+                HttpCookie cookie = Request.Cookies["Login_Cookie"];
+                lblEmail.Text = "Welcome back " + cookie.Values["userName"].ToString() + "!";
+                txtEmail.Text = cookie.Values["userName"].ToString();
+                txtEmail.Visible = false; btnRegister.Visible = false; btnOtherUser.Visible = true;
+            }
+            else
+            {
+                lblEmail.Text = "Email Address:";
+                txtEmail.Visible = true; btnRegister.Visible = true; btnOtherUser.Visible = false;
+            }
         }
 
         protected void btnRegister_Click(object sender, EventArgs e)
@@ -25,9 +36,28 @@ namespace TermProject
             string email = txtEmail.Text;
             string password = txtPassword.Text;
             string response = Functions.attemptLogin(email, password);
+            
 
             if (response == "Success User" || response == "Success Admin")
             {
+                // Adds cookie if remember me is checked
+                if (chkRemember.Checked)
+                {
+                    HttpCookie myCookie = new HttpCookie("Login_Cookie");
+                    myCookie.Values["userName"] = txtEmail.Text;
+                    Response.Cookies.Add(myCookie);
+                }
+                // Deletes cookie if remember me is not checked
+                else
+                {
+                    if (Request.Cookies["Login_Cookie"] != null)
+                    {
+                        HttpCookie myCookie = new HttpCookie("Login_Cookie");
+                        myCookie.Expires = DateTime.Now.AddDays(-1d);
+                        Response.Cookies.Add(myCookie);
+                    }
+                }
+
                 Session["Login"] = response;
                 Response.Redirect("Main.aspx");
             }
@@ -36,6 +66,14 @@ namespace TermProject
                 lblDisplayText.Text = response;
             }
 
+        }
+
+        protected void btnOtherUser_Click(object sender, EventArgs e)
+        {
+            // Deletes cookie if Not Me is clicked
+            HttpCookie myCookie = new HttpCookie("Login_Cookie");
+            myCookie.Expires = DateTime.Now.AddDays(-1d);
+            Response.Cookies.Add(myCookie);
         }
     }
 }
