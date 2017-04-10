@@ -68,6 +68,15 @@
   <ItemGroup>
     <Content Include="Functions.aspx" />
     <Content Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\CloudSVCRef\CloudSVC.wsdl" />
+    <None Include="Web References\CloudSVCRef\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -76,6 +85,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Web References\CloudSVCRef\CloudSVC.disco" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -87,13 +97,19 @@
       <DependentUpon>Functions.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="UserInformation.cs" />
+    <Compile Include="Web References\CloudSVCRef\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CloudService\CloudService.csproj">
-      <Project>{a978c642-7a56-4064-b110-ad42b012fe15}</Project>
-      <Name>CloudService</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Utilities\Utilities.csproj">
       <Project>{a0afcd7f-451e-4834-97b7-422376228af9}</Project>
       <Name>Utilities</Name>
@@ -101,6 +117,22 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://cis-iis2.temple.edu/Spring2017/CIS3342_Tug31275/TermProjectWS/CloudSVC.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\CloudSVCRef\</RelPath>
+      <UpdateFromURL>http://cis-iis2.temple.edu/Spring2017/CIS3342_Tug31275/TermProjectWS/CloudSVC.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Class_Library_CloudSVCRef_CloudSVC</CachedSettingsPropName>
+    </WebReferenceUrl>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

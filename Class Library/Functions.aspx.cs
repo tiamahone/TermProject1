@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Utilities;
 using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace Class_Library
 {
@@ -21,7 +23,7 @@ namespace Class_Library
             string[] loginInfo = new string[2];
             string response = "";
             loginInfo[0] = email; loginInfo[1] = password;
-            CloudService.CloudSVC pxy = new CloudService.CloudSVC();
+            CloudSVCRef.CloudSVC pxy = new CloudSVCRef.CloudSVC();
 
             int result = pxy.attemptLogin(loginInfo);
             if (result == -1)
@@ -49,7 +51,7 @@ namespace Class_Library
         {
             string[] userInfo = new string[4];
             string response = "";
-            CloudService.CloudSVC pxy = new CloudService.CloudSVC();
+            CloudSVCRef.CloudSVC pxy = new CloudSVCRef.CloudSVC();
             userInfo[0] = name; userInfo[1] = email;
             userInfo[2] = password; userInfo[3] = phone;
             int result = pxy.addUser(userInfo);
@@ -70,7 +72,7 @@ namespace Class_Library
         {
             string[] userInfo = new string[4];
             string response = "";
-            CloudService.CloudSVC pxy = new CloudService.CloudSVC();
+            CloudSVCRef.CloudSVC pxy = new CloudSVCRef.CloudSVC();
             userInfo[0] = name; userInfo[1] = email;
             userInfo[2] = password; userInfo[3] = phone;
             int result = pxy.addAdmin(userInfo);
