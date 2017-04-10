@@ -6,32 +6,73 @@
 <head runat="server">
     <title></title>
     <style type="text/css">
-        .auto-style1 {
-            text-decoration: underline;
+        body{
+            background-color: lightslategray;
+            z-index: 1;
+        }       
+        div.heading{
+            background: #f85f64;
+            color: #fff;
             text-align: center;
+            text-transform: uppercase;
+            font-weight: bold;
+            padding: 1.5em;
+        }
+        div.textbackground{
+            background: #fff;
+            color: #000;
+            text-align: center;
+            text-transform:capitalize;
+            font-weight: bold;
+            padding: 1.3em;
+        }
+        tablediv{
+            position: absolute;
+            z-index: 2;
+            top: 250px;
+            left: 300px;
+        }
+
+        .auto-style1 {
+            position: relative;
+            left: 480px;
+            top: 4px;
         }
     </style>
 </head>
-<body bgcolor = "#beb8b8">
+
+<body>
     <form id="form1" runat="server">
-        <div>
-        </div>
-        <p class="auto-style1">
-            <h1 class="auto-style1"><strong>Cloud Storage Service</strong></h1>
-        </p>
-        <h3 style="z-index: 1; left: 175px; top: 250px; position: absolute " >Sign In or Create Account</h3>
-        <asp:Label ID="lblEmail" runat="server" Style="z-index: 1; left: 100px; top: 300px; position: absolute " Text="Email Address:" Font-Bold="True"></asp:Label>
-        <asp:TextBox ID="txtEmail" runat="server" TextMode="Email" Style="z-index: 1; left: 250px; top: 300px; position: absolute"></asp:TextBox>
-        <asp:Label ID="lblPassword" runat="server" Style="z-index: 1; left: 100px; top: 330px; position: absolute" Text="Password:" Font-Bold="True"></asp:Label>
-        <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" Style="z-index: 1; left: 250px; top: 330px; position: absolute"></asp:TextBox>
-        <asp:Label ID="lblRemember" runat="server" Style="z-index: 1; left: 250px; top: 360px; position: absolute" Text="Remember Me"></asp:Label>
-        <asp:CheckBox ID="chkRemember" runat="server" Style="z-index: 1; left: 350px; top: 360px; position: absolute" Checked="True" />
-        <asp:Button ID="btnSignin" runat="server" style="z-index: 1; left: 250px; top: 390px; position: absolute" Text="Sign In" OnClick="btnSignin_Click" />
-        <asp:Button ID="btnRegister" runat="server" style="z-index: 1; left: 350px; top: 390px; position: absolute" Text="Sign Up" OnClick="btnRegister_Click" />
-        <asp:Button ID="btnOtherUser" runat="server" style="z-index: 1; left: 350px; top: 390px; position: absolute" Text="Not Me" OnClick="btnOtherUser_Click" visible ="false"/>
-        <asp:Label ID="lblDisplayText" runat="server" Style="z-index: 1; left: 100px; top: 420px; position: absolute" Text=""></asp:Label>
 
-
+        <div class="heading">Cloud Storage Service</div>
+        <div class="textbackground">
+        <h3>Sign In or Create Account</h3>
+            <table class="auto-style1">
+                <tr>
+                    <td><asp:Label ID="lblEmail" runat="server" Text="Email Address:" Font-Bold="True"></asp:Label></td>
+                    <td><asp:TextBox ID="txtEmail" runat="server" TextMode="Email" ></asp:TextBox></td>
+                </tr>
+                <tr>
+                    <td><asp:Label ID="lblPassword" runat="server" Text="Password:" Font-Bold="True"></asp:Label></td>
+                    <td><asp:TextBox ID="txtPassword" runat="server" TextMode="Password" ></asp:TextBox></td>
+                </tr>
+                <tr>
+                    <td><asp:Label ID="lblRemember" runat="server" Text="Remember Me"></asp:Label></td>
+                    <td><asp:CheckBox ID="chkRemember" runat="server" Checked="True" /></td>
+                </tr>
+                <tr>
+                    <td><asp:Button ID="btnSignin" runat="server" Text="Sign In" OnClick="btnSignin_Click" /></td>
+                    <td><asp:Button ID="btnRegister" runat="server" Text="Sign Up" OnClick="btnRegister_Click"/></td>
+                    <td><asp:Button ID="btnOtherUser" runat="server" Text="Not Me" OnClick="btnOtherUser_Click" visible ="false"/></td>
+                </tr>
+                <tr>
+                    <td><asp:Label ID="lblDisplayText1" runat="server" Text=""></asp:Label></td>
+                </tr>
+                <tr>
+                    <td><asp:Label ID="lblDisplayText2" runat="server" Text=""></asp:Label></td>
+                </tr>
+            </table>
+           </div>
     </form>
 </body>
 </html>

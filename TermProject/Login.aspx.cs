@@ -37,35 +37,37 @@ namespace TermProject
             string password = txtPassword.Text;
             string response = Functions.attemptLogin(email, password);
 
-
-            if (response == "Success User" || response == "Success Admin")
+            if (Validations())
             {
-                // Adds cookie if remember me is checked
-                if (chkRemember.Checked)
+
+                if (response == "Success User" || response == "Success Admin")
                 {
-                    HttpCookie myCookie = new HttpCookie("Login_Cookie");
-                    myCookie.Values["userName"] = txtEmail.Text;
-                    Response.Cookies.Add(myCookie);
-                }
-                // Deletes cookie if remember me is not checked
-                else
-                {
-                    if (Request.Cookies["Login_Cookie"] != null)
+                    // Adds cookie if remember me is checked
+                    if (chkRemember.Checked)
                     {
                         HttpCookie myCookie = new HttpCookie("Login_Cookie");
-                        myCookie.Expires = DateTime.Now.AddDays(-1d);
+                        myCookie.Values["userName"] = txtEmail.Text;
                         Response.Cookies.Add(myCookie);
                     }
+                    // Deletes cookie if remember me is not checked
+                    else
+                    {
+                        if (Request.Cookies["Login_Cookie"] != null)
+                        {
+                            HttpCookie myCookie = new HttpCookie("Login_Cookie");
+                            myCookie.Expires = DateTime.Now.AddDays(-1d);
+                            Response.Cookies.Add(myCookie);
+                        }
+                    }
+
+                    Session["Login"] = response;
+                    Response.Redirect("Main.aspx");
                 }
-
-                Session["Login"] = response;
-                Response.Redirect("Main.aspx");
+                else
+                {
+                    lblDisplayText1.Text = response;
+                }
             }
-            else
-            {
-                lblDisplayText.Text = response;
-            }
-
         }
 
         protected void btnOtherUser_Click(object sender, EventArgs e)
@@ -76,5 +78,20 @@ namespace TermProject
             Response.Cookies.Add(myCookie);
             txtEmail.Text = "";
         }
+
+        public bool Validations()
+        {
+            if (txtEmail.Text == String.Empty ||
+                txtPassword.Text == String.Empty)
+            {
+                lblDisplayText2.Text = "Enter all fields above!";
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
     }
 }
