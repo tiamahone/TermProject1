@@ -43,6 +43,7 @@
         <asp:Label ID="lblDisplayText" runat="server" Text=""></asp:Label>
         <br />
         <table>
+        <asp:Button ID="btnAddAdmin" runat="server" Text="Add Admin" OnClick="btnAddAdmin_Click" Visible ="false" />
         <asp:Button ID="btnBack" runat="server" Text="Back To Login" OnClick="btnBack_Click" />
         </table>
      </div>

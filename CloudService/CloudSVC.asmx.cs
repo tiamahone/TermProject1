@@ -112,9 +112,46 @@ namespace CloudService
                 objCommand.Parameters.AddWithValue("@phone", phone);
                 myDs = objDB.GetDataSetUsingCmdObj(objCommand);
                 response = 0;
-            }
+            } 
+            return response;
+        }
 
-            
+        [WebMethod]
+        public int addAdmin(string[] userInfo)
+        {
+            int response;
+            string name = userInfo[0];
+            string email = userInfo[1];
+            string password = userInfo[2];
+            string phone = userInfo[3];
+            DBConnect objDB;
+            SqlCommand objCommand;
+            DataSet myDs;
+
+            objDB = new DBConnect();
+            objCommand = new SqlCommand();
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "GetCloudAdminInfo";
+            objCommand.Parameters.AddWithValue("@email", email);
+            myDs = objDB.GetDataSetUsingCmdObj(objCommand);
+
+            if (myDs.Tables[0].Rows.Count != 0)
+            {
+                response = -1;
+            }
+            else
+            {
+                objDB = new DBConnect();
+                objCommand = new SqlCommand();
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "AddCloudAdmin";
+                objCommand.Parameters.AddWithValue("@name", name);
+                objCommand.Parameters.AddWithValue("@email", email);
+                objCommand.Parameters.AddWithValue("@password", password);
+                objCommand.Parameters.AddWithValue("@phone", phone);
+                myDs = objDB.GetDataSetUsingCmdObj(objCommand);
+                response = 0;
+            }
             return response;
         }
 

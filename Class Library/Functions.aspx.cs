@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Utilities;
+using System.Web;
 
 namespace Class_Library
 {
@@ -65,5 +66,26 @@ namespace Class_Library
             return response;
         }
 
+        public static string addAdmin(string name, string email, string password, string phone)
+        {
+            string[] userInfo = new string[4];
+            string response = "";
+            CloudService.CloudSVC pxy = new CloudService.CloudSVC();
+            userInfo[0] = name; userInfo[1] = email;
+            userInfo[2] = password; userInfo[3] = phone;
+            int result = pxy.addAdmin(userInfo);
+
+            if (result == 0)
+            {
+                response = "Admin successfully registered!";
+            }
+            else if (result == -1)
+            {
+                response = "Error: Admin already exists";
+            }
+
+            return response;
+
+        }
     }
 }

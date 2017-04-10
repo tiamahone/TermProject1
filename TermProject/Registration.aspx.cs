@@ -12,16 +12,28 @@ namespace TermProject
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["Login"] != null)
+            {
+                if (Session["Login"].ToString() == "Success Admin")
+                {
+                    btnRegister.Text = "Register Admin";
+                    lblRemember.Visible = false;
+                    chkRemember.Checked = false;
+                    chkRemember.Visible = false;
+                }
+            }
+           
         }
 
-        protected void btnRegister_Click(object sender, EventArgs e)
+        protected void btnBack_Click(object sender, EventArgs e)
         {
+            Session["Login"] = null;
             Response.Redirect("Login.aspx");
         }
 
         protected void btnRegister_Click1(object sender, EventArgs e)
         {
+            string result = "";
             if (Validation())
             {
                 if (txtPassword.Text != txtConfirm.Text)
@@ -30,8 +42,19 @@ namespace TermProject
                 }
                 else
                 {
-                    string result = Functions.addUser(txtName.Text, txtEmail.Text,
-                        txtPassword.Text, txtPhone.Text);
+                    if (Session["Login"] != null)
+                    {
+                        if (Session["Login"].ToString() == "Success Admin")
+                        {
+                            result = Functions.addAdmin(txtName.Text, txtEmail.Text,
+                            txtPassword.Text, txtPhone.Text);
+                        }
+                    }
+                    else
+                    {
+                        result = Functions.addUser(txtName.Text, txtEmail.Text,
+                            txtPassword.Text, txtPhone.Text);
+                    }
 
                     lblDisplayText.Text = result;
 

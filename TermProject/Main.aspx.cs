@@ -14,6 +14,10 @@ namespace TermProject
             if (Session["Login"] != null)
             {
                 lblDisplayText.Text = Session["Login"].ToString();
+                if (Session["Login"].ToString() == "Success Admin")
+                {
+                    btnAddAdmin.Visible = true;
+                }
             }
             else
             {
@@ -24,6 +28,11 @@ namespace TermProject
         protected void btnBack_Click(object sender, EventArgs e)
         {
             Response.Redirect("Login.aspx");
+        }
+
+        protected void btnAddAdmin_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Registration.aspx");
         }
     }
 }
