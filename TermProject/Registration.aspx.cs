@@ -22,36 +22,59 @@ namespace TermProject
 
         protected void btnRegister_Click1(object sender, EventArgs e)
         {
-            if (txtPassword.Text != txtConfirm.Text)
+            if (Validation())
             {
-                lblDisplayText.Text = "Passwords must match";
-            }
-            else
-            {
-                string result = Functions.addUser(txtName.Text, txtEmail.Text,
-                    txtPassword.Text, txtPhone.Text);
-
-                lblDisplayText.Text = result;
-
-                // Adds cookie if remember me is checked
-                if (chkRemember.Checked)
+                if (txtPassword.Text != txtConfirm.Text)
                 {
-                    HttpCookie myCookie = new HttpCookie("Login_Cookie");
-                    myCookie.Values["userName"] = txtEmail.Text;
-                    Response.Cookies.Add(myCookie);
+                    lblDisplayText.Text = "Passwords must match";
                 }
-                // Deletes cookie if remember me is not checked
                 else
                 {
-                    if (Request.Cookies["Login_Cookie"] != null)
+                    string result = Functions.addUser(txtName.Text, txtEmail.Text,
+                        txtPassword.Text, txtPhone.Text);
+
+                    lblDisplayText.Text = result;
+
+                    // Adds cookie if remember me is checked
+                    if (chkRemember.Checked)
                     {
                         HttpCookie myCookie = new HttpCookie("Login_Cookie");
-                        myCookie.Expires = DateTime.Now.AddDays(-1d);
+                        myCookie.Values["userName"] = txtEmail.Text;
                         Response.Cookies.Add(myCookie);
+                    }
+                    // Deletes cookie if remember me is not checked
+                    else
+                    {
+                        if (Request.Cookies["Login_Cookie"] != null)
+                        {
+                            HttpCookie myCookie = new HttpCookie("Login_Cookie");
+                            myCookie.Expires = DateTime.Now.AddDays(-1d);
+                            Response.Cookies.Add(myCookie);
+                        }
                     }
                 }
             }
 
+        }
+
+        public Boolean Validation()
+        {
+
+            if (txtName.Text == String.Empty || 
+                txtEmail.Text == String.Empty || 
+                txtPassword.Text == String.Empty || 
+                txtConfirm.Text == String.Empty || 
+                txtPhone.Text == String.Empty)
+            {
+                lblDisplayText.Text = "Enter all fields above!";
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
+            
         }
     }
 }
