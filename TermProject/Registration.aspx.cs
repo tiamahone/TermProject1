@@ -32,6 +32,24 @@ namespace TermProject
                     txtPassword.Text, txtPhone.Text);
 
                 lblDisplayText.Text = result;
+
+                // Adds cookie if remember me is checked
+                if (chkRemember.Checked)
+                {
+                    HttpCookie myCookie = new HttpCookie("Login_Cookie");
+                    myCookie.Values["userName"] = txtEmail.Text;
+                    Response.Cookies.Add(myCookie);
+                }
+                // Deletes cookie if remember me is not checked
+                else
+                {
+                    if (Request.Cookies["Login_Cookie"] != null)
+                    {
+                        HttpCookie myCookie = new HttpCookie("Login_Cookie");
+                        myCookie.Expires = DateTime.Now.AddDays(-1d);
+                        Response.Cookies.Add(myCookie);
+                    }
+                }
             }
 
         }
