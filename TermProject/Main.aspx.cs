@@ -87,12 +87,9 @@ namespace TermProject
         protected void btnViewTransactions_Click(object sender, EventArgs e)
         {
             dropUser.DataSource = Functions.getCloudUsers();
+            dropUser.DataTextField = "Email";
             dropUser.DataBind();
-
-            lblSelectUser.Visible = true;
-            dropUser.Visible = true; lblSelectTimePeriod.Visible = true;
-            dropTimePeriod.Visible = true;
-            btnGetTransactions.Visible = true;
+            transactionFormOn();       
         }
 
         protected void btnGetTransactions_Click(object sender, EventArgs e)
@@ -101,6 +98,22 @@ namespace TermProject
                 dropTimePeriod.SelectedItem.ToString());
             gvTransactions.DataBind();
             gvTransactions.Visible = true;
+        }
+
+        public void transactionFormOn()
+        {
+            lblSelectUser.Visible = true;
+            dropUser.Visible = true; lblSelectTimePeriod.Visible = true;
+            dropTimePeriod.Visible = true;
+            btnGetTransactions.Visible = true;
+        }
+        public void transactionFormOff()
+        {
+            lblSelectUser.Visible = false;
+            dropUser.Visible = false; lblSelectTimePeriod.Visible = false;
+            dropTimePeriod.Visible = false;
+            btnGetTransactions.Visible = false;
+            gvTransactions.Visible = false;
         }
     }
 }

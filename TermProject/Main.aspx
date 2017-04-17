@@ -70,11 +70,11 @@
         <asp:Label ID="lblSelectUser" runat="server" Text="User:" style="z-index: 1; left: 10px; top: 280px; position: absolute; font-weight: 700;" Visible ="false"></asp:Label>
         <asp:DropDownList ID="dropUser" runat="server" style="z-index: 1; left: 100px; top: 280px; position: absolute" Visible ="false">
         </asp:DropDownList>
-                 <asp:Label ID="lblSelectTimePeriod" runat="server" Text="Time Period:" style="z-index: 1; left: 380px; top: 280px; position: absolute; font-weight: 700;" Visible ="false"></asp:Label>
-        <asp:DropDownList ID="dropTimePeriod" runat="server" style="z-index: 1; left: 470px; top: 80px; position: absolute" Visible ="false">
+        <asp:Label ID="lblSelectTimePeriod" runat="server" Text="Time Period:" style="z-index: 1; left: 300px; top: 280px; position: absolute; font-weight: 700;" Visible ="false"></asp:Label>
+        <asp:DropDownList ID="dropTimePeriod" runat="server" style="z-index: 1; left: 400px; top: 280px; position: absolute" Visible ="false">
             <asp:ListItem>All</asp:ListItem>
         </asp:DropDownList>
-         <asp:Button ID="btnGetTransactions" runat="server" style="z-index: 1; left: 560px; top: 280px; position: absolute" Text="Get Transactions" OnClick="btnGetTransactions_Click" Visible ="false" />
+         <asp:Button ID="btnGetTransactions" runat="server" style="z-index: 1; left: 500px; top: 280px; position: absolute" Text="Get Transactions" OnClick="btnGetTransactions_Click" Visible ="false" />
 
 
              </form>
