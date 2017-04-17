@@ -75,9 +75,7 @@ namespace TermProject
                 lblDisplayText.Text = response;
 
                 stateUser();
-            }
-
-            
+            }    
         }
 
         protected void gvTransactions_SelectedIndexChanged(object sender, EventArgs e)
@@ -99,7 +97,7 @@ namespace TermProject
             gvTransactions.DataBind();
             gvTransactions.Visible = true;
         }
-
+        
         public void transactionFormOn()
         {
             lblSelectUser.Visible = true;
