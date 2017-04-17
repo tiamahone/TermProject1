@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Class_Library;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,10 +14,14 @@ namespace TermProject
         {
             if (Session["Login"] != null)
             {
-                lblDisplayText.Text = Session["Login"].ToString();
+                lblDisplayText.Text = "Welcome " + Session["User"].ToString();
                 if (Session["Login"].ToString() == "Success Admin")
                 {
-                    btnAddAdmin.Visible = true;
+                    stateAdmin();
+                }
+                else if (Session["Login"].ToString() == "Success User")
+                {
+                    stateUser();
                 }
             }
             else
@@ -26,7 +31,7 @@ namespace TermProject
         }
 
         protected void btnBack_Click(object sender, EventArgs e)
-        {
+         {
             Response.Redirect("Login.aspx");
         }
 
@@ -34,5 +39,43 @@ namespace TermProject
         {
             Response.Redirect("Registration.aspx");
         }
+        public void stateUser()
+        {
+            lblFile.Visible = true;
+            fileUp.Visible = true;
+            gvUserFiles.Visible = true;
+            gvUserFiles.DataSource = Functions.getFilesByUser(Session["User"].ToString());
+            gvUserFiles.DataBind();
+        }
+        public void stateAdmin()
+        {
+            btnAddAdmin.Visible = true;
+        }
+
+        protected void btnFile_Click(object sender, EventArgs e)
+        {
+            int fileSize;
+            string fileType, fileName;
+            if (fileUp.HasFile)
+            {
+                fileSize = fileUp.PostedFile.ContentLength;
+                byte[] fileData = new byte[fileSize];
+
+                fileUp.PostedFile.InputStream.Read(fileData, 0, fileSize);
+                fileName = fileUp.PostedFile.FileName;
+                fileType = fileUp.PostedFile.ContentType;
+
+                string response = Functions.fileUpload(Session["User"].ToString(), fileName, fileType, 
+                    fileSize, fileData);
+                lblDisplayText.Text = response;
+
+                gvUserFiles.DataSource = Functions.getFilesByUser(Session["User"].ToString());
+                gvUserFiles.DataBind();
+            }
+
+            
+        }
+        
+    
     }
 }

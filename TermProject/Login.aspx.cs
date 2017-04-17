@@ -61,6 +61,7 @@ namespace TermProject
                     }
 
                     Session["Login"] = response;
+                    Session["User"] = email;
                     Response.Redirect("Main.aspx");
                 }
                 else

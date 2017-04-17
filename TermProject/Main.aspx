@@ -47,6 +47,14 @@
         <asp:Button ID="btnBack" runat="server" Text="Back To Login" OnClick="btnBack_Click" />
         </table>
      </div>
-    </form>
+     <div>
+        <asp:FileUpload ID="fileUp" runat="server" style="z-index: 1; left: 10px; top: 245px; position: absolute" Visible ="false" BackColor="White" BorderStyle="None" />
+         <asp:Label ID="lblFile" runat="server" Text="Upload file to cloud:" style="z-index: 1; left: 10px; top: 220px; position: absolute; font-weight: 700;" Visible ="false"></asp:Label>
+         <asp:Button ID="btnFile" runat="server" style="z-index: 1; left: 260px; top: 245px; position: absolute" Text="Upload" OnClick="btnFile_Click" />
+     </div>
+             <asp:GridView ID="gvUserFiles" runat="server" style="z-index: 1; left: 10px; top: 300px; position: absolute; height: 180px; width: 289px" EmptyDataText="No Files Stored" HeaderText = "Cloud Files" Visible ="false" AllowPaging="True">
+                 <EditRowStyle BorderColor="Black" BorderStyle="Solid" />
+        </asp:GridView>
+             </form>
 </body>
 </html>

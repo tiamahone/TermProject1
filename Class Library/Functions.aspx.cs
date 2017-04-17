@@ -8,6 +8,7 @@ using Utilities;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data;
 
 namespace Class_Library
 {
@@ -88,6 +89,38 @@ namespace Class_Library
 
             return response;
 
+        }
+
+        public static string fileUpload(string email, string fileName, string fileType, int fileSize, byte[] fileData)
+        {
+            string response = "";
+            string[] fileInfo = new string[4];
+            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
+            fileInfo[0] = email; fileInfo[1] = fileName;
+            fileInfo[2] = fileType; fileInfo[3] = fileSize.ToString();
+
+            int result = pxy.addFile(fileInfo, fileData);
+
+            if (result == 0)
+            {
+                response = "File successfully added!";
+            }
+            else if (result == -1)
+            {
+                response = "Error";
+            }
+
+            return response;
+
+        }
+
+        public static DataSet getFilesByUser(string email)
+        {
+            string[] userInfo = new string[1];
+            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
+            userInfo[0] = email;
+            DataSet myDS = pxy.getFilesByUser(userInfo);
+            return myDS;
         }
     }
 }
