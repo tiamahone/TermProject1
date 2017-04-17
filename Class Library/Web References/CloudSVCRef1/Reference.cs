@@ -40,6 +40,8 @@ namespace Class_Library.CloudSVCRef1 {
         
         private System.Threading.SendOrPostCallback getFilesByUserOperationCompleted;
         
+        private System.Threading.SendOrPostCallback getUserFreeStorageOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -92,6 +94,9 @@ namespace Class_Library.CloudSVCRef1 {
         
         /// <remarks/>
         public event getFilesByUserCompletedEventHandler getFilesByUserCompleted;
+        
+        /// <remarks/>
+        public event getUserFreeStorageCompletedEventHandler getUserFreeStorageCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/attemptLogin", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -241,6 +246,35 @@ namespace Class_Library.CloudSVCRef1 {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/getUserFreeStorage", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public double getUserFreeStorage(string[] userInfo) {
+            object[] results = this.Invoke("getUserFreeStorage", new object[] {
+                        userInfo});
+            return ((double)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void getUserFreeStorageAsync(string[] userInfo) {
+            this.getUserFreeStorageAsync(userInfo, null);
+        }
+        
+        /// <remarks/>
+        public void getUserFreeStorageAsync(string[] userInfo, object userState) {
+            if ((this.getUserFreeStorageOperationCompleted == null)) {
+                this.getUserFreeStorageOperationCompleted = new System.Threading.SendOrPostCallback(this.OngetUserFreeStorageOperationCompleted);
+            }
+            this.InvokeAsync("getUserFreeStorage", new object[] {
+                        userInfo}, this.getUserFreeStorageOperationCompleted, userState);
+        }
+        
+        private void OngetUserFreeStorageOperationCompleted(object arg) {
+            if ((this.getUserFreeStorageCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.getUserFreeStorageCompleted(this, new getUserFreeStorageCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -385,6 +419,32 @@ namespace Class_Library.CloudSVCRef1 {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    public delegate void getUserFreeStorageCompletedEventHandler(object sender, getUserFreeStorageCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class getUserFreeStorageCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal getUserFreeStorageCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public double Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((double)(this.results[0]));
             }
         }
     }

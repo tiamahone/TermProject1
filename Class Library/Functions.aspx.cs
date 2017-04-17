@@ -107,7 +107,7 @@ namespace Class_Library
             }
             else if (result == -1)
             {
-                response = "Error";
+                response = "Error: Not Enough Free Storage";
             }
 
             return response;
@@ -121,6 +121,16 @@ namespace Class_Library
             userInfo[0] = email;
             DataSet myDS = pxy.getFilesByUser(userInfo);
             return myDS;
+        }
+
+        public static string getUserFreeSpace(string email)
+        {
+            string response = "";
+            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
+            string[] userInfo = new string[1];
+            userInfo[0] = email;
+            response = pxy.getUserFreeStorage(userInfo).ToString();
+            return response;
         }
     }
 }

@@ -165,22 +165,52 @@ namespace CloudService
             string fileName = fileInfo[1];
             string fileType = fileInfo[2];
             double fileSize = Convert.ToDouble(fileInfo[3]);
+            double freeStorage = getUserFreeStorage(fileInfo);
 
             DBConnect objDB;
             SqlCommand objCommand;
-            
-            objDB = new DBConnect();
-            objCommand = new SqlCommand();
-            objCommand.CommandType = CommandType.StoredProcedure;
-            objCommand.CommandText = "AddCloudFile";
-            objCommand.Parameters.AddWithValue("@email", fileEmail);
-            objCommand.Parameters.AddWithValue("@fileName", fileName);
-            objCommand.Parameters.AddWithValue("@fileType", fileType);
-            objCommand.Parameters.AddWithValue("@fileSize", fileSize);
-            objCommand.Parameters.AddWithValue("@fileData", fileData);
-            objDB.DoUpdateUsingCmdObj(objCommand);
-            response = 0;
-            
+            //Checks to see if enough storage is available
+            if (fileSize > freeStorage)
+            {
+                response = -1;
+            }
+            else
+            {
+                //Adds file to DB
+                objDB = new DBConnect();
+                objCommand = new SqlCommand();
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "AddCloudFile";
+                objCommand.Parameters.AddWithValue("@email", fileEmail);
+                objCommand.Parameters.AddWithValue("@fileName", fileName);
+                objCommand.Parameters.AddWithValue("@fileType", fileType);
+                objCommand.Parameters.AddWithValue("@fileSize", fileSize);
+                objCommand.Parameters.AddWithValue("@fileData", fileData);
+                objDB.DoUpdateUsingCmdObj(objCommand);
+                
+                //Updates free storage number in CloudUsersDB
+                double newFreeStorage = freeStorage - fileSize;
+                objDB = new DBConnect();
+                objCommand = new SqlCommand();
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "UpdateUserFreeStorage";
+                objCommand.Parameters.AddWithValue("@email", fileEmail);
+                objCommand.Parameters.AddWithValue("@newStorage", newFreeStorage);
+                objDB.DoUpdateUsingCmdObj(objCommand);
+
+                //Adds transaction record to CloudUserTransactions table
+                objDB = new DBConnect();
+                objCommand = new SqlCommand();
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "AddCloudTransaction";
+                objCommand.Parameters.AddWithValue("@email", fileEmail);
+                objCommand.Parameters.AddWithValue("@type", "Upload");
+                objCommand.Parameters.AddWithValue("@fileName", fileName);
+                objCommand.Parameters.AddWithValue("@time", DateTime.Now);
+                objDB.DoUpdateUsingCmdObj(objCommand);
+
+                response = 0;
+            }
             return response;
         }
 
@@ -194,6 +224,19 @@ namespace CloudService
             DBConnect objDB = new DBConnect();
             DataSet myDS = objDB.GetDataSetUsingCmdObj(objCommand);
             return myDS;
+        }
+
+        [WebMethod]
+        public double getUserFreeStorage(string[] userInfo)
+        {
+            SqlCommand objCommand = new SqlCommand();
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "GetCloudUserFreeStorage";
+            objCommand.Parameters.AddWithValue("@email", userInfo[0]);
+            DBConnect objDB = new DBConnect();
+            DataSet myDS = objDB.GetDataSetUsingCmdObj(objCommand);
+            double freeStorage = Convert.ToDouble(objDB.GetField("Free Storage", 0));
+            return freeStorage;
         }
 
     }

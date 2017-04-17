@@ -41,11 +41,15 @@ namespace TermProject
         }
         public void stateUser()
         {
-            lblFile.Visible = true;
-            fileUp.Visible = true;
-            gvUserFiles.Visible = true;
+            lblFile.Visible = true; fileUp.Visible = true;
+            lblFreeUserSpace.Visible = true;
+            lblFreeUserSpace.Text = "Free Space Remaining: " +
+                Functions.getUserFreeSpace(Session["User"].ToString()) +
+                " Bytes";
             gvUserFiles.DataSource = Functions.getFilesByUser(Session["User"].ToString());
-            gvUserFiles.DataBind();
+            gvUserFiles.DataBind(); gvUserFiles.Visible = true;
+
+
         }
         public void stateAdmin()
         {
@@ -69,8 +73,7 @@ namespace TermProject
                     fileSize, fileData);
                 lblDisplayText.Text = response;
 
-                gvUserFiles.DataSource = Functions.getFilesByUser(Session["User"].ToString());
-                gvUserFiles.DataBind();
+                stateUser();
             }
 
             
