@@ -239,5 +239,37 @@ namespace CloudService
             return freeStorage;
         }
 
+        [WebMethod]
+        public DataSet getCloudUsers()
+        {
+            SqlCommand objCommand = new SqlCommand();
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "GetCloudUsers";
+            DBConnect objDB = new DBConnect();
+            DataSet myDS = objDB.GetDataSetUsingCmdObj(objCommand);
+            return myDS;
+        }
+
+        [WebMethod]
+        public DataSet getTransactions(string[] userInfo)
+        {
+            SqlCommand objCommand = new SqlCommand();
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "GetCloudTransactions";
+            objCommand.Parameters.AddWithValue("@email", userInfo[0]);
+            if (userInfo[1] == "All")
+            {
+                objCommand.Parameters.AddWithValue("@timePeriod", "1/01/1900 12:00:01 AM");
+            }
+            else
+            {
+                objCommand.Parameters.AddWithValue("@timePeriod", userInfo[1]);
+            }
+            
+            DBConnect objDB = new DBConnect();
+            DataSet myDS = objDB.GetDataSetUsingCmdObj(objCommand);
+            return myDS;
+        }
+
     }
 }

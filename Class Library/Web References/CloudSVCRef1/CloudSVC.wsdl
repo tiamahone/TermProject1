@@ -99,6 +99,44 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="getCloudUsers">
+        <s:complexType />
+      </s:element>
+      <s:element name="getCloudUsersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getCloudUsersResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getTransactions">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getTransactionsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getTransactionsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="attemptLoginSoapIn">
@@ -137,6 +175,18 @@
   <wsdl:message name="getUserFreeStorageSoapOut">
     <wsdl:part name="parameters" element="tns:getUserFreeStorageResponse" />
   </wsdl:message>
+  <wsdl:message name="getCloudUsersSoapIn">
+    <wsdl:part name="parameters" element="tns:getCloudUsers" />
+  </wsdl:message>
+  <wsdl:message name="getCloudUsersSoapOut">
+    <wsdl:part name="parameters" element="tns:getCloudUsersResponse" />
+  </wsdl:message>
+  <wsdl:message name="getTransactionsSoapIn">
+    <wsdl:part name="parameters" element="tns:getTransactions" />
+  </wsdl:message>
+  <wsdl:message name="getTransactionsSoapOut">
+    <wsdl:part name="parameters" element="tns:getTransactionsResponse" />
+  </wsdl:message>
   <wsdl:portType name="CloudSVCSoap">
     <wsdl:operation name="attemptLogin">
       <wsdl:input message="tns:attemptLoginSoapIn" />
@@ -161,6 +211,14 @@
     <wsdl:operation name="getUserFreeStorage">
       <wsdl:input message="tns:getUserFreeStorageSoapIn" />
       <wsdl:output message="tns:getUserFreeStorageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getCloudUsers">
+      <wsdl:input message="tns:getCloudUsersSoapIn" />
+      <wsdl:output message="tns:getCloudUsersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getTransactions">
+      <wsdl:input message="tns:getTransactionsSoapIn" />
+      <wsdl:output message="tns:getTransactionsSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="CloudSVCSoap" type="tns:CloudSVCSoap">
@@ -219,6 +277,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="getCloudUsers">
+      <soap:operation soapAction="http://tempuri.org/getCloudUsers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTransactions">
+      <soap:operation soapAction="http://tempuri.org/getTransactions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="CloudSVCSoap12" type="tns:CloudSVCSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -269,6 +345,24 @@
     </wsdl:operation>
     <wsdl:operation name="getUserFreeStorage">
       <soap12:operation soapAction="http://tempuri.org/getUserFreeStorage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCloudUsers">
+      <soap12:operation soapAction="http://tempuri.org/getCloudUsers" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTransactions">
+      <soap12:operation soapAction="http://tempuri.org/getTransactions" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

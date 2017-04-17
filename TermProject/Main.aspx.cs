@@ -42,7 +42,7 @@ namespace TermProject
         public void stateUser()
         {
             lblFile.Visible = true; fileUp.Visible = true;
-            lblFreeUserSpace.Visible = true;
+            lblFreeUserSpace.Visible = true; btnFile.Visible = true;
             lblFreeUserSpace.Text = "Free Space Remaining: " +
                 Functions.getUserFreeSpace(Session["User"].ToString()) +
                 " Bytes";
@@ -54,6 +54,7 @@ namespace TermProject
         public void stateAdmin()
         {
             btnAddAdmin.Visible = true;
+            btnViewTransactions.Visible = true;
         }
 
         protected void btnFile_Click(object sender, EventArgs e)
@@ -78,7 +79,28 @@ namespace TermProject
 
             
         }
-        
-    
+
+        protected void gvTransactions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        protected void btnViewTransactions_Click(object sender, EventArgs e)
+        {
+            dropUser.DataSource = Functions.getCloudUsers();
+            dropUser.DataBind();
+
+            lblSelectUser.Visible = true;
+            dropUser.Visible = true; lblSelectTimePeriod.Visible = true;
+            dropTimePeriod.Visible = true;
+            btnGetTransactions.Visible = true;
+        }
+
+        protected void btnGetTransactions_Click(object sender, EventArgs e)
+        {
+            gvTransactions.DataSource = Functions.getTransactions(dropUser.SelectedItem.ToString(),
+                dropTimePeriod.SelectedItem.ToString());
+            gvTransactions.DataBind();
+            gvTransactions.Visible = true;
+        }
     }
 }

@@ -9,6 +9,11 @@
         body{
             background-color: lightslategray;
             z-index: 1;
+            left: 0px;
+            top: 0px;
+            position: absolute;
+            height: 286px;
+            width: 2086px;
         }       
         div.heading{
             background: #f85f64;
@@ -44,18 +49,34 @@
         <br />
         <table>
         <asp:Button ID="btnAddAdmin" runat="server" Text="Add Admin" OnClick="btnAddAdmin_Click" Visible ="false" />
+        <asp:Button ID="btnViewTransactions" runat="server" Text="View Transactions" OnClick="btnViewTransactions_Click" Visible ="false" />
         <asp:Button ID="btnBack" runat="server" Text="Back To Login" OnClick="btnBack_Click" />
         </table>
      </div>
      <div>
         <asp:FileUpload ID="fileUp" runat="server" style="z-index: 1; left: 10px; top: 245px; position: absolute" Visible ="false" BackColor="White" BorderStyle="None" />
          <asp:Label ID="lblFile" runat="server" Text="Upload file to cloud:" style="z-index: 1; left: 10px; top: 220px; position: absolute; font-weight: 700;" Visible ="false"></asp:Label>
-         <asp:Button ID="btnFile" runat="server" style="z-index: 1; left: 260px; top: 245px; position: absolute" Text="Upload" OnClick="btnFile_Click" />
+         <asp:Button ID="btnFile" runat="server" style="z-index: 1; left: 260px; top: 245px; position: absolute" Text="Upload" OnClick="btnFile_Click" Visible ="false" />
      </div>
-             <asp:Label ID="lblFreeUserSpace" runat="server" Text="Free Space Remaining: " style="z-index: 1; left: 10px; top: 270px; position: absolute; font-weight: 700;" Visible ="false"></asp:Label>
+             <asp:Label ID="lblFreeUserSpace" runat="server" Text="Free Space Remaining: " style="font-weight: 700;" Visible ="false"></asp:Label>
              <asp:GridView ID="gvUserFiles" runat="server" style="z-index: 1; left: 10px; top: 300px; position: absolute; height: 180px; width: 289px" EmptyDataText="No Files Stored" HeaderText = "Cloud Files" Visible ="false" AllowPaging="True">
                  <EditRowStyle BorderColor="Black" BorderStyle="Solid" />
         </asp:GridView>
+
+        <asp:GridView ID="gvTransactions" runat="server" style="z-index: 1; left: 10px; top: 300px; position: absolute; height: 180px; width: 289px" EmptyDataText="No Transactions Found" HeaderText = "Transactions" Visible ="false" AllowPaging="True" OnSelectedIndexChanged="gvTransactions_SelectedIndexChanged">
+                 <EditRowStyle BorderColor="Black" BorderStyle="Solid" />
+         </asp:GridView>
+
+        <asp:Label ID="lblSelectUser" runat="server" Text="User:" style="z-index: 1; left: 10px; top: 280px; position: absolute; font-weight: 700;" Visible ="false"></asp:Label>
+        <asp:DropDownList ID="dropUser" runat="server" style="z-index: 1; left: 100px; top: 280px; position: absolute" Visible ="false">
+        </asp:DropDownList>
+                 <asp:Label ID="lblSelectTimePeriod" runat="server" Text="Time Period:" style="z-index: 1; left: 380px; top: 280px; position: absolute; font-weight: 700;" Visible ="false"></asp:Label>
+        <asp:DropDownList ID="dropTimePeriod" runat="server" style="z-index: 1; left: 470px; top: 80px; position: absolute" Visible ="false">
+            <asp:ListItem>All</asp:ListItem>
+        </asp:DropDownList>
+         <asp:Button ID="btnGetTransactions" runat="server" style="z-index: 1; left: 560px; top: 280px; position: absolute" Text="Get Transactions" OnClick="btnGetTransactions_Click" Visible ="false" />
+
+
              </form>
 </body>
 </html>

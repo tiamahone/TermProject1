@@ -132,5 +132,21 @@ namespace Class_Library
             response = pxy.getUserFreeStorage(userInfo).ToString();
             return response;
         }
+
+        public static DataSet getTransactions(string user, string timePeriod)
+        {
+            string[] userInfo = new string[1];
+            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
+            userInfo[0] = user; userInfo[1] = timePeriod;
+            DataSet myDS = pxy.getTransactions(userInfo);
+            return myDS;
+        }
+
+        public static DataSet getCloudUsers()
+        {
+            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
+            DataSet myDS = pxy.getCloudUsers();
+            return myDS;
+        }
     }
 }

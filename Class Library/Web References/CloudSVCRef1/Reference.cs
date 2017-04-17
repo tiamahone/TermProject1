@@ -42,6 +42,10 @@ namespace Class_Library.CloudSVCRef1 {
         
         private System.Threading.SendOrPostCallback getUserFreeStorageOperationCompleted;
         
+        private System.Threading.SendOrPostCallback getCloudUsersOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback getTransactionsOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -97,6 +101,12 @@ namespace Class_Library.CloudSVCRef1 {
         
         /// <remarks/>
         public event getUserFreeStorageCompletedEventHandler getUserFreeStorageCompleted;
+        
+        /// <remarks/>
+        public event getCloudUsersCompletedEventHandler getCloudUsersCompleted;
+        
+        /// <remarks/>
+        public event getTransactionsCompletedEventHandler getTransactionsCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/attemptLogin", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -275,6 +285,62 @@ namespace Class_Library.CloudSVCRef1 {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/getCloudUsers", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet getCloudUsers() {
+            object[] results = this.Invoke("getCloudUsers", new object[0]);
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void getCloudUsersAsync() {
+            this.getCloudUsersAsync(null);
+        }
+        
+        /// <remarks/>
+        public void getCloudUsersAsync(object userState) {
+            if ((this.getCloudUsersOperationCompleted == null)) {
+                this.getCloudUsersOperationCompleted = new System.Threading.SendOrPostCallback(this.OngetCloudUsersOperationCompleted);
+            }
+            this.InvokeAsync("getCloudUsers", new object[0], this.getCloudUsersOperationCompleted, userState);
+        }
+        
+        private void OngetCloudUsersOperationCompleted(object arg) {
+            if ((this.getCloudUsersCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.getCloudUsersCompleted(this, new getCloudUsersCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/getTransactions", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet getTransactions(string[] userInfo) {
+            object[] results = this.Invoke("getTransactions", new object[] {
+                        userInfo});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void getTransactionsAsync(string[] userInfo) {
+            this.getTransactionsAsync(userInfo, null);
+        }
+        
+        /// <remarks/>
+        public void getTransactionsAsync(string[] userInfo, object userState) {
+            if ((this.getTransactionsOperationCompleted == null)) {
+                this.getTransactionsOperationCompleted = new System.Threading.SendOrPostCallback(this.OngetTransactionsOperationCompleted);
+            }
+            this.InvokeAsync("getTransactions", new object[] {
+                        userInfo}, this.getTransactionsOperationCompleted, userState);
+        }
+        
+        private void OngetTransactionsOperationCompleted(object arg) {
+            if ((this.getTransactionsCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.getTransactionsCompleted(this, new getTransactionsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -445,6 +511,58 @@ namespace Class_Library.CloudSVCRef1 {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((double)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    public delegate void getCloudUsersCompletedEventHandler(object sender, getCloudUsersCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class getCloudUsersCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal getCloudUsersCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    public delegate void getTransactionsCompletedEventHandler(object sender, getTransactionsCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class getTransactionsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal getTransactionsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
             }
         }
     }
