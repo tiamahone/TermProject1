@@ -320,5 +320,20 @@ namespace CloudService
             return response;
         }
 
+        [WebMethod]
+        public int deleteUser(string[] userInfo)
+        {
+            int response;
+            SqlCommand objCommand = new SqlCommand();
+            DBConnect objDB = new DBConnect();
+            objCommand = new SqlCommand();
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "DeleteCloudUser";
+            objCommand.Parameters.AddWithValue("@email", userInfo[0]);
+            objDB.DoUpdateUsingCmdObj(objCommand);
+            response = 0;
+            return response;
+        }
+
     }
 }

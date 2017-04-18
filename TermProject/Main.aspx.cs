@@ -32,7 +32,7 @@ namespace TermProject
         }
 
         protected void btnBack_Click(object sender, EventArgs e)
-         {
+        {
             Response.Redirect("Login.aspx");
         }
 
@@ -57,6 +57,7 @@ namespace TermProject
             btnAddAdmin.Visible = true;
             btnViewTransactions.Visible = true;
             btnEditUser.Visible = true;
+            btnDeleteUser.Visible = true;
         }
 
         protected void btnFile_Click(object sender, EventArgs e)
@@ -116,6 +117,8 @@ namespace TermProject
             btnGetTransactions.Visible = false;
             gvTransactions.Visible = false;
             gvAdminModify.Visible = false;
+            btnDeleteSelection.Visible = false;
+            gvDelete.Visible = false;
         }
 
 
@@ -163,6 +166,42 @@ namespace TermProject
             gvAdminModify.DataSource = Functions.getCloudUsersInfo();
             gvAdminModify.DataBind();
         }
+        protected void btnDeleteUser_Click(object sender, EventArgs e)
+        {
+            adminFormsOff();
+            gvDelete.Visible = true;
+            gvDelete.DataSource = Functions.getCloudUsersInfo();
+            gvDelete.DataBind();
+            btnDeleteSelection.Visible = true;
+        }
+        protected void btnDeleteSelection_Click(object sender, EventArgs e)
+        {
+            int checkCount = 0;
+            for (int row = 0; row < gvDelete.Rows.Count; row++)
+            {
+                CheckBox CBox = (CheckBox)gvDelete.Rows[row].FindControl("chkSelect");
+                if (CBox.Checked)
+                {
+                    checkCount++;
+                    string email = gvDelete.Rows[row].Cells[3].Text;
+                    Functions.deleteUser(email);
+                }
+            }
+            if (checkCount == 0)
+            {
+                //tell user to check something
+            }
+            else
+            {
+                gvDelete.DataSource = Functions.getCloudUsersInfo();
+                gvDelete.DataBind();
+            }
+        }
+    
+
+
+
+
 
 
     }

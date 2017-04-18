@@ -52,6 +52,8 @@ namespace Class_Library.CloudSVCRef1 {
         
         private System.Threading.SendOrPostCallback adminUpdateUserOperationCompleted;
         
+        private System.Threading.SendOrPostCallback deleteUserOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -122,6 +124,9 @@ namespace Class_Library.CloudSVCRef1 {
         
         /// <remarks/>
         public event adminUpdateUserCompletedEventHandler adminUpdateUserCompleted;
+        
+        /// <remarks/>
+        public event deleteUserCompletedEventHandler deleteUserCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/attemptLogin", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -441,6 +446,35 @@ namespace Class_Library.CloudSVCRef1 {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/deleteUser", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int deleteUser(string[] userInfo) {
+            object[] results = this.Invoke("deleteUser", new object[] {
+                        userInfo});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void deleteUserAsync(string[] userInfo) {
+            this.deleteUserAsync(userInfo, null);
+        }
+        
+        /// <remarks/>
+        public void deleteUserAsync(string[] userInfo, object userState) {
+            if ((this.deleteUserOperationCompleted == null)) {
+                this.deleteUserOperationCompleted = new System.Threading.SendOrPostCallback(this.OndeleteUserOperationCompleted);
+            }
+            this.InvokeAsync("deleteUser", new object[] {
+                        userInfo}, this.deleteUserOperationCompleted, userState);
+        }
+        
+        private void OndeleteUserOperationCompleted(object arg) {
+            if ((this.deleteUserCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.deleteUserCompleted(this, new deleteUserCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -732,6 +766,32 @@ namespace Class_Library.CloudSVCRef1 {
         private object[] results;
         
         internal adminUpdateUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    public delegate void deleteUserCompletedEventHandler(object sender, deleteUserCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class deleteUserCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal deleteUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }

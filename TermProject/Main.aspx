@@ -51,6 +51,7 @@
         <asp:Button ID="btnAddAdmin" runat="server" Text="Add Admin" OnClick="btnAddAdmin_Click" Visible ="false" />
         <asp:Button ID="btnViewTransactions" runat="server" Text="View Transactions" OnClick="btnViewTransactions_Click" Visible ="false" />
         <asp:Button ID="btnEditUser" runat="server" Text="Edit User" OnClick="btnEditUser_Click" Visible ="false" />
+        <asp:Button ID="btnDeleteUser" runat="server" Text="Delete User" OnClick="btnDeleteUser_Click" Visible ="false" />
         <asp:Button ID="btnBack" runat="server" Text="Back To Login" OnClick="btnBack_Click" />
         </table>
      </div>
@@ -96,9 +97,27 @@
                     <asp:BoundField DataField="Total Storage" HeaderText="Total Storage" />
                     <asp:CommandField ButtonType="Button" HeaderText="Edit Account"
                         ShowEditButton="True" />
-                </Columns>
-             
+                </Columns>            
             </asp:GridView>
+
+        <%--Admin Delete Account Section--%>
+        <asp:Button ID="btnDeleteSelection" runat="server" style="z-index: 1; left: 260px; top: 245px; position: absolute" Text="Delete Selection" OnClick="btnDeleteSelection_Click" Visible ="false" />
+        <asp:GridView ID="gvDelete" runat="server" style="z-index: 1; left: 10px; top: 270px; position: absolute; height: 523px; width: 975px" Visible="False" AutoGenerateColumns="False">
+             <Columns>
+                <asp:TemplateField HeaderText="Select User">
+                    <ItemTemplate>
+                        <asp:CheckBox ID="chkSelect" runat="server" />
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:BoundField DataField="Id" HeaderText="Id" />
+                    <asp:BoundField DataField="Name" HeaderText="Name" />
+                    <asp:BoundField DataField="Email" HeaderText="Email Address" />
+                    <asp:BoundField DataField="Password" HeaderText="Password" />
+                    <asp:BoundField DataField="Phone" HeaderText="Phone Number" />
+                    <asp:BoundField DataField="Free Storage" HeaderText="Free Storage" />
+                    <asp:BoundField DataField="Total Storage" HeaderText="Total Storage" />
+              </Columns>
+        </asp:GridView>
 
 
 

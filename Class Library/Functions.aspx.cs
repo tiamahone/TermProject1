@@ -166,5 +166,14 @@ namespace Class_Library
             int response = pxy.adminUpdateUser(userInfo);
             return response;
         }
+
+        public static int deleteUser(string email)
+        {
+            string[] userInfo = new string[1];
+            userInfo[0] = email;
+            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
+            int response = pxy.deleteUser(userInfo);
+            return response;
+        }
     }
 }

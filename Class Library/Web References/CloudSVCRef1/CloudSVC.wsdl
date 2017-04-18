@@ -182,6 +182,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="deleteUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="deleteUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="deleteUserResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="attemptLoginSoapIn">
@@ -250,6 +264,12 @@
   <wsdl:message name="adminUpdateUserSoapOut">
     <wsdl:part name="parameters" element="tns:adminUpdateUserResponse" />
   </wsdl:message>
+  <wsdl:message name="deleteUserSoapIn">
+    <wsdl:part name="parameters" element="tns:deleteUser" />
+  </wsdl:message>
+  <wsdl:message name="deleteUserSoapOut">
+    <wsdl:part name="parameters" element="tns:deleteUserResponse" />
+  </wsdl:message>
   <wsdl:portType name="CloudSVCSoap">
     <wsdl:operation name="attemptLogin">
       <wsdl:input message="tns:attemptLoginSoapIn" />
@@ -294,6 +314,10 @@
     <wsdl:operation name="adminUpdateUser">
       <wsdl:input message="tns:adminUpdateUserSoapIn" />
       <wsdl:output message="tns:adminUpdateUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteUser">
+      <wsdl:input message="tns:deleteUserSoapIn" />
+      <wsdl:output message="tns:deleteUserSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="CloudSVCSoap" type="tns:CloudSVCSoap">
@@ -397,6 +421,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="deleteUser">
+      <soap:operation soapAction="http://tempuri.org/deleteUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="CloudSVCSoap12" type="tns:CloudSVCSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -492,6 +525,15 @@
     </wsdl:operation>
     <wsdl:operation name="adminUpdateUser">
       <soap12:operation soapAction="http://tempuri.org/adminUpdateUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteUser">
+      <soap12:operation soapAction="http://tempuri.org/deleteUser" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
