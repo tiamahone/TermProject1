@@ -9,6 +9,8 @@
         body{
             background-color: lightslategray;
             z-index: 1;
+            width: auto;
+            height: auto;
         }       
         div.heading{
             background: #f85f64;
@@ -17,6 +19,8 @@
             text-transform: uppercase;
             font-weight: bold;
             padding: 1.5em;
+            width: auto;
+            height: auto;
         }
         div.textbackground{
             background: #fff;
@@ -25,6 +29,8 @@
             text-transform:capitalize;
             font-weight: bold;
             padding: 1.3em;
+            width: auto;
+            height: auto;
         }
         tablediv{
             position: absolute;
