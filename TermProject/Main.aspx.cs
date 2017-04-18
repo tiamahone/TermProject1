@@ -47,6 +47,7 @@ namespace TermProject
         {
             btnUserEditUser.Visible = true;
             btnMyFiles.Visible = true;
+            btnDeleteFiles.Visible = true;
         }
         public void stateAdmin()
         {
@@ -124,6 +125,7 @@ namespace TermProject
             lblFile.Visible = false; fileUp.Visible = false;
             lblFreeUserSpace.Visible = false; btnFile.Visible = false;
             gvUserModify.Visible = false;
+            btnDeleteFiles.Visible = false;
         }
 
 
@@ -253,7 +255,11 @@ namespace TermProject
             gvUserFiles.DataSource = Functions.getFilesByUser(loginInfo, Session["User"].ToString());
             gvUserFiles.DataBind(); gvUserFiles.Visible = true;
         }
+        protected void btnDeleteFiles_Click(object sender, EventArgs e)
+        {
 
+        }
+        
 
 
 
