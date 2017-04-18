@@ -39,6 +39,13 @@
             top: 100px;
             position: absolute;
         }
+        .auto-style1 {
+            position: relative;
+            left: 356px;
+            top: 27px;
+            width: 97px;
+            height: 21px;
+        }
     </style>
 </head>
 <body>
@@ -75,7 +82,10 @@
             <asp:ListItem>All</asp:ListItem>
         </asp:DropDownList>
          <asp:Button ID="btnGetTransactions" runat="server" style="z-index: 1; left: 500px; top: 280px; position: absolute" Text="Get Transactions" OnClick="btnGetTransactions_Click" Visible ="false" />
+        <p>
+        <asp:Button ID="btnUpdateFile" runat="server" Text="Update File" CssClass="auto-style1" OnClick="btnUpdateFile_Click"  Visible="false"/>
 
+             </p>
 
              </form>
 </body>

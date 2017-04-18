@@ -148,5 +148,29 @@ namespace Class_Library
             DataSet myDS = pxy.getCloudUsers();
             return myDS;
         }
+
+        public static string UpdateFile(string email, string fileName, string fileType, int fileSize, byte[] fileData)
+        {
+            string response = "";
+            string[] fileInfo = new string[4];
+            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
+            fileInfo[0] = email;
+            fileInfo[1] = fileName;
+            fileInfo[2] = fileType;
+            fileInfo[3] = fileSize.ToString();
+
+            int result = pxy.UpdateFile(fileInfo, fileData);
+
+            if (result == 0)
+            {
+                response = "File successfully added!";
+            }
+            else if (result == -1)
+            {
+                response = "Error: Not Enough Free Storage";
+            }
+
+            return response;
+        }
     }
 }

@@ -63,21 +63,52 @@ namespace TermProject
             string fileType, fileName;
             if (fileUp.HasFile)
             {
+
                 fileSize = fileUp.PostedFile.ContentLength;
                 byte[] fileData = new byte[fileSize];
 
                 fileUp.PostedFile.InputStream.Read(fileData, 0, fileSize);
                 fileName = fileUp.PostedFile.FileName;
                 fileType = fileUp.PostedFile.ContentType;
+                bool isFileThere = System.IO.File.Exists(fileName);
+
 
                 string response = Functions.fileUpload(Session["User"].ToString(), fileName, fileType, 
                     fileSize, fileData);
                 lblDisplayText.Text = response;
 
                 stateUser();
-            }    
+            }  
         }
 
+        protected void btnUpdateFile_Click(object sender, EventArgs e)
+        {
+            int fileSize;
+            string fileType, fileName;
+            if (fileUp.HasFile)
+            {
+                fileSize = fileUp.PostedFile.ContentLength;
+                byte[] fileData = new byte[fileSize];
+
+                fileUp.PostedFile.InputStream.Read(fileData, 0, fileSize);
+                fileName = fileUp.PostedFile.FileName;
+                fileType = fileUp.PostedFile.ContentType;
+                bool isFileThere = System.IO.File.Exists(fileName);
+
+                if (isFileThere)
+                {
+                    string response = Functions.UpdateFile(Session["User"].ToString(), fileName, fileType,
+                        fileSize, fileData);
+                    lblDisplayText.Text = response;
+                }
+                else
+                {
+                    string response = Functions.fileUpload(Session["User"].ToString(), fileName, fileType,
+                                            fileSize, fileData);
+                    lblDisplayText.Text = response;
+                }
+            }
+        }
         protected void gvTransactions_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -113,5 +144,14 @@ namespace TermProject
             btnGetTransactions.Visible = false;
             gvTransactions.Visible = false;
         }
+
+        public void UpdateFile()
+        {
+            int fileSize;
+
+
+        }
+
+
     }
 }

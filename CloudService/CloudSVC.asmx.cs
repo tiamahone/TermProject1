@@ -271,5 +271,61 @@ namespace CloudService
             return myDS;
         }
 
+        [WebMethod]
+        public int UpdateFile(string[] file, byte[] fileData)
+        {
+            int response;
+            string fileEmail = file[0];
+            string fileName = file[1];
+            string fileType = file[2];
+            double fileSize = Convert.ToDouble(file[3]);
+            double freeStorage = getUserFreeStorage(file);
+
+            DBConnect objDB;
+            SqlCommand objCommand;
+            //Checks to see if enough storage is available
+            if (fileSize > freeStorage)
+            {
+                response = -1;
+            }
+            else
+            {
+                //Updates File in DB
+                objDB = new DBConnect();
+                objCommand = new SqlCommand();
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "UpdateFiles";
+                objCommand.Parameters.AddWithValue("@email", fileEmail);
+                objCommand.Parameters.AddWithValue("@fileName", fileName);
+                objCommand.Parameters.AddWithValue("@fileType", fileType);
+                objCommand.Parameters.AddWithValue("@fileSize", fileSize);
+                objCommand.Parameters.AddWithValue("@fileData", fileData);
+                objDB.DoUpdateUsingCmdObj(objCommand);
+
+                //Updates free storage number in CloudUsersDB
+                double newFreeStorage = freeStorage - fileSize;
+                objDB = new DBConnect();
+                objCommand = new SqlCommand();
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "UpdateUserFreeStorage";
+                objCommand.Parameters.AddWithValue("@email", fileEmail);
+                objCommand.Parameters.AddWithValue("@newStorage", newFreeStorage);
+                objDB.DoUpdateUsingCmdObj(objCommand);
+
+                //Adds transaction record to CloudUserTransactions table
+                objDB = new DBConnect();
+                objCommand = new SqlCommand();
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "AddCloudTransaction";
+                objCommand.Parameters.AddWithValue("@email", fileEmail);
+                objCommand.Parameters.AddWithValue("@type", "Upload");
+                objCommand.Parameters.AddWithValue("@fileName", fileName);
+                objCommand.Parameters.AddWithValue("@time", DateTime.Now);
+                objDB.DoUpdateUsingCmdObj(objCommand);
+
+                response = 0;
+            }
+            return response;
+        }
     }
 }

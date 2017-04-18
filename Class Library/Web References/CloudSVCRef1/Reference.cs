@@ -46,6 +46,8 @@ namespace Class_Library.CloudSVCRef1 {
         
         private System.Threading.SendOrPostCallback getTransactionsOperationCompleted;
         
+        private System.Threading.SendOrPostCallback UpdateFileOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -107,6 +109,9 @@ namespace Class_Library.CloudSVCRef1 {
         
         /// <remarks/>
         public event getTransactionsCompletedEventHandler getTransactionsCompleted;
+        
+        /// <remarks/>
+        public event UpdateFileCompletedEventHandler UpdateFileCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/attemptLogin", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -341,6 +346,37 @@ namespace Class_Library.CloudSVCRef1 {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/UpdateFile", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int UpdateFile(string[] file, [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")] byte[] fileData) {
+            object[] results = this.Invoke("UpdateFile", new object[] {
+                        file,
+                        fileData});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void UpdateFileAsync(string[] file, byte[] fileData) {
+            this.UpdateFileAsync(file, fileData, null);
+        }
+        
+        /// <remarks/>
+        public void UpdateFileAsync(string[] file, byte[] fileData, object userState) {
+            if ((this.UpdateFileOperationCompleted == null)) {
+                this.UpdateFileOperationCompleted = new System.Threading.SendOrPostCallback(this.OnUpdateFileOperationCompleted);
+            }
+            this.InvokeAsync("UpdateFile", new object[] {
+                        file,
+                        fileData}, this.UpdateFileOperationCompleted, userState);
+        }
+        
+        private void OnUpdateFileOperationCompleted(object arg) {
+            if ((this.UpdateFileCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.UpdateFileCompleted(this, new UpdateFileCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -563,6 +599,32 @@ namespace Class_Library.CloudSVCRef1 {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    public delegate void UpdateFileCompletedEventHandler(object sender, UpdateFileCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class UpdateFileCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal UpdateFileCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
             }
         }
     }
