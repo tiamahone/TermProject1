@@ -49,13 +49,31 @@ namespace TermProject {
         protected global::System.Web.UI.WebControls.Button btnViewTransactions;
         
         /// <summary>
-        /// btnEditUser control.
+        /// btnMyFiles control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEditUser;
+        protected global::System.Web.UI.WebControls.Button btnMyFiles;
+        
+        /// <summary>
+        /// btnAdminEditUser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAdminEditUser;
+        
+        /// <summary>
+        /// btnUserEditUser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUserEditUser;
         
         /// <summary>
         /// btnDeleteUser control.
@@ -200,5 +218,14 @@ namespace TermProject {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvDelete;
+        
+        /// <summary>
+        /// gvUserModify control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvUserModify;
     }
 }

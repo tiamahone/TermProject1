@@ -335,5 +335,36 @@ namespace CloudService
             return response;
         }
 
+        [WebMethod]
+        public DataSet getSingleUserInfo(string[] userInfo)
+        {
+            SqlCommand objCommand = new SqlCommand();
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "GetSingleCloudUser";
+            objCommand.Parameters.AddWithValue("@email", userInfo[0]);
+            DBConnect objDB = new DBConnect();
+            DataSet myDS = objDB.GetDataSetUsingCmdObj(objCommand);
+            return myDS;
+        }
+
+        [WebMethod]
+        public int userUpdateUser(string[] userInfo)
+        {
+            int response;
+            SqlCommand objCommand = new SqlCommand();
+            DBConnect objDB = new DBConnect();
+            objCommand = new SqlCommand();
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "UpdateCloudUserPersonal";
+            objCommand.Parameters.AddWithValue("@id", Convert.ToInt32(userInfo[0]));
+            objCommand.Parameters.AddWithValue("@name", userInfo[1]);
+            objCommand.Parameters.AddWithValue("@email", userInfo[2]);
+            objCommand.Parameters.AddWithValue("@password", userInfo[3]);
+            objCommand.Parameters.AddWithValue("@phone", userInfo[4]);
+            objDB.DoUpdateUsingCmdObj(objCommand);
+            response = 0;
+
+            return response;
+        }
     }
 }

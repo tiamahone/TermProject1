@@ -50,7 +50,9 @@
         <table>
         <asp:Button ID="btnAddAdmin" runat="server" Text="Add Admin" OnClick="btnAddAdmin_Click" Visible ="false" />
         <asp:Button ID="btnViewTransactions" runat="server" Text="View Transactions" OnClick="btnViewTransactions_Click" Visible ="false" />
-        <asp:Button ID="btnEditUser" runat="server" Text="Edit User" OnClick="btnEditUser_Click" Visible ="false" />
+        <asp:Button ID="btnMyFiles" runat="server" Text="My Files" OnClick="btnMyFiles_Click" Visible ="false" />
+        <asp:Button ID="btnAdminEditUser" runat="server" Text="Edit User" OnClick="btnAdminEditUser_Click" Visible ="false" />
+        <asp:Button ID="btnUserEditUser" runat="server" Text="Edit Info" OnClick="btnUserEditUser_Click" Visible ="false" />
         <asp:Button ID="btnDeleteUser" runat="server" Text="Delete User" OnClick="btnDeleteUser_Click" Visible ="false" />
         <asp:Button ID="btnBack" runat="server" Text="Back To Login" OnClick="btnBack_Click" />
         </table>
@@ -118,6 +120,21 @@
                     <asp:BoundField DataField="Total Storage" HeaderText="Total Storage" />
               </Columns>
         </asp:GridView>
+
+        <%--User account tools section--%>
+        <asp:GridView ID="gvUserModify" runat="server" style="z-index: 1; left: 10px; top: 300px; position: absolute; height: 180px; width: 289px" Visible="False"
+                AutoGenerateColumns = "False" OnRowCancelingEdit="gvUserModify_RowCancelingEdit" OnRowEditing="gvUserModify_RowEditing" OnSelectedIndexChanged="gvUserModify_SelectedIndexChanged"
+                OnRowUpdating="gvUserModify_RowUpdating"  >
+                <Columns>
+                    <asp:BoundField DataField="Id" HeaderText="Id" ReadOnly="True" />
+                    <asp:BoundField DataField="Name" HeaderText="Name" />
+                    <asp:BoundField DataField="Email" HeaderText="Email Address"/>
+                    <asp:BoundField DataField="Password" HeaderText="Password" />
+                    <asp:BoundField DataField="Phone" HeaderText="Phone Number" />
+                    <asp:CommandField ButtonType="Button" HeaderText="Edit Account"
+                        ShowEditButton="True" />
+                </Columns>            
+            </asp:GridView>
 
 
 

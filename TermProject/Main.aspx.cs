@@ -42,26 +42,20 @@ namespace TermProject
         }
         public void stateUser()
         {
-            lblFile.Visible = true; fileUp.Visible = true;
-            lblFreeUserSpace.Visible = true; btnFile.Visible = true;
-            lblFreeUserSpace.Text = "Free Space Remaining: " +
-                Functions.getUserFreeSpace(Session["User"].ToString()) +
-                " Bytes";
-            gvUserFiles.DataSource = Functions.getFilesByUser(Session["User"].ToString());
-            gvUserFiles.DataBind(); gvUserFiles.Visible = true;
-
-
+            btnUserEditUser.Visible = true;
+            btnMyFiles.Visible = true;
         }
         public void stateAdmin()
         {
             btnAddAdmin.Visible = true;
             btnViewTransactions.Visible = true;
-            btnEditUser.Visible = true;
+            btnAdminEditUser.Visible = true;
             btnDeleteUser.Visible = true;
         }
 
         protected void btnFile_Click(object sender, EventArgs e)
         {
+            userFormsOff();
             int fileSize;
             string fileType, fileName;
             if (fileUp.HasFile)
@@ -121,6 +115,14 @@ namespace TermProject
             gvDelete.Visible = false;
         }
 
+        public void userFormsOff()
+        {
+            gvUserFiles.Visible = false;
+            lblFile.Visible = false; fileUp.Visible = false;
+            lblFreeUserSpace.Visible = false; btnFile.Visible = false;
+            gvUserModify.Visible = false;
+        }
+
 
         protected void gvAdminModify_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -159,7 +161,7 @@ namespace TermProject
 
          }
 
-        protected void btnEditUser_Click(object sender, EventArgs e)
+        protected void btnAdminEditUser_Click(object sender, EventArgs e)
         {
             adminFormsOff();
             gvAdminModify.Visible = true;
@@ -197,7 +199,58 @@ namespace TermProject
                 gvDelete.DataBind();
             }
         }
-    
+
+        protected void btnUserEditUser_Click(object sender, EventArgs e)
+        {
+            userFormsOff();
+            gvUserModify.Visible = true;
+            gvUserModify.DataSource = Functions.getSingleUserInfo(Session["User"].ToString());
+            gvUserModify.DataBind(); 
+        }
+        protected void gvUserModify_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        protected void gvUserModify_RowEditing(Object sender, System.Web.UI.WebControls.GridViewEditEventArgs e)
+        {
+            gvUserModify.EditIndex = e.NewEditIndex;
+            gvUserModify.DataSource = Functions.getSingleUserInfo(Session["User"].ToString());
+            gvUserModify.DataBind();
+        }
+
+        protected void gvUserModify_RowCancelingEdit(Object sender, System.Web.UI.WebControls.GridViewCancelEditEventArgs e)
+        {
+            gvUserModify.EditIndex = -1;
+            gvUserModify.DataSource = Functions.getSingleUserInfo(Session["User"].ToString());
+            gvUserModify.DataBind();
+        }
+        protected void gvUserModify_RowUpdating(Object sender, System.Web.UI.WebControls.GridViewUpdateEventArgs e)
+        {
+            int rowIndex = e.RowIndex;
+            int id = Convert.ToInt32(gvUserModify.Rows[rowIndex].Cells[0].Text);
+            TextBox nameBox = (TextBox)gvUserModify.Rows[rowIndex].Cells[1].Controls[0];
+            TextBox emailBox = (TextBox)gvUserModify.Rows[rowIndex].Cells[2].Controls[0];
+            TextBox passwordBox = (TextBox)gvUserModify.Rows[rowIndex].Cells[3].Controls[0];
+            TextBox phoneBox = (TextBox)gvUserModify.Rows[rowIndex].Cells[4].Controls[0];
+            Functions.userUpdateUser(id, nameBox.Text, emailBox.Text, passwordBox.Text, phoneBox.Text);
+            gvUserModify.EditIndex = -1;
+            gvUserModify.DataSource = Functions.getSingleUserInfo(Session["User"].ToString());
+            gvUserModify.DataBind();
+
+        }
+
+        protected void btnMyFiles_Click(object sender, EventArgs e)
+        {
+            userFormsOff();
+            lblFile.Visible = true; fileUp.Visible = true;
+            lblFreeUserSpace.Visible = true; btnFile.Visible = true;
+            lblFreeUserSpace.Text = "Free Space Remaining: " +
+                Functions.getUserFreeSpace(Session["User"].ToString()) +
+                " Bytes";
+            gvUserFiles.DataSource = Functions.getFilesByUser(Session["User"].ToString());
+            gvUserFiles.DataBind(); gvUserFiles.Visible = true;
+        }
+
 
 
 

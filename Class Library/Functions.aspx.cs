@@ -175,5 +175,27 @@ namespace Class_Library
             int response = pxy.deleteUser(userInfo);
             return response;
         }
+
+        public static DataSet getSingleUserInfo(string email)
+        {
+            string[] userInfo = new string[1];
+            userInfo[0] = email;
+            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
+            DataSet myDS = pxy.getSingleUserInfo(userInfo);
+            return myDS;
+        }
+
+        public static int userUpdateUser(int id, string name, string email, string password, string phone)
+        {
+            string[] userInfo = new string[5];
+            userInfo[0] = id.ToString();
+            userInfo[1] = name;
+            userInfo[2] = email;
+            userInfo[3] = password;
+            userInfo[4] = phone;
+            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
+            int response = pxy.userUpdateUser(userInfo);
+            return response;
+        }
     }
 }

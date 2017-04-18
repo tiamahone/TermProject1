@@ -54,6 +54,10 @@ namespace Class_Library.CloudSVCRef1 {
         
         private System.Threading.SendOrPostCallback deleteUserOperationCompleted;
         
+        private System.Threading.SendOrPostCallback getSingleUserInfoOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback userUpdateUserOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -127,6 +131,12 @@ namespace Class_Library.CloudSVCRef1 {
         
         /// <remarks/>
         public event deleteUserCompletedEventHandler deleteUserCompleted;
+        
+        /// <remarks/>
+        public event getSingleUserInfoCompletedEventHandler getSingleUserInfoCompleted;
+        
+        /// <remarks/>
+        public event userUpdateUserCompletedEventHandler userUpdateUserCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/attemptLogin", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -475,6 +485,64 @@ namespace Class_Library.CloudSVCRef1 {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/getSingleUserInfo", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet getSingleUserInfo(string[] userInfo) {
+            object[] results = this.Invoke("getSingleUserInfo", new object[] {
+                        userInfo});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void getSingleUserInfoAsync(string[] userInfo) {
+            this.getSingleUserInfoAsync(userInfo, null);
+        }
+        
+        /// <remarks/>
+        public void getSingleUserInfoAsync(string[] userInfo, object userState) {
+            if ((this.getSingleUserInfoOperationCompleted == null)) {
+                this.getSingleUserInfoOperationCompleted = new System.Threading.SendOrPostCallback(this.OngetSingleUserInfoOperationCompleted);
+            }
+            this.InvokeAsync("getSingleUserInfo", new object[] {
+                        userInfo}, this.getSingleUserInfoOperationCompleted, userState);
+        }
+        
+        private void OngetSingleUserInfoOperationCompleted(object arg) {
+            if ((this.getSingleUserInfoCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.getSingleUserInfoCompleted(this, new getSingleUserInfoCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/userUpdateUser", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int userUpdateUser(string[] userInfo) {
+            object[] results = this.Invoke("userUpdateUser", new object[] {
+                        userInfo});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void userUpdateUserAsync(string[] userInfo) {
+            this.userUpdateUserAsync(userInfo, null);
+        }
+        
+        /// <remarks/>
+        public void userUpdateUserAsync(string[] userInfo, object userState) {
+            if ((this.userUpdateUserOperationCompleted == null)) {
+                this.userUpdateUserOperationCompleted = new System.Threading.SendOrPostCallback(this.OnuserUpdateUserOperationCompleted);
+            }
+            this.InvokeAsync("userUpdateUser", new object[] {
+                        userInfo}, this.userUpdateUserOperationCompleted, userState);
+        }
+        
+        private void OnuserUpdateUserOperationCompleted(object arg) {
+            if ((this.userUpdateUserCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.userUpdateUserCompleted(this, new userUpdateUserCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -792,6 +860,58 @@ namespace Class_Library.CloudSVCRef1 {
         private object[] results;
         
         internal deleteUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    public delegate void getSingleUserInfoCompletedEventHandler(object sender, getSingleUserInfoCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class getSingleUserInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal getSingleUserInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    public delegate void userUpdateUserCompletedEventHandler(object sender, userUpdateUserCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class userUpdateUserCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal userUpdateUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
