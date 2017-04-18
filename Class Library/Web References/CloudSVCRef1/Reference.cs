@@ -169,23 +169,25 @@ namespace Class_Library.CloudSVCRef1 {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/addUser", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int addUser(string[] userInfo) {
+        public int addUser(string[] loginInfo, string[] userInfo) {
             object[] results = this.Invoke("addUser", new object[] {
+                        loginInfo,
                         userInfo});
             return ((int)(results[0]));
         }
         
         /// <remarks/>
-        public void addUserAsync(string[] userInfo) {
-            this.addUserAsync(userInfo, null);
+        public void addUserAsync(string[] loginInfo, string[] userInfo) {
+            this.addUserAsync(loginInfo, userInfo, null);
         }
         
         /// <remarks/>
-        public void addUserAsync(string[] userInfo, object userState) {
+        public void addUserAsync(string[] loginInfo, string[] userInfo, object userState) {
             if ((this.addUserOperationCompleted == null)) {
                 this.addUserOperationCompleted = new System.Threading.SendOrPostCallback(this.OnaddUserOperationCompleted);
             }
             this.InvokeAsync("addUser", new object[] {
+                        loginInfo,
                         userInfo}, this.addUserOperationCompleted, userState);
         }
         
@@ -198,23 +200,25 @@ namespace Class_Library.CloudSVCRef1 {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/addAdmin", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int addAdmin(string[] userInfo) {
+        public int addAdmin(string[] loginInfo, string[] userInfo) {
             object[] results = this.Invoke("addAdmin", new object[] {
+                        loginInfo,
                         userInfo});
             return ((int)(results[0]));
         }
         
         /// <remarks/>
-        public void addAdminAsync(string[] userInfo) {
-            this.addAdminAsync(userInfo, null);
+        public void addAdminAsync(string[] loginInfo, string[] userInfo) {
+            this.addAdminAsync(loginInfo, userInfo, null);
         }
         
         /// <remarks/>
-        public void addAdminAsync(string[] userInfo, object userState) {
+        public void addAdminAsync(string[] loginInfo, string[] userInfo, object userState) {
             if ((this.addAdminOperationCompleted == null)) {
                 this.addAdminOperationCompleted = new System.Threading.SendOrPostCallback(this.OnaddAdminOperationCompleted);
             }
             this.InvokeAsync("addAdmin", new object[] {
+                        loginInfo,
                         userInfo}, this.addAdminOperationCompleted, userState);
         }
         
@@ -227,24 +231,26 @@ namespace Class_Library.CloudSVCRef1 {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/addFile", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int addFile(string[] fileInfo, [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")] byte[] fileData) {
+        public int addFile(string[] loginInfo, string[] fileInfo, [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")] byte[] fileData) {
             object[] results = this.Invoke("addFile", new object[] {
+                        loginInfo,
                         fileInfo,
                         fileData});
             return ((int)(results[0]));
         }
         
         /// <remarks/>
-        public void addFileAsync(string[] fileInfo, byte[] fileData) {
-            this.addFileAsync(fileInfo, fileData, null);
+        public void addFileAsync(string[] loginInfo, string[] fileInfo, byte[] fileData) {
+            this.addFileAsync(loginInfo, fileInfo, fileData, null);
         }
         
         /// <remarks/>
-        public void addFileAsync(string[] fileInfo, byte[] fileData, object userState) {
+        public void addFileAsync(string[] loginInfo, string[] fileInfo, byte[] fileData, object userState) {
             if ((this.addFileOperationCompleted == null)) {
                 this.addFileOperationCompleted = new System.Threading.SendOrPostCallback(this.OnaddFileOperationCompleted);
             }
             this.InvokeAsync("addFile", new object[] {
+                        loginInfo,
                         fileInfo,
                         fileData}, this.addFileOperationCompleted, userState);
         }
@@ -258,23 +264,25 @@ namespace Class_Library.CloudSVCRef1 {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/getFilesByUser", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public System.Data.DataSet getFilesByUser(string[] userInfo) {
+        public System.Data.DataSet getFilesByUser(string[] loginInfo, string[] userInfo) {
             object[] results = this.Invoke("getFilesByUser", new object[] {
+                        loginInfo,
                         userInfo});
             return ((System.Data.DataSet)(results[0]));
         }
         
         /// <remarks/>
-        public void getFilesByUserAsync(string[] userInfo) {
-            this.getFilesByUserAsync(userInfo, null);
+        public void getFilesByUserAsync(string[] loginInfo, string[] userInfo) {
+            this.getFilesByUserAsync(loginInfo, userInfo, null);
         }
         
         /// <remarks/>
-        public void getFilesByUserAsync(string[] userInfo, object userState) {
+        public void getFilesByUserAsync(string[] loginInfo, string[] userInfo, object userState) {
             if ((this.getFilesByUserOperationCompleted == null)) {
                 this.getFilesByUserOperationCompleted = new System.Threading.SendOrPostCallback(this.OngetFilesByUserOperationCompleted);
             }
             this.InvokeAsync("getFilesByUser", new object[] {
+                        loginInfo,
                         userInfo}, this.getFilesByUserOperationCompleted, userState);
         }
         
@@ -287,23 +295,25 @@ namespace Class_Library.CloudSVCRef1 {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/getUserFreeStorage", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public double getUserFreeStorage(string[] userInfo) {
+        public double getUserFreeStorage(string[] loginInfo, string[] userInfo) {
             object[] results = this.Invoke("getUserFreeStorage", new object[] {
+                        loginInfo,
                         userInfo});
             return ((double)(results[0]));
         }
         
         /// <remarks/>
-        public void getUserFreeStorageAsync(string[] userInfo) {
-            this.getUserFreeStorageAsync(userInfo, null);
+        public void getUserFreeStorageAsync(string[] loginInfo, string[] userInfo) {
+            this.getUserFreeStorageAsync(loginInfo, userInfo, null);
         }
         
         /// <remarks/>
-        public void getUserFreeStorageAsync(string[] userInfo, object userState) {
+        public void getUserFreeStorageAsync(string[] loginInfo, string[] userInfo, object userState) {
             if ((this.getUserFreeStorageOperationCompleted == null)) {
                 this.getUserFreeStorageOperationCompleted = new System.Threading.SendOrPostCallback(this.OngetUserFreeStorageOperationCompleted);
             }
             this.InvokeAsync("getUserFreeStorage", new object[] {
+                        loginInfo,
                         userInfo}, this.getUserFreeStorageOperationCompleted, userState);
         }
         
@@ -316,23 +326,25 @@ namespace Class_Library.CloudSVCRef1 {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/getUserTotalStorage", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public double getUserTotalStorage(string[] userInfo) {
+        public double getUserTotalStorage(string[] loginInfo, string[] userInfo) {
             object[] results = this.Invoke("getUserTotalStorage", new object[] {
+                        loginInfo,
                         userInfo});
             return ((double)(results[0]));
         }
         
         /// <remarks/>
-        public void getUserTotalStorageAsync(string[] userInfo) {
-            this.getUserTotalStorageAsync(userInfo, null);
+        public void getUserTotalStorageAsync(string[] loginInfo, string[] userInfo) {
+            this.getUserTotalStorageAsync(loginInfo, userInfo, null);
         }
         
         /// <remarks/>
-        public void getUserTotalStorageAsync(string[] userInfo, object userState) {
+        public void getUserTotalStorageAsync(string[] loginInfo, string[] userInfo, object userState) {
             if ((this.getUserTotalStorageOperationCompleted == null)) {
                 this.getUserTotalStorageOperationCompleted = new System.Threading.SendOrPostCallback(this.OngetUserTotalStorageOperationCompleted);
             }
             this.InvokeAsync("getUserTotalStorage", new object[] {
+                        loginInfo,
                         userInfo}, this.getUserTotalStorageOperationCompleted, userState);
         }
         
@@ -345,22 +357,24 @@ namespace Class_Library.CloudSVCRef1 {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/getCloudUsers", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public System.Data.DataSet getCloudUsers() {
-            object[] results = this.Invoke("getCloudUsers", new object[0]);
+        public System.Data.DataSet getCloudUsers(string[] loginInfo) {
+            object[] results = this.Invoke("getCloudUsers", new object[] {
+                        loginInfo});
             return ((System.Data.DataSet)(results[0]));
         }
         
         /// <remarks/>
-        public void getCloudUsersAsync() {
-            this.getCloudUsersAsync(null);
+        public void getCloudUsersAsync(string[] loginInfo) {
+            this.getCloudUsersAsync(loginInfo, null);
         }
         
         /// <remarks/>
-        public void getCloudUsersAsync(object userState) {
+        public void getCloudUsersAsync(string[] loginInfo, object userState) {
             if ((this.getCloudUsersOperationCompleted == null)) {
                 this.getCloudUsersOperationCompleted = new System.Threading.SendOrPostCallback(this.OngetCloudUsersOperationCompleted);
             }
-            this.InvokeAsync("getCloudUsers", new object[0], this.getCloudUsersOperationCompleted, userState);
+            this.InvokeAsync("getCloudUsers", new object[] {
+                        loginInfo}, this.getCloudUsersOperationCompleted, userState);
         }
         
         private void OngetCloudUsersOperationCompleted(object arg) {
@@ -372,22 +386,24 @@ namespace Class_Library.CloudSVCRef1 {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/getCloudUsersInfo", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public System.Data.DataSet getCloudUsersInfo() {
-            object[] results = this.Invoke("getCloudUsersInfo", new object[0]);
+        public System.Data.DataSet getCloudUsersInfo(string[] loginInfo) {
+            object[] results = this.Invoke("getCloudUsersInfo", new object[] {
+                        loginInfo});
             return ((System.Data.DataSet)(results[0]));
         }
         
         /// <remarks/>
-        public void getCloudUsersInfoAsync() {
-            this.getCloudUsersInfoAsync(null);
+        public void getCloudUsersInfoAsync(string[] loginInfo) {
+            this.getCloudUsersInfoAsync(loginInfo, null);
         }
         
         /// <remarks/>
-        public void getCloudUsersInfoAsync(object userState) {
+        public void getCloudUsersInfoAsync(string[] loginInfo, object userState) {
             if ((this.getCloudUsersInfoOperationCompleted == null)) {
                 this.getCloudUsersInfoOperationCompleted = new System.Threading.SendOrPostCallback(this.OngetCloudUsersInfoOperationCompleted);
             }
-            this.InvokeAsync("getCloudUsersInfo", new object[0], this.getCloudUsersInfoOperationCompleted, userState);
+            this.InvokeAsync("getCloudUsersInfo", new object[] {
+                        loginInfo}, this.getCloudUsersInfoOperationCompleted, userState);
         }
         
         private void OngetCloudUsersInfoOperationCompleted(object arg) {
@@ -399,23 +415,25 @@ namespace Class_Library.CloudSVCRef1 {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/getTransactions", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public System.Data.DataSet getTransactions(string[] userInfo) {
+        public System.Data.DataSet getTransactions(string[] loginInfo, string[] userInfo) {
             object[] results = this.Invoke("getTransactions", new object[] {
+                        loginInfo,
                         userInfo});
             return ((System.Data.DataSet)(results[0]));
         }
         
         /// <remarks/>
-        public void getTransactionsAsync(string[] userInfo) {
-            this.getTransactionsAsync(userInfo, null);
+        public void getTransactionsAsync(string[] loginInfo, string[] userInfo) {
+            this.getTransactionsAsync(loginInfo, userInfo, null);
         }
         
         /// <remarks/>
-        public void getTransactionsAsync(string[] userInfo, object userState) {
+        public void getTransactionsAsync(string[] loginInfo, string[] userInfo, object userState) {
             if ((this.getTransactionsOperationCompleted == null)) {
                 this.getTransactionsOperationCompleted = new System.Threading.SendOrPostCallback(this.OngetTransactionsOperationCompleted);
             }
             this.InvokeAsync("getTransactions", new object[] {
+                        loginInfo,
                         userInfo}, this.getTransactionsOperationCompleted, userState);
         }
         
@@ -428,23 +446,25 @@ namespace Class_Library.CloudSVCRef1 {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/adminUpdateUser", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int adminUpdateUser(string[] userInfo) {
+        public int adminUpdateUser(string[] loginInfo, string[] userInfo) {
             object[] results = this.Invoke("adminUpdateUser", new object[] {
+                        loginInfo,
                         userInfo});
             return ((int)(results[0]));
         }
         
         /// <remarks/>
-        public void adminUpdateUserAsync(string[] userInfo) {
-            this.adminUpdateUserAsync(userInfo, null);
+        public void adminUpdateUserAsync(string[] loginInfo, string[] userInfo) {
+            this.adminUpdateUserAsync(loginInfo, userInfo, null);
         }
         
         /// <remarks/>
-        public void adminUpdateUserAsync(string[] userInfo, object userState) {
+        public void adminUpdateUserAsync(string[] loginInfo, string[] userInfo, object userState) {
             if ((this.adminUpdateUserOperationCompleted == null)) {
                 this.adminUpdateUserOperationCompleted = new System.Threading.SendOrPostCallback(this.OnadminUpdateUserOperationCompleted);
             }
             this.InvokeAsync("adminUpdateUser", new object[] {
+                        loginInfo,
                         userInfo}, this.adminUpdateUserOperationCompleted, userState);
         }
         
@@ -457,23 +477,25 @@ namespace Class_Library.CloudSVCRef1 {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/deleteUser", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int deleteUser(string[] userInfo) {
+        public int deleteUser(string[] loginInfo, string[] userInfo) {
             object[] results = this.Invoke("deleteUser", new object[] {
+                        loginInfo,
                         userInfo});
             return ((int)(results[0]));
         }
         
         /// <remarks/>
-        public void deleteUserAsync(string[] userInfo) {
-            this.deleteUserAsync(userInfo, null);
+        public void deleteUserAsync(string[] loginInfo, string[] userInfo) {
+            this.deleteUserAsync(loginInfo, userInfo, null);
         }
         
         /// <remarks/>
-        public void deleteUserAsync(string[] userInfo, object userState) {
+        public void deleteUserAsync(string[] loginInfo, string[] userInfo, object userState) {
             if ((this.deleteUserOperationCompleted == null)) {
                 this.deleteUserOperationCompleted = new System.Threading.SendOrPostCallback(this.OndeleteUserOperationCompleted);
             }
             this.InvokeAsync("deleteUser", new object[] {
+                        loginInfo,
                         userInfo}, this.deleteUserOperationCompleted, userState);
         }
         
@@ -486,23 +508,25 @@ namespace Class_Library.CloudSVCRef1 {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/getSingleUserInfo", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public System.Data.DataSet getSingleUserInfo(string[] userInfo) {
+        public System.Data.DataSet getSingleUserInfo(string[] loginInfo, string[] userInfo) {
             object[] results = this.Invoke("getSingleUserInfo", new object[] {
+                        loginInfo,
                         userInfo});
             return ((System.Data.DataSet)(results[0]));
         }
         
         /// <remarks/>
-        public void getSingleUserInfoAsync(string[] userInfo) {
-            this.getSingleUserInfoAsync(userInfo, null);
+        public void getSingleUserInfoAsync(string[] loginInfo, string[] userInfo) {
+            this.getSingleUserInfoAsync(loginInfo, userInfo, null);
         }
         
         /// <remarks/>
-        public void getSingleUserInfoAsync(string[] userInfo, object userState) {
+        public void getSingleUserInfoAsync(string[] loginInfo, string[] userInfo, object userState) {
             if ((this.getSingleUserInfoOperationCompleted == null)) {
                 this.getSingleUserInfoOperationCompleted = new System.Threading.SendOrPostCallback(this.OngetSingleUserInfoOperationCompleted);
             }
             this.InvokeAsync("getSingleUserInfo", new object[] {
+                        loginInfo,
                         userInfo}, this.getSingleUserInfoOperationCompleted, userState);
         }
         
@@ -515,23 +539,25 @@ namespace Class_Library.CloudSVCRef1 {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/userUpdateUser", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int userUpdateUser(string[] userInfo) {
+        public int userUpdateUser(string[] loginInfo, string[] userInfo) {
             object[] results = this.Invoke("userUpdateUser", new object[] {
+                        loginInfo,
                         userInfo});
             return ((int)(results[0]));
         }
         
         /// <remarks/>
-        public void userUpdateUserAsync(string[] userInfo) {
-            this.userUpdateUserAsync(userInfo, null);
+        public void userUpdateUserAsync(string[] loginInfo, string[] userInfo) {
+            this.userUpdateUserAsync(loginInfo, userInfo, null);
         }
         
         /// <remarks/>
-        public void userUpdateUserAsync(string[] userInfo, object userState) {
+        public void userUpdateUserAsync(string[] loginInfo, string[] userInfo, object userState) {
             if ((this.userUpdateUserOperationCompleted == null)) {
                 this.userUpdateUserOperationCompleted = new System.Threading.SendOrPostCallback(this.OnuserUpdateUserOperationCompleted);
             }
             this.InvokeAsync("userUpdateUser", new object[] {
+                        loginInfo,
                         userInfo}, this.userUpdateUserOperationCompleted, userState);
         }
         

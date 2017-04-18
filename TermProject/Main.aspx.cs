@@ -11,6 +11,7 @@ namespace TermProject
 {
     public partial class Main : System.Web.UI.Page
     {
+        string[] loginInfo = new string[2];
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["Login"] != null)
@@ -18,12 +19,14 @@ namespace TermProject
                 lblDisplayText.Text = "Welcome " + Session["User"].ToString();
                 if (Session["Login"].ToString() == "Success Admin")
                 {
-                    stateAdmin();
+                    stateAdmin();                  
                 }
                 else if (Session["Login"].ToString() == "Success User")
                 {
-                    stateUser();
+                    stateUser();                   
                 }
+                loginInfo[0] = Session["User"].ToString();
+                loginInfo[1] = Session["Password"].ToString();
             }
             else
             {
@@ -67,7 +70,7 @@ namespace TermProject
                 fileName = fileUp.PostedFile.FileName;
                 fileType = fileUp.PostedFile.ContentType;
 
-                string response = Functions.fileUpload(Session["User"].ToString(), fileName, fileType, 
+                string response = Functions.fileUpload(loginInfo, Session["User"].ToString(), fileName, fileType, 
                     fileSize, fileData);
                 lblDisplayText.Text = response;
 
@@ -82,7 +85,7 @@ namespace TermProject
         protected void btnViewTransactions_Click(object sender, EventArgs e)
         {
             adminFormsOff();
-            dropUser.DataSource = Functions.getCloudUsers();
+            dropUser.DataSource = Functions.getCloudUsers(loginInfo);
             dropUser.DataTextField = "Email";
             dropUser.DataBind();
             transactionFormOn();       
@@ -90,7 +93,7 @@ namespace TermProject
 
         protected void btnGetTransactions_Click(object sender, EventArgs e)
         {
-            gvTransactions.DataSource = Functions.getTransactions(dropUser.SelectedItem.ToString(),
+            gvTransactions.DataSource = Functions.getTransactions(loginInfo, dropUser.SelectedItem.ToString(),
                 dropTimePeriod.SelectedItem.ToString());
             gvTransactions.DataBind();
             gvTransactions.Visible = true;
@@ -131,20 +134,20 @@ namespace TermProject
         protected void gvAdminModify_PageIndexChanging(Object sender, System.Web.UI.WebControls.GridViewPageEventArgs e)
         {
             gvAdminModify.PageIndex = e.NewPageIndex;
-            gvAdminModify.DataSource = Functions.getCloudUsersInfo();
+            gvAdminModify.DataSource = Functions.getCloudUsersInfo(loginInfo);
             gvAdminModify.DataBind();
         }
         protected void gvAdminModify_RowEditing(Object sender, System.Web.UI.WebControls.GridViewEditEventArgs e)
         {
             gvAdminModify.EditIndex = e.NewEditIndex;
-            gvAdminModify.DataSource = Functions.getCloudUsersInfo();
+            gvAdminModify.DataSource = Functions.getCloudUsersInfo(loginInfo);
             gvAdminModify.DataBind();
         }
 
         protected void gvAdminModify_RowCancelingEdit(Object sender, System.Web.UI.WebControls.GridViewCancelEditEventArgs e)
         {
             gvAdminModify.EditIndex = -1;
-            gvAdminModify.DataSource = Functions.getCloudUsersInfo();
+            gvAdminModify.DataSource = Functions.getCloudUsersInfo(loginInfo);
             gvAdminModify.DataBind();
         }
         protected void gvAdminModify_RowUpdating(Object sender, System.Web.UI.WebControls.GridViewUpdateEventArgs e)
@@ -154,9 +157,9 @@ namespace TermProject
             TextBox passwordBox = (TextBox)gvAdminModify.Rows[rowIndex].Cells[3].Controls[0];
             TextBox phoneBox = (TextBox)gvAdminModify.Rows[rowIndex].Cells[4].Controls[0];
             TextBox totalBox = (TextBox)gvAdminModify.Rows[rowIndex].Cells[6].Controls[0];
-            Functions.adminUpdateUser(email, passwordBox.Text, phoneBox.Text, totalBox.Text);
+            Functions.adminUpdateUser(loginInfo, email, passwordBox.Text, phoneBox.Text, totalBox.Text);
             gvAdminModify.EditIndex = -1;
-            gvAdminModify.DataSource = Functions.getCloudUsersInfo();
+            gvAdminModify.DataSource = Functions.getCloudUsersInfo(loginInfo);
             gvAdminModify.DataBind();
 
          }
@@ -165,14 +168,14 @@ namespace TermProject
         {
             adminFormsOff();
             gvAdminModify.Visible = true;
-            gvAdminModify.DataSource = Functions.getCloudUsersInfo();
+            gvAdminModify.DataSource = Functions.getCloudUsersInfo(loginInfo);
             gvAdminModify.DataBind();
         }
         protected void btnDeleteUser_Click(object sender, EventArgs e)
         {
             adminFormsOff();
             gvDelete.Visible = true;
-            gvDelete.DataSource = Functions.getCloudUsersInfo();
+            gvDelete.DataSource = Functions.getCloudUsersInfo(loginInfo);
             gvDelete.DataBind();
             btnDeleteSelection.Visible = true;
         }
@@ -186,7 +189,7 @@ namespace TermProject
                 {
                     checkCount++;
                     string email = gvDelete.Rows[row].Cells[3].Text;
-                    Functions.deleteUser(email);
+                    Functions.deleteUser(loginInfo, email);
                 }
             }
             if (checkCount == 0)
@@ -195,7 +198,7 @@ namespace TermProject
             }
             else
             {
-                gvDelete.DataSource = Functions.getCloudUsersInfo();
+                gvDelete.DataSource = Functions.getCloudUsersInfo(loginInfo);
                 gvDelete.DataBind();
             }
         }
@@ -204,7 +207,7 @@ namespace TermProject
         {
             userFormsOff();
             gvUserModify.Visible = true;
-            gvUserModify.DataSource = Functions.getSingleUserInfo(Session["User"].ToString());
+            gvUserModify.DataSource = Functions.getSingleUserInfo(loginInfo, Session["User"].ToString());
             gvUserModify.DataBind(); 
         }
         protected void gvUserModify_SelectedIndexChanged(object sender, EventArgs e)
@@ -214,14 +217,14 @@ namespace TermProject
         protected void gvUserModify_RowEditing(Object sender, System.Web.UI.WebControls.GridViewEditEventArgs e)
         {
             gvUserModify.EditIndex = e.NewEditIndex;
-            gvUserModify.DataSource = Functions.getSingleUserInfo(Session["User"].ToString());
+            gvUserModify.DataSource = Functions.getSingleUserInfo(loginInfo, Session["User"].ToString());
             gvUserModify.DataBind();
         }
 
         protected void gvUserModify_RowCancelingEdit(Object sender, System.Web.UI.WebControls.GridViewCancelEditEventArgs e)
         {
             gvUserModify.EditIndex = -1;
-            gvUserModify.DataSource = Functions.getSingleUserInfo(Session["User"].ToString());
+            gvUserModify.DataSource = Functions.getSingleUserInfo(loginInfo, Session["User"].ToString());
             gvUserModify.DataBind();
         }
         protected void gvUserModify_RowUpdating(Object sender, System.Web.UI.WebControls.GridViewUpdateEventArgs e)
@@ -232,9 +235,9 @@ namespace TermProject
             TextBox emailBox = (TextBox)gvUserModify.Rows[rowIndex].Cells[2].Controls[0];
             TextBox passwordBox = (TextBox)gvUserModify.Rows[rowIndex].Cells[3].Controls[0];
             TextBox phoneBox = (TextBox)gvUserModify.Rows[rowIndex].Cells[4].Controls[0];
-            Functions.userUpdateUser(id, nameBox.Text, emailBox.Text, passwordBox.Text, phoneBox.Text);
+            Functions.userUpdateUser(loginInfo, id, nameBox.Text, emailBox.Text, passwordBox.Text, phoneBox.Text);
             gvUserModify.EditIndex = -1;
-            gvUserModify.DataSource = Functions.getSingleUserInfo(Session["User"].ToString());
+            gvUserModify.DataSource = Functions.getSingleUserInfo(loginInfo, Session["User"].ToString());
             gvUserModify.DataBind();
 
         }
@@ -245,9 +248,9 @@ namespace TermProject
             lblFile.Visible = true; fileUp.Visible = true;
             lblFreeUserSpace.Visible = true; btnFile.Visible = true;
             lblFreeUserSpace.Text = "Free Space Remaining: " +
-                Functions.getUserFreeSpace(Session["User"].ToString()) +
+                Functions.getUserFreeSpace(loginInfo, Session["User"].ToString()) +
                 " Bytes";
-            gvUserFiles.DataSource = Functions.getFilesByUser(Session["User"].ToString());
+            gvUserFiles.DataSource = Functions.getFilesByUser(loginInfo, Session["User"].ToString());
             gvUserFiles.DataBind(); gvUserFiles.Visible = true;
         }
 

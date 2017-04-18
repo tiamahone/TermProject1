@@ -14,6 +14,7 @@ namespace Class_Library
 {
     public partial class Functions : System.Web.UI.Page
     {
+        
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -48,14 +49,14 @@ namespace Class_Library
 
         }
 
-        public static string addUser(string name, string email, string password, string phone)
+        public static string addUser(string[] loginInfo, string name, string email, string password, string phone)
         {
             string[] userInfo = new string[4];
             string response = "";
-            CloudSVCRef.CloudSVC pxy = new CloudSVCRef.CloudSVC();
+            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
             userInfo[0] = name; userInfo[1] = email;
             userInfo[2] = password; userInfo[3] = phone;
-            int result = pxy.addUser(userInfo);
+            int result = pxy.addUser(loginInfo, userInfo);
 
             if (result == 0)
             {
@@ -69,14 +70,14 @@ namespace Class_Library
             return response;
         }
 
-        public static string addAdmin(string name, string email, string password, string phone)
+        public static string addAdmin(string[] loginInfo, string name, string email, string password, string phone)
         {
             string[] userInfo = new string[4];
             string response = "";
-            CloudSVCRef.CloudSVC pxy = new CloudSVCRef.CloudSVC();
+            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
             userInfo[0] = name; userInfo[1] = email;
             userInfo[2] = password; userInfo[3] = phone;
-            int result = pxy.addAdmin(userInfo);
+            int result = pxy.addAdmin(loginInfo, userInfo);
 
             if (result == 0)
             {
@@ -91,7 +92,7 @@ namespace Class_Library
 
         }
 
-        public static string fileUpload(string email, string fileName, string fileType, int fileSize, byte[] fileData)
+        public static string fileUpload(string[] loginInfo, string email, string fileName, string fileType, int fileSize, byte[] fileData)
         {
             string response = "";
             string[] fileInfo = new string[4];
@@ -99,7 +100,7 @@ namespace Class_Library
             fileInfo[0] = email; fileInfo[1] = fileName;
             fileInfo[2] = fileType; fileInfo[3] = fileSize.ToString();
 
-            int result = pxy.addFile(fileInfo, fileData);
+            int result = pxy.addFile(loginInfo, fileInfo, fileData);
 
             if (result == 0)
             {
@@ -114,48 +115,48 @@ namespace Class_Library
 
         }
 
-        public static DataSet getFilesByUser(string email)
+        public static DataSet getFilesByUser(string[] loginInfo, string email)
         {
             string[] userInfo = new string[1];
             CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
             userInfo[0] = email;
-            DataSet myDS = pxy.getFilesByUser(userInfo);
+            DataSet myDS = pxy.getFilesByUser(loginInfo, userInfo);
             return myDS;
         }
 
-        public static string getUserFreeSpace(string email)
+        public static string getUserFreeSpace(string[] loginInfo, string email)
         {
             string response = "";
             CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
             string[] userInfo = new string[1];
             userInfo[0] = email;
-            response = pxy.getUserFreeStorage(userInfo).ToString();
+            response = pxy.getUserFreeStorage(loginInfo, userInfo).ToString();
             return response;
         }
 
-        public static DataSet getTransactions(string user, string timePeriod)
+        public static DataSet getTransactions(string[] loginInfo, string user, string timePeriod)
         {
             string[] userInfo = new string[2];
             CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
             userInfo[0] = user; userInfo[1] = timePeriod;
-            DataSet myDS = pxy.getTransactions(userInfo);
+            DataSet myDS = pxy.getTransactions(loginInfo, userInfo);
             return myDS;
         }
 
-        public static DataSet getCloudUsers()
+        public static DataSet getCloudUsers(string[] loginInfo)
         {
             CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
-            DataSet myDS = pxy.getCloudUsers();
+            DataSet myDS = pxy.getCloudUsers(loginInfo);
             return myDS;
         }
-        public static DataSet getCloudUsersInfo()
+        public static DataSet getCloudUsersInfo(string[] loginInfo)
         {
             CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
-            DataSet myDS = pxy.getCloudUsersInfo();
+            DataSet myDS = pxy.getCloudUsersInfo(loginInfo);
             return myDS;
         }
 
-        public static int adminUpdateUser(string email, string password, string phone, string total)
+        public static int adminUpdateUser(string[] loginInfo, string email, string password, string phone, string total)
         {
             string[] userInfo = new string[4];
             userInfo[0] = email;
@@ -163,29 +164,29 @@ namespace Class_Library
             userInfo[2] = phone;
             userInfo[3] = total;
             CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
-            int response = pxy.adminUpdateUser(userInfo);
+            int response = pxy.adminUpdateUser(loginInfo, userInfo);
             return response;
         }
 
-        public static int deleteUser(string email)
+        public static int deleteUser(string[] loginInfo, string email)
         {
             string[] userInfo = new string[1];
             userInfo[0] = email;
             CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
-            int response = pxy.deleteUser(userInfo);
+            int response = pxy.deleteUser(loginInfo, userInfo);
             return response;
         }
 
-        public static DataSet getSingleUserInfo(string email)
+        public static DataSet getSingleUserInfo(string[] loginInfo, string email)
         {
             string[] userInfo = new string[1];
             userInfo[0] = email;
             CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
-            DataSet myDS = pxy.getSingleUserInfo(userInfo);
+            DataSet myDS = pxy.getSingleUserInfo(loginInfo, userInfo);
             return myDS;
         }
 
-        public static int userUpdateUser(int id, string name, string email, string password, string phone)
+        public static int userUpdateUser(string[] loginInfo, int id, string name, string email, string password, string phone)
         {
             string[] userInfo = new string[5];
             userInfo[0] = id.ToString();
@@ -194,7 +195,7 @@ namespace Class_Library
             userInfo[3] = password;
             userInfo[4] = phone;
             CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
-            int response = pxy.userUpdateUser(userInfo);
+            int response = pxy.userUpdateUser(loginInfo, userInfo);
             return response;
         }
     }

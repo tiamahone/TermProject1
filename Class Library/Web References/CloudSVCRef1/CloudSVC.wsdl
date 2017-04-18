@@ -24,6 +24,7 @@
       <s:element name="addUser">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
             <s:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:ArrayOfString" />
           </s:sequence>
         </s:complexType>
@@ -38,6 +39,7 @@
       <s:element name="addAdmin">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
             <s:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:ArrayOfString" />
           </s:sequence>
         </s:complexType>
@@ -52,6 +54,7 @@
       <s:element name="addFile">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
             <s:element minOccurs="0" maxOccurs="1" name="fileInfo" type="tns:ArrayOfString" />
             <s:element minOccurs="0" maxOccurs="1" name="fileData" type="s:base64Binary" />
           </s:sequence>
@@ -67,6 +70,7 @@
       <s:element name="getFilesByUser">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
             <s:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:ArrayOfString" />
           </s:sequence>
         </s:complexType>
@@ -88,6 +92,7 @@
       <s:element name="getUserFreeStorage">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
             <s:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:ArrayOfString" />
           </s:sequence>
         </s:complexType>
@@ -102,6 +107,7 @@
       <s:element name="getUserTotalStorage">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
             <s:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:ArrayOfString" />
           </s:sequence>
         </s:complexType>
@@ -114,7 +120,11 @@
         </s:complexType>
       </s:element>
       <s:element name="getCloudUsers">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="getCloudUsersResponse">
         <s:complexType>
@@ -131,7 +141,11 @@
         </s:complexType>
       </s:element>
       <s:element name="getCloudUsersInfo">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="getCloudUsersInfoResponse">
         <s:complexType>
@@ -150,6 +164,7 @@
       <s:element name="getTransactions">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
             <s:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:ArrayOfString" />
           </s:sequence>
         </s:complexType>
@@ -171,6 +186,7 @@
       <s:element name="adminUpdateUser">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
             <s:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:ArrayOfString" />
           </s:sequence>
         </s:complexType>
@@ -185,6 +201,7 @@
       <s:element name="deleteUser">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
             <s:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:ArrayOfString" />
           </s:sequence>
         </s:complexType>
@@ -199,6 +216,7 @@
       <s:element name="getSingleUserInfo">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
             <s:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:ArrayOfString" />
           </s:sequence>
         </s:complexType>
@@ -220,6 +238,7 @@
       <s:element name="userUpdateUser">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
             <s:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:ArrayOfString" />
           </s:sequence>
         </s:complexType>
