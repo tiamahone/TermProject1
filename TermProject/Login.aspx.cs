@@ -62,6 +62,7 @@ namespace TermProject
 
                     Session["Login"] = response;
                     Session["User"] = email;
+                    Session["Password"] = password;
                     Response.Redirect("Main.aspx");
                 }
                 else

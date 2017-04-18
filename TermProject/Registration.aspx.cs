@@ -10,10 +10,13 @@ namespace TermProject
 {
     public partial class Registraion : System.Web.UI.Page
     {
+        string[] loginInfo = new string[2];
         protected void Page_Load(object sender, EventArgs e) 
         {
             if (Session["Login"] != null)
             {
+                loginInfo[0] = Session["User"].ToString();
+                loginInfo[1] = Session["Password"].ToString();
                 if (Session["Login"].ToString() == "Success Admin")
                 {
                     btnRegister.Text = "Register Admin";
@@ -46,13 +49,13 @@ namespace TermProject
                     {
                         if (Session["Login"].ToString() == "Success Admin")
                         {
-                            result = Functions.addAdmin(txtName.Text, txtEmail.Text,
+                            result = Functions.addAdmin(loginInfo, txtName.Text, txtEmail.Text,
                             txtPassword.Text, txtPhone.Text);
                         }
                     }
                     else
                     {
-                        result = Functions.addUser(txtName.Text, txtEmail.Text,
+                        result = Functions.addUser(loginInfo, txtName.Text, txtEmail.Text,
                             txtPassword.Text, txtPhone.Text);
                     }
 

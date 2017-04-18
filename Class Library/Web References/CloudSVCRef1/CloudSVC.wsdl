@@ -24,6 +24,7 @@
       <s:element name="addUser">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
             <s:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:ArrayOfString" />
           </s:sequence>
         </s:complexType>
@@ -38,6 +39,7 @@
       <s:element name="addAdmin">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
             <s:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:ArrayOfString" />
           </s:sequence>
         </s:complexType>
@@ -52,6 +54,7 @@
       <s:element name="addFile">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
             <s:element minOccurs="0" maxOccurs="1" name="fileInfo" type="tns:ArrayOfString" />
             <s:element minOccurs="0" maxOccurs="1" name="fileData" type="s:base64Binary" />
           </s:sequence>
@@ -67,6 +70,7 @@
       <s:element name="getFilesByUser">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
             <s:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:ArrayOfString" />
           </s:sequence>
         </s:complexType>
@@ -88,6 +92,7 @@
       <s:element name="getUserFreeStorage">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
             <s:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:ArrayOfString" />
           </s:sequence>
         </s:complexType>
@@ -99,8 +104,27 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="getUserTotalStorage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getUserTotalStorageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="getUserTotalStorageResult" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="getCloudUsers">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="getCloudUsersResponse">
         <s:complexType>
@@ -116,9 +140,31 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="getCloudUsersInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getCloudUsersInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getCloudUsersInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="getTransactions">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
             <s:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:ArrayOfString" />
           </s:sequence>
         </s:complexType>
@@ -137,18 +183,70 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="UpdateFile">
+      <s:element name="adminUpdateUser">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="file" type="tns:ArrayOfString" />
-            <s:element minOccurs="0" maxOccurs="1" name="fileData" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:ArrayOfString" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="UpdateFileResponse">
+      <s:element name="adminUpdateUserResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="UpdateFileResult" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="adminUpdateUserResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="deleteUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="deleteUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="deleteUserResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getSingleUserInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getSingleUserInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getSingleUserInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="userUpdateUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="userUpdateUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="userUpdateUserResult" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -190,11 +288,23 @@
   <wsdl:message name="getUserFreeStorageSoapOut">
     <wsdl:part name="parameters" element="tns:getUserFreeStorageResponse" />
   </wsdl:message>
+  <wsdl:message name="getUserTotalStorageSoapIn">
+    <wsdl:part name="parameters" element="tns:getUserTotalStorage" />
+  </wsdl:message>
+  <wsdl:message name="getUserTotalStorageSoapOut">
+    <wsdl:part name="parameters" element="tns:getUserTotalStorageResponse" />
+  </wsdl:message>
   <wsdl:message name="getCloudUsersSoapIn">
     <wsdl:part name="parameters" element="tns:getCloudUsers" />
   </wsdl:message>
   <wsdl:message name="getCloudUsersSoapOut">
     <wsdl:part name="parameters" element="tns:getCloudUsersResponse" />
+  </wsdl:message>
+  <wsdl:message name="getCloudUsersInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:getCloudUsersInfo" />
+  </wsdl:message>
+  <wsdl:message name="getCloudUsersInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:getCloudUsersInfoResponse" />
   </wsdl:message>
   <wsdl:message name="getTransactionsSoapIn">
     <wsdl:part name="parameters" element="tns:getTransactions" />
@@ -202,11 +312,29 @@
   <wsdl:message name="getTransactionsSoapOut">
     <wsdl:part name="parameters" element="tns:getTransactionsResponse" />
   </wsdl:message>
-  <wsdl:message name="UpdateFileSoapIn">
-    <wsdl:part name="parameters" element="tns:UpdateFile" />
+  <wsdl:message name="adminUpdateUserSoapIn">
+    <wsdl:part name="parameters" element="tns:adminUpdateUser" />
   </wsdl:message>
-  <wsdl:message name="UpdateFileSoapOut">
-    <wsdl:part name="parameters" element="tns:UpdateFileResponse" />
+  <wsdl:message name="adminUpdateUserSoapOut">
+    <wsdl:part name="parameters" element="tns:adminUpdateUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="deleteUserSoapIn">
+    <wsdl:part name="parameters" element="tns:deleteUser" />
+  </wsdl:message>
+  <wsdl:message name="deleteUserSoapOut">
+    <wsdl:part name="parameters" element="tns:deleteUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="getSingleUserInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:getSingleUserInfo" />
+  </wsdl:message>
+  <wsdl:message name="getSingleUserInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:getSingleUserInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="userUpdateUserSoapIn">
+    <wsdl:part name="parameters" element="tns:userUpdateUser" />
+  </wsdl:message>
+  <wsdl:message name="userUpdateUserSoapOut">
+    <wsdl:part name="parameters" element="tns:userUpdateUserResponse" />
   </wsdl:message>
   <wsdl:portType name="CloudSVCSoap">
     <wsdl:operation name="attemptLogin">
@@ -233,17 +361,37 @@
       <wsdl:input message="tns:getUserFreeStorageSoapIn" />
       <wsdl:output message="tns:getUserFreeStorageSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="getUserTotalStorage">
+      <wsdl:input message="tns:getUserTotalStorageSoapIn" />
+      <wsdl:output message="tns:getUserTotalStorageSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="getCloudUsers">
       <wsdl:input message="tns:getCloudUsersSoapIn" />
       <wsdl:output message="tns:getCloudUsersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getCloudUsersInfo">
+      <wsdl:input message="tns:getCloudUsersInfoSoapIn" />
+      <wsdl:output message="tns:getCloudUsersInfoSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="getTransactions">
       <wsdl:input message="tns:getTransactionsSoapIn" />
       <wsdl:output message="tns:getTransactionsSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="UpdateFile">
-      <wsdl:input message="tns:UpdateFileSoapIn" />
-      <wsdl:output message="tns:UpdateFileSoapOut" />
+    <wsdl:operation name="adminUpdateUser">
+      <wsdl:input message="tns:adminUpdateUserSoapIn" />
+      <wsdl:output message="tns:adminUpdateUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteUser">
+      <wsdl:input message="tns:deleteUserSoapIn" />
+      <wsdl:output message="tns:deleteUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getSingleUserInfo">
+      <wsdl:input message="tns:getSingleUserInfoSoapIn" />
+      <wsdl:output message="tns:getSingleUserInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="userUpdateUser">
+      <wsdl:input message="tns:userUpdateUserSoapIn" />
+      <wsdl:output message="tns:userUpdateUserSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="CloudSVCSoap" type="tns:CloudSVCSoap">
@@ -302,8 +450,26 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="getUserTotalStorage">
+      <soap:operation soapAction="http://tempuri.org/getUserTotalStorage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="getCloudUsers">
       <soap:operation soapAction="http://tempuri.org/getCloudUsers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCloudUsersInfo">
+      <soap:operation soapAction="http://tempuri.org/getCloudUsersInfo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -320,8 +486,35 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="UpdateFile">
-      <soap:operation soapAction="http://tempuri.org/UpdateFile" style="document" />
+    <wsdl:operation name="adminUpdateUser">
+      <soap:operation soapAction="http://tempuri.org/adminUpdateUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteUser">
+      <soap:operation soapAction="http://tempuri.org/deleteUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSingleUserInfo">
+      <soap:operation soapAction="http://tempuri.org/getSingleUserInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="userUpdateUser">
+      <soap:operation soapAction="http://tempuri.org/userUpdateUser" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -386,8 +579,26 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="getUserTotalStorage">
+      <soap12:operation soapAction="http://tempuri.org/getUserTotalStorage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="getCloudUsers">
       <soap12:operation soapAction="http://tempuri.org/getCloudUsers" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCloudUsersInfo">
+      <soap12:operation soapAction="http://tempuri.org/getCloudUsersInfo" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -404,8 +615,35 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="UpdateFile">
-      <soap12:operation soapAction="http://tempuri.org/UpdateFile" style="document" />
+    <wsdl:operation name="adminUpdateUser">
+      <soap12:operation soapAction="http://tempuri.org/adminUpdateUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteUser">
+      <soap12:operation soapAction="http://tempuri.org/deleteUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSingleUserInfo">
+      <soap12:operation soapAction="http://tempuri.org/getSingleUserInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="userUpdateUser">
+      <soap12:operation soapAction="http://tempuri.org/userUpdateUser" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
