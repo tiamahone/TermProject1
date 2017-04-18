@@ -148,5 +148,23 @@ namespace Class_Library
             DataSet myDS = pxy.getCloudUsers();
             return myDS;
         }
+        public static DataSet getCloudUsersInfo()
+        {
+            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
+            DataSet myDS = pxy.getCloudUsersInfo();
+            return myDS;
+        }
+
+        public static int adminUpdateUser(string email, string password, string phone, string total)
+        {
+            string[] userInfo = new string[4];
+            userInfo[0] = email;
+            userInfo[1] = password;
+            userInfo[2] = phone;
+            userInfo[3] = total;
+            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
+            int response = pxy.adminUpdateUser(userInfo);
+            return response;
+        }
     }
 }

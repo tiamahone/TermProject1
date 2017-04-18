@@ -240,11 +240,35 @@ namespace CloudService
         }
 
         [WebMethod]
+        public double getUserTotalStorage(string[] userInfo)
+        {
+            SqlCommand objCommand = new SqlCommand();
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "GetCloudUserTotalStorage";
+            objCommand.Parameters.AddWithValue("@email", userInfo[0]);
+            DBConnect objDB = new DBConnect();
+            DataSet myDS = objDB.GetDataSetUsingCmdObj(objCommand);
+            double totalStorage = Convert.ToDouble(objDB.GetField("Total Storage", 0));
+            return totalStorage;
+        }
+
+        [WebMethod]
         public DataSet getCloudUsers()
         {
             SqlCommand objCommand = new SqlCommand();
             objCommand.CommandType = CommandType.StoredProcedure;
             objCommand.CommandText = "GetCloudUsers";
+            DBConnect objDB = new DBConnect();
+            DataSet myDS = objDB.GetDataSetUsingCmdObj(objCommand);
+            return myDS;
+        }
+
+        [WebMethod]
+        public DataSet getCloudUsersInfo()
+        {
+            SqlCommand objCommand = new SqlCommand();
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "GetCloudUsersInfo";
             DBConnect objDB = new DBConnect();
             DataSet myDS = objDB.GetDataSetUsingCmdObj(objCommand);
             return myDS;
@@ -269,6 +293,31 @@ namespace CloudService
             DBConnect objDB = new DBConnect();
             DataSet myDS = objDB.GetDataSetUsingCmdObj(objCommand);
             return myDS;
+        }
+
+        [WebMethod]
+        public int adminUpdateUser(string[] userInfo)
+        {
+            int response;
+            double freeStorage = getUserFreeStorage(userInfo);
+            double oldTotalStorage = getUserTotalStorage(userInfo);
+            double difference = (Convert.ToDouble(userInfo[3])) - oldTotalStorage;
+            freeStorage += difference;
+
+            SqlCommand objCommand = new SqlCommand();
+            DBConnect objDB = new DBConnect();
+            objCommand = new SqlCommand();
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "UpdateCloudUser";
+            objCommand.Parameters.AddWithValue("@email", userInfo[0]);
+            objCommand.Parameters.AddWithValue("@password", userInfo[1]);
+            objCommand.Parameters.AddWithValue("@phone", userInfo[2]);
+            objCommand.Parameters.AddWithValue("@totalStorage", userInfo[3]);
+            objCommand.Parameters.AddWithValue("@freeStorage", freeStorage);
+            objDB.DoUpdateUsingCmdObj(objCommand);
+            response = 0;
+
+            return response;
         }
 
     }

@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+
 namespace TermProject
 {
     public partial class Main : System.Web.UI.Page
@@ -55,6 +56,7 @@ namespace TermProject
         {
             btnAddAdmin.Visible = true;
             btnViewTransactions.Visible = true;
+            btnEditUser.Visible = true;
         }
 
         protected void btnFile_Click(object sender, EventArgs e)
@@ -84,6 +86,7 @@ namespace TermProject
         }
         protected void btnViewTransactions_Click(object sender, EventArgs e)
         {
+            adminFormsOff();
             dropUser.DataSource = Functions.getCloudUsers();
             dropUser.DataTextField = "Email";
             dropUser.DataBind();
@@ -105,13 +108,62 @@ namespace TermProject
             dropTimePeriod.Visible = true;
             btnGetTransactions.Visible = true;
         }
-        public void transactionFormOff()
+        public void adminFormsOff()
         {
             lblSelectUser.Visible = false;
             dropUser.Visible = false; lblSelectTimePeriod.Visible = false;
             dropTimePeriod.Visible = false;
             btnGetTransactions.Visible = false;
             gvTransactions.Visible = false;
+            gvAdminModify.Visible = false;
         }
+
+
+        protected void gvAdminModify_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        protected void gvAdminModify_PageIndexChanging(Object sender, System.Web.UI.WebControls.GridViewPageEventArgs e)
+        {
+            gvAdminModify.PageIndex = e.NewPageIndex;
+            gvAdminModify.DataSource = Functions.getCloudUsersInfo();
+            gvAdminModify.DataBind();
+        }
+        protected void gvAdminModify_RowEditing(Object sender, System.Web.UI.WebControls.GridViewEditEventArgs e)
+        {
+            gvAdminModify.EditIndex = e.NewEditIndex;
+            gvAdminModify.DataSource = Functions.getCloudUsersInfo();
+            gvAdminModify.DataBind();
+        }
+
+        protected void gvAdminModify_RowCancelingEdit(Object sender, System.Web.UI.WebControls.GridViewCancelEditEventArgs e)
+        {
+            gvAdminModify.EditIndex = -1;
+            gvAdminModify.DataSource = Functions.getCloudUsersInfo();
+            gvAdminModify.DataBind();
+        }
+        protected void gvAdminModify_RowUpdating(Object sender, System.Web.UI.WebControls.GridViewUpdateEventArgs e)
+        {
+            int rowIndex = e.RowIndex;
+            string email = gvAdminModify.Rows[rowIndex].Cells[2].Text;
+            TextBox passwordBox = (TextBox)gvAdminModify.Rows[rowIndex].Cells[3].Controls[0];
+            TextBox phoneBox = (TextBox)gvAdminModify.Rows[rowIndex].Cells[4].Controls[0];
+            TextBox totalBox = (TextBox)gvAdminModify.Rows[rowIndex].Cells[6].Controls[0];
+            Functions.adminUpdateUser(email, passwordBox.Text, phoneBox.Text, totalBox.Text);
+            gvAdminModify.EditIndex = -1;
+            gvAdminModify.DataSource = Functions.getCloudUsersInfo();
+            gvAdminModify.DataBind();
+
+         }
+
+        protected void btnEditUser_Click(object sender, EventArgs e)
+        {
+            adminFormsOff();
+            gvAdminModify.Visible = true;
+            gvAdminModify.DataSource = Functions.getCloudUsersInfo();
+            gvAdminModify.DataBind();
+        }
+
+
     }
 }

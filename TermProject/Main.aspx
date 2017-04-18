@@ -50,9 +50,12 @@
         <table>
         <asp:Button ID="btnAddAdmin" runat="server" Text="Add Admin" OnClick="btnAddAdmin_Click" Visible ="false" />
         <asp:Button ID="btnViewTransactions" runat="server" Text="View Transactions" OnClick="btnViewTransactions_Click" Visible ="false" />
+        <asp:Button ID="btnEditUser" runat="server" Text="Edit User" OnClick="btnEditUser_Click" Visible ="false" />
         <asp:Button ID="btnBack" runat="server" Text="Back To Login" OnClick="btnBack_Click" />
         </table>
      </div>
+
+        <%--User files section--%>
      <div>
         <asp:FileUpload ID="fileUp" runat="server" style="z-index: 1; left: 10px; top: 245px; position: absolute" Visible ="false" BackColor="White" BorderStyle="None" />
          <asp:Label ID="lblFile" runat="server" Text="Upload file to cloud:" style="z-index: 1; left: 10px; top: 220px; position: absolute; font-weight: 700;" Visible ="false"></asp:Label>
@@ -63,6 +66,9 @@
                  <EditRowStyle BorderColor="Black" BorderStyle="Solid" />
         </asp:GridView>
 
+
+
+        <%--Transactions Section--%>
         <asp:GridView ID="gvTransactions" runat="server" style="z-index: 1; left: 10px; top: 300px; position: absolute; height: 180px; width: 289px" EmptyDataText="No Transactions Found" HeaderText = "Transactions" Visible ="false" AllowPaging="True" OnSelectedIndexChanged="gvTransactions_SelectedIndexChanged">
                  <EditRowStyle BorderColor="Black" BorderStyle="Solid" />
          </asp:GridView>
@@ -75,6 +81,25 @@
             <asp:ListItem>All</asp:ListItem>
         </asp:DropDownList>
          <asp:Button ID="btnGetTransactions" runat="server" style="z-index: 1; left: 500px; top: 280px; position: absolute" Text="Get Transactions" OnClick="btnGetTransactions_Click" Visible ="false" />
+
+        <%--Admin Account tools section--%>
+        <asp:GridView ID="gvAdminModify" runat="server" AllowPaging="True" PageSize="10" style="z-index: 1; left: 10px; top: 300px; position: absolute; height: 180px; width: 289px" Visible="False"
+                AutoGenerateColumns = "False" OnRowCancelingEdit="gvAdminModify_RowCancelingEdit" OnRowEditing="gvAdminModify_RowEditing" OnSelectedIndexChanged="gvAdminModify_SelectedIndexChanged"
+                OnRowUpdating="gvAdminModify_RowUpdating" OnPageIndexChanging="gvAdminModify_PageIndexChanging" >
+                <Columns>
+                    <asp:BoundField DataField="Id" HeaderText="Id" ReadOnly="True" />
+                    <asp:BoundField DataField="Name" HeaderText="Name" ReadOnly="True"/>
+                    <asp:BoundField DataField="Email" HeaderText="Email Address" ReadOnly="True"/>
+                    <asp:BoundField DataField="Password" HeaderText="Password" />
+                    <asp:BoundField DataField="Phone" HeaderText="Phone Number" />
+                    <asp:BoundField DataField="Free Storage" HeaderText="Free Storage" ReadOnly="True" />
+                    <asp:BoundField DataField="Total Storage" HeaderText="Total Storage" />
+                    <asp:CommandField ButtonType="Button" HeaderText="Edit Account"
+                        ShowEditButton="True" />
+                </Columns>
+             
+            </asp:GridView>
+
 
 
              </form>
