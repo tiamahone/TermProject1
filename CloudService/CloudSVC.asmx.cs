@@ -285,11 +285,22 @@ namespace CloudService
             {
                 objCommand.Parameters.AddWithValue("@timePeriod", "1/01/1900 12:00:01 AM");
             }
-            else
+            else if (userInfo[1] == "Past Day")
             {
+                DateTime timePeriod = (Convert.ToDateTime(userInfo[1])).AddDays(-1);
                 objCommand.Parameters.AddWithValue("@timePeriod", userInfo[1]);
             }
-            
+            else if (userInfo[1] == "Past Week")
+            {
+                DateTime timePeriod = (Convert.ToDateTime(userInfo[1])).AddDays(-7);
+                objCommand.Parameters.AddWithValue("@timePeriod", userInfo[1]);
+            }
+            else if (userInfo[1] == "Past Month")
+            {
+                DateTime timePeriod = (Convert.ToDateTime(userInfo[1])).AddDays(-30);
+                objCommand.Parameters.AddWithValue("@timePeriod", userInfo[1]);
+            }
+
             DBConnect objDB = new DBConnect();
             DataSet myDS = objDB.GetDataSetUsingCmdObj(objCommand);
             return myDS;

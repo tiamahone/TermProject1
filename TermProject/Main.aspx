@@ -82,6 +82,9 @@
         <asp:Label ID="lblSelectTimePeriod" runat="server" Text="Time Period:" style="z-index: 1; left: 300px; top: 280px; position: absolute; font-weight: 700;" Visible ="false"></asp:Label>
         <asp:DropDownList ID="dropTimePeriod" runat="server" style="z-index: 1; left: 400px; top: 280px; position: absolute" Visible ="false">
             <asp:ListItem>All</asp:ListItem>
+            <asp:ListItem>Past Day</asp:ListItem>
+            <asp:ListItem>Past Week</asp:ListItem>
+            <asp:ListItem>Past Month</asp:ListItem>
         </asp:DropDownList>
          <asp:Button ID="btnGetTransactions" runat="server" style="z-index: 1; left: 500px; top: 280px; position: absolute" Text="Get Transactions" OnClick="btnGetTransactions_Click" Visible ="false" />
 
