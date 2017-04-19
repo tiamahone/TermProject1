@@ -33,5 +33,15 @@ namespace Class_Library.Properties {
                 return ((string)(this["Class_Library_CloudSVCRef_CloudSVC"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:51543/CloudSVC.asmx")]
+        public string Class_Library_CloudSVCRef1_CloudSVC {
+            get {
+                return ((string)(this["Class_Library_CloudSVCRef1_CloudSVC"]));
+            }
+        }
     }
 }

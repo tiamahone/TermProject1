@@ -185,6 +185,16 @@ namespace CloudService
 
                 DBConnect objDB;
                 SqlCommand objCommand;
+
+                //Checks to see if file already exists
+                DataSet myDs = checkForFile(loginInfo, fileInfo);
+                if (myDs.Tables[0].Rows.Count != 0)
+                {
+                    string[] file = new string[2];
+                    file[0] = fileName;
+                    file[1] = fileSize.ToString();
+                    deleteFile(loginInfo, file);
+                }
                 //Checks to see if enough storage is available
                 if (fileSize > freeStorage)
                 {
@@ -233,6 +243,23 @@ namespace CloudService
                 response = -1;
             }
             return response;
+        }
+
+        [WebMethod]
+        public DataSet checkForFile(string[] loginInfo, string[] userInfo)
+        {
+            DataSet myDS = null;
+            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2)
+            {
+                SqlCommand objCommand = new SqlCommand();
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "checkForFile";
+                objCommand.Parameters.AddWithValue("@email", userInfo[0]);
+                objCommand.Parameters.AddWithValue("@fileName", userInfo[1]);
+                DBConnect objDB = new DBConnect();
+                myDS = objDB.GetDataSetUsingCmdObj(objCommand);
+            }
+            return myDS;
         }
 
         [WebMethod]
@@ -435,5 +462,39 @@ namespace CloudService
 
             return response;
         }
-    }
+
+        [WebMethod]
+        public int deleteFile(string[] loginInfo, string[] userInfo)
+        {
+            int response = -1;
+            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2)
+            {
+                SqlCommand objCommand = new SqlCommand();
+                DBConnect objDB = new DBConnect();
+                objCommand = new SqlCommand();
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "DeleteFile";
+                objCommand.Parameters.AddWithValue("@email", loginInfo[0]);
+                objCommand.Parameters.AddWithValue("@fileName", userInfo[0]);
+                objDB.DoUpdateUsingCmdObj(objCommand);
+
+                double oldFreeSpace = Convert.ToDouble(getUserFreeStorage(loginInfo, loginInfo));
+                double fileSize = Convert.ToDouble(userInfo[1]);
+                double newFreeSpace = oldFreeSpace + fileSize;
+
+
+                objDB = new DBConnect();
+                objCommand = new SqlCommand();
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "UpdateFreeSpace";
+                objCommand.Parameters.AddWithValue("@email", loginInfo[0]);
+                objCommand.Parameters.AddWithValue("@freeStorage", newFreeSpace);
+                objDB.DoUpdateUsingCmdObj(objCommand);
+
+                response = 0;
+            }
+            return response;
+        }
+
+}
 }

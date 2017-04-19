@@ -62,7 +62,7 @@
         <%--User files section--%>
      <div>
         <asp:FileUpload ID="fileUp" runat="server" style="z-index: 1; left: 10px; top: 245px; position: absolute" Visible ="false" BackColor="White" BorderStyle="None" />
-         <asp:Label ID="lblFile" runat="server" Text="Upload file to cloud:" style="z-index: 1; left: 10px; top: 220px; position: absolute; font-weight: 700;" Visible ="false"></asp:Label>
+         <asp:Label ID="lblFile" runat="server" Text="Upload or Update file to cloud:" style="z-index: 1; left: 10px; top: 220px; position: absolute; font-weight: 700;" Visible ="false"></asp:Label>
          <asp:Button ID="btnFile" runat="server" style="z-index: 1; left: 260px; top: 245px; position: absolute" Text="Upload" OnClick="btnFile_Click" Visible ="false" />
      </div>
              <asp:Label ID="lblFreeUserSpace" runat="server" Text="Free Space Remaining: " style="font-weight: 700;" Visible ="false"></asp:Label>
@@ -139,6 +139,21 @@
                         ShowEditButton="True" />
                 </Columns>            
             </asp:GridView>
+
+        <%--User delete files section--%>
+        <asp:Button ID="btnDeleteFile" runat="server" style="z-index: 1; left: 260px; top: 245px; position: absolute" Text="Delete Selection" EmptyDataText="No Files Found" OnClick="btnDeleteFile_Click" Visible ="false" />
+        <asp:GridView ID="gvDeleteFile" runat="server" style="z-index: 1; left: 10px; top: 270px; position: absolute; height: 523px; width: 975px" Visible="False" AutoGenerateColumns="False" EmptyDataText="No Files Found">
+             <Columns>
+                <asp:TemplateField HeaderText="Select File">
+                    <ItemTemplate>
+                        <asp:CheckBox ID="chkSelectFile" runat="server" />
+                    </ItemTemplate>
+                </asp:TemplateField>
+                    <asp:BoundField DataField="File Name" HeaderText="File Name" />
+                    <asp:BoundField DataField="File Type" HeaderText="File Type" />
+                    <asp:BoundField DataField="File Size" HeaderText="File Size" />
+              </Columns>
+        </asp:GridView>
 
 
 
