@@ -96,7 +96,7 @@ namespace Class_Library
         {
             string response = "";
             string[] fileInfo = new string[4];
-            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
+            CloudSVCRef.CloudSVC pxy = new CloudSVCRef.CloudSVC();
             fileInfo[0] = email; fileInfo[1] = fileName;
             fileInfo[2] = fileType; fileInfo[3] = fileSize.ToString();
 
@@ -204,7 +204,7 @@ namespace Class_Library
             string[] userInfo = new string[2];
             userInfo[0] = fileName;
             userInfo[1] = fileSize;
-            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
+            CloudSVCRef.CloudSVC pxy = new CloudSVCRef.CloudSVC();
             int response = pxy.deleteFile(loginInfo, userInfo);
             return response;
         }

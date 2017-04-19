@@ -38,6 +38,8 @@ namespace Class_Library.CloudSVCRef {
         
         private System.Threading.SendOrPostCallback addFileOperationCompleted;
         
+        private System.Threading.SendOrPostCallback checkForFileOperationCompleted;
+        
         private System.Threading.SendOrPostCallback getFilesByUserOperationCompleted;
         
         private System.Threading.SendOrPostCallback getUserFreeStorageOperationCompleted;
@@ -57,6 +59,8 @@ namespace Class_Library.CloudSVCRef {
         private System.Threading.SendOrPostCallback getSingleUserInfoOperationCompleted;
         
         private System.Threading.SendOrPostCallback userUpdateUserOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback deleteFileOperationCompleted;
         
         private bool useDefaultCredentialsSetExplicitly;
         
@@ -109,6 +113,9 @@ namespace Class_Library.CloudSVCRef {
         public event addFileCompletedEventHandler addFileCompleted;
         
         /// <remarks/>
+        public event checkForFileCompletedEventHandler checkForFileCompleted;
+        
+        /// <remarks/>
         public event getFilesByUserCompletedEventHandler getFilesByUserCompleted;
         
         /// <remarks/>
@@ -137,6 +144,9 @@ namespace Class_Library.CloudSVCRef {
         
         /// <remarks/>
         public event userUpdateUserCompletedEventHandler userUpdateUserCompleted;
+        
+        /// <remarks/>
+        public event deleteFileCompletedEventHandler deleteFileCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/attemptLogin", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -259,6 +269,37 @@ namespace Class_Library.CloudSVCRef {
             if ((this.addFileCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.addFileCompleted(this, new addFileCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/checkForFile", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet checkForFile(string[] loginInfo, string[] userInfo) {
+            object[] results = this.Invoke("checkForFile", new object[] {
+                        loginInfo,
+                        userInfo});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void checkForFileAsync(string[] loginInfo, string[] userInfo) {
+            this.checkForFileAsync(loginInfo, userInfo, null);
+        }
+        
+        /// <remarks/>
+        public void checkForFileAsync(string[] loginInfo, string[] userInfo, object userState) {
+            if ((this.checkForFileOperationCompleted == null)) {
+                this.checkForFileOperationCompleted = new System.Threading.SendOrPostCallback(this.OncheckForFileOperationCompleted);
+            }
+            this.InvokeAsync("checkForFile", new object[] {
+                        loginInfo,
+                        userInfo}, this.checkForFileOperationCompleted, userState);
+        }
+        
+        private void OncheckForFileOperationCompleted(object arg) {
+            if ((this.checkForFileCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.checkForFileCompleted(this, new checkForFileCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -569,6 +610,37 @@ namespace Class_Library.CloudSVCRef {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/deleteFile", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int deleteFile(string[] loginInfo, string[] userInfo) {
+            object[] results = this.Invoke("deleteFile", new object[] {
+                        loginInfo,
+                        userInfo});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void deleteFileAsync(string[] loginInfo, string[] userInfo) {
+            this.deleteFileAsync(loginInfo, userInfo, null);
+        }
+        
+        /// <remarks/>
+        public void deleteFileAsync(string[] loginInfo, string[] userInfo, object userState) {
+            if ((this.deleteFileOperationCompleted == null)) {
+                this.deleteFileOperationCompleted = new System.Threading.SendOrPostCallback(this.OndeleteFileOperationCompleted);
+            }
+            this.InvokeAsync("deleteFile", new object[] {
+                        loginInfo,
+                        userInfo}, this.deleteFileOperationCompleted, userState);
+        }
+        
+        private void OndeleteFileOperationCompleted(object arg) {
+            if ((this.deleteFileCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.deleteFileCompleted(this, new deleteFileCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -687,6 +759,32 @@ namespace Class_Library.CloudSVCRef {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    public delegate void checkForFileCompletedEventHandler(object sender, checkForFileCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class checkForFileCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal checkForFileCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
             }
         }
     }
@@ -938,6 +1036,32 @@ namespace Class_Library.CloudSVCRef {
         private object[] results;
         
         internal userUpdateUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    public delegate void deleteFileCompletedEventHandler(object sender, deleteFileCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class deleteFileCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal deleteFileCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }

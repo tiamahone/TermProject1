@@ -67,6 +67,28 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="checkForFile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkForFileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="checkForFileResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="getFilesByUser">
         <s:complexType>
           <s:sequence>
@@ -250,6 +272,21 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="deleteFile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="deleteFileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="deleteFileResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="attemptLoginSoapIn">
@@ -275,6 +312,12 @@
   </wsdl:message>
   <wsdl:message name="addFileSoapOut">
     <wsdl:part name="parameters" element="tns:addFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="checkForFileSoapIn">
+    <wsdl:part name="parameters" element="tns:checkForFile" />
+  </wsdl:message>
+  <wsdl:message name="checkForFileSoapOut">
+    <wsdl:part name="parameters" element="tns:checkForFileResponse" />
   </wsdl:message>
   <wsdl:message name="getFilesByUserSoapIn">
     <wsdl:part name="parameters" element="tns:getFilesByUser" />
@@ -336,6 +379,12 @@
   <wsdl:message name="userUpdateUserSoapOut">
     <wsdl:part name="parameters" element="tns:userUpdateUserResponse" />
   </wsdl:message>
+  <wsdl:message name="deleteFileSoapIn">
+    <wsdl:part name="parameters" element="tns:deleteFile" />
+  </wsdl:message>
+  <wsdl:message name="deleteFileSoapOut">
+    <wsdl:part name="parameters" element="tns:deleteFileResponse" />
+  </wsdl:message>
   <wsdl:portType name="CloudSVCSoap">
     <wsdl:operation name="attemptLogin">
       <wsdl:input message="tns:attemptLoginSoapIn" />
@@ -352,6 +401,10 @@
     <wsdl:operation name="addFile">
       <wsdl:input message="tns:addFileSoapIn" />
       <wsdl:output message="tns:addFileSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkForFile">
+      <wsdl:input message="tns:checkForFileSoapIn" />
+      <wsdl:output message="tns:checkForFileSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="getFilesByUser">
       <wsdl:input message="tns:getFilesByUserSoapIn" />
@@ -393,6 +446,10 @@
       <wsdl:input message="tns:userUpdateUserSoapIn" />
       <wsdl:output message="tns:userUpdateUserSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="deleteFile">
+      <wsdl:input message="tns:deleteFileSoapIn" />
+      <wsdl:output message="tns:deleteFileSoapOut" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="CloudSVCSoap" type="tns:CloudSVCSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -425,6 +482,15 @@
     </wsdl:operation>
     <wsdl:operation name="addFile">
       <soap:operation soapAction="http://tempuri.org/addFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkForFile">
+      <soap:operation soapAction="http://tempuri.org/checkForFile" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -522,6 +588,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="deleteFile">
+      <soap:operation soapAction="http://tempuri.org/deleteFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="CloudSVCSoap12" type="tns:CloudSVCSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -554,6 +629,15 @@
     </wsdl:operation>
     <wsdl:operation name="addFile">
       <soap12:operation soapAction="http://tempuri.org/addFile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkForFile">
+      <soap12:operation soapAction="http://tempuri.org/checkForFile" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -644,6 +728,15 @@
     </wsdl:operation>
     <wsdl:operation name="userUpdateUser">
       <soap12:operation soapAction="http://tempuri.org/userUpdateUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteFile">
+      <soap12:operation soapAction="http://tempuri.org/deleteFile" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
