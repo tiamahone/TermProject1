@@ -125,7 +125,8 @@ namespace TermProject
             lblFile.Visible = false; fileUp.Visible = false;
             lblFreeUserSpace.Visible = false; btnFile.Visible = false;
             gvUserModify.Visible = false;
-            btnDeleteFiles.Visible = false;
+            btnDeleteFile.Visible = false;
+            gvDeleteFile.Visible = false;
         }
 
 
@@ -257,9 +258,39 @@ namespace TermProject
         }
         protected void btnDeleteFiles_Click(object sender, EventArgs e)
         {
-
+            userFormsOff();
+            gvDeleteFile.Visible = true;
+            gvDeleteFile.DataSource = Functions.getFilesByUser(loginInfo, Session["User"].ToString());
+            gvDeleteFile.DataBind();
+            btnDeleteFile.Visible = true;
         }
-        
+
+        protected void btnDeleteFile_Click(object sender, EventArgs e)
+        {
+            int checkCount = 0;
+            for (int row = 0; row < gvDeleteFile.Rows.Count; row++)
+            {
+                CheckBox CBox = (CheckBox)gvDeleteFile.Rows[row].FindControl("chkSelectFile");
+                if (CBox.Checked)
+                {
+                    checkCount++;
+                    string fileName = gvDeleteFile.Rows[row].Cells[1].Text;
+                    string fileSize = gvDeleteFile.Rows[row].Cells[3].Text;
+                    Functions.deleteFile(loginInfo, fileName, fileSize);
+                }
+            }
+            if (checkCount == 0)
+            {
+                //tell user to check something
+            }
+            else
+            {
+                gvDeleteFile.DataSource = Functions.getFilesByUser(loginInfo, Session["User"].ToString());
+                gvDeleteFile.DataBind();
+            }
+        }
+
+
 
 
 

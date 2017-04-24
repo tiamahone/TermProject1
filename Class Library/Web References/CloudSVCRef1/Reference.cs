@@ -13,7 +13,7 @@
 // 
 #pragma warning disable 1591
 
-namespace Class_Library.CloudSVCRef {
+namespace Class_Library.CloudSVCRef1 {
     using System;
     using System.Web.Services;
     using System.Diagnostics;
@@ -66,7 +66,7 @@ namespace Class_Library.CloudSVCRef {
         
         /// <remarks/>
         public CloudSVC() {
-            this.Url = global::Class_Library.Properties.Settings.Default.Class_Library_CloudSVCRef_CloudSVC;
+            this.Url = global::Class_Library.Properties.Settings.Default.Class_Library_CloudSVCRef1_CloudSVC;
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;

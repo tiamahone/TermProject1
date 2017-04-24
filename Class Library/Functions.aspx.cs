@@ -198,5 +198,15 @@ namespace Class_Library
             int response = pxy.userUpdateUser(loginInfo, userInfo);
             return response;
         }
+
+        public static int deleteFile(string[] loginInfo, string fileName, string fileSize)
+        {
+            string[] userInfo = new string[2];
+            userInfo[0] = fileName;
+            userInfo[1] = fileSize;
+            CloudSVCRef.CloudSVC pxy = new CloudSVCRef.CloudSVC();
+            int response = pxy.deleteFile(loginInfo, userInfo);
+            return response;
+        }
     }
 }
