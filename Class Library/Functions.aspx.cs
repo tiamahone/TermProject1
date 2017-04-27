@@ -49,14 +49,14 @@ namespace Class_Library
 
         }
 
-        public static string addUser(string[] loginInfo, string name, string email, string password, string phone)
+        public static string addUser(string name, string email, string password, string phone)
         {
             string[] userInfo = new string[4];
             string response = "";
-            CloudSVCRef.CloudSVC pxy = new CloudSVCRef.CloudSVC();
+            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
             userInfo[0] = name; userInfo[1] = email;
             userInfo[2] = password; userInfo[3] = phone;
-            int result = pxy.addUser(loginInfo, userInfo);
+            int result = pxy.addUser(userInfo);
 
             if (result == 0)
             {

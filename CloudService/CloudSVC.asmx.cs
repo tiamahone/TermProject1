@@ -78,11 +78,11 @@ namespace CloudService
         }
 
         [WebMethod]
-        public int addUser(string[] loginInfo, string[] userInfo)
+        public int addUser(string[] userInfo)
         {
             int response;
-            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2)
-            {
+            //if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2)
+            //{
                 string name = userInfo[0];
                 string email = userInfo[1];
                 string password = userInfo[2];
@@ -116,11 +116,11 @@ namespace CloudService
                     objDB.DoUpdateUsingCmdObj(objCommand);
                     response = 0;
                 }
-            } 
-            else
-            {
-                response = -1;
-            }
+            //} 
+           // else
+            //{
+            //    response = -1;
+            //}
             return response;
         }
 
