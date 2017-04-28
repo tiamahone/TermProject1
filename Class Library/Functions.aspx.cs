@@ -134,6 +134,16 @@ namespace Class_Library
             return response;
         }
 
+        public static string getUserTotalSpace(string[] loginInfo, string email)
+        {
+            string response = "";
+            CloudSVCRef.CloudSVC pxy = new CloudSVCRef.CloudSVC();
+            string[] userInfo = new string[1];
+            userInfo[0] = email;
+            response = pxy.getUserTotalStorage(loginInfo, userInfo).ToString();
+            return response;
+        }
+
         public static DataSet getTransactions(string[] loginInfo, string user, string timePeriod)
         {
             string[] userInfo = new string[2];
