@@ -16,7 +16,7 @@ namespace TermProject
         {
             if (Session["Login"] != null)
             {
-                lblDisplayText.Text = "Welcome " + Session["User"].ToString();
+                lblDisplayText.Text = "Welcome " + Session["User"].ToString() + "!";
                 if (Session["Login"].ToString() == "Success Admin")
                 {
                     stateAdmin();                  
@@ -48,6 +48,7 @@ namespace TermProject
             btnUserEditUser.Visible = true;
             btnMyFiles.Visible = true;
             btnDeleteFiles.Visible = true;
+            btnStorageOptions.Visible = true;
         }
         public void stateAdmin()
         {
@@ -288,6 +289,11 @@ namespace TermProject
                 gvDeleteFile.DataSource = Functions.getFilesByUser(loginInfo, Session["User"].ToString());
                 gvDeleteFile.DataBind();
             }
+        }
+
+        protected void btnStorageOptions_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("StorageOptions.aspx");
         }
 
 
