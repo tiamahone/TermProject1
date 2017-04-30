@@ -179,25 +179,23 @@ namespace Class_Library.CloudSVCRef1 {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/addUser", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int addUser(string[] loginInfo, string[] userInfo) {
+        public int addUser(string[] userInfo) {
             object[] results = this.Invoke("addUser", new object[] {
-                        loginInfo,
                         userInfo});
             return ((int)(results[0]));
         }
         
         /// <remarks/>
-        public void addUserAsync(string[] loginInfo, string[] userInfo) {
-            this.addUserAsync(loginInfo, userInfo, null);
+        public void addUserAsync(string[] userInfo) {
+            this.addUserAsync(userInfo, null);
         }
         
         /// <remarks/>
-        public void addUserAsync(string[] loginInfo, string[] userInfo, object userState) {
+        public void addUserAsync(string[] userInfo, object userState) {
             if ((this.addUserOperationCompleted == null)) {
                 this.addUserOperationCompleted = new System.Threading.SendOrPostCallback(this.OnaddUserOperationCompleted);
             }
             this.InvokeAsync("addUser", new object[] {
-                        loginInfo,
                         userInfo}, this.addUserOperationCompleted, userState);
         }
         

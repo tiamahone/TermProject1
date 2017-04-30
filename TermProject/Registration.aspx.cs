@@ -55,7 +55,7 @@ namespace TermProject
                     }
                     else
                     {
-                        result = Functions.addUser(loginInfo, txtName.Text, txtEmail.Text,
+                        result = Functions.addUser(txtName.Text, txtEmail.Text,
                             txtPassword.Text, txtPhone.Text);
                     }
 
