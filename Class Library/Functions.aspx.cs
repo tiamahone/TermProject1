@@ -96,7 +96,7 @@ namespace Class_Library
         {
             string response = "";
             string[] fileInfo = new string[4];
-            CloudSVCRef.CloudSVC pxy = new CloudSVCRef.CloudSVC();
+            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
             fileInfo[0] = email; fileInfo[1] = fileName;
             fileInfo[2] = fileType; fileInfo[3] = fileSize.ToString();
 
@@ -105,6 +105,10 @@ namespace Class_Library
             if (result == 0)
             {
                 response = "File successfully added!";
+            }
+            else if (result == 1)
+            {
+                response = "File updated, previous version moved to trash";
             }
             else if (result == -1)
             {
@@ -211,11 +215,46 @@ namespace Class_Library
 
         public static int deleteFile(string[] loginInfo, string fileName, string fileSize)
         {
-            string[] userInfo = new string[2];
+            string[] userInfo = new string[3];
             userInfo[0] = fileName;
             userInfo[1] = fileSize;
-            CloudSVCRef.CloudSVC pxy = new CloudSVCRef.CloudSVC();
+            userInfo[2] = "delete";
+            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
             int response = pxy.deleteFile(loginInfo, userInfo);
+            return response;
+        }
+
+        public static DataSet getUserTrash(string[] loginInfo, string email)
+        {
+            string[] userInfo = new string[1];
+            userInfo[0] = email;
+            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
+            DataSet myDS = pxy.getUserTrash(loginInfo, userInfo);
+            return myDS;
+        }
+        public static int changeStoragePlan(string[] loginInfo, string email, int plan)
+        {
+            int response = 0;
+            double storage = 0;
+            string[] userInfo = new string[2];
+            if (plan == 0) {storage = 100000000; }
+            else if (plan == 1) { storage = 1000000000; }
+            else if (plan == 2) { storage = 2000000000; }
+            else if (plan == 3) { storage = 5000000000; }
+            else if (plan == 4) { storage = 10000000000; }
+            else if (plan == 5) { storage = 50000000000; }
+            userInfo[0] = email; userInfo[1] = storage.ToString(); ;
+            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
+            response = pxy.changeStoragePlan(loginInfo, userInfo);
+
+            return response;
+        }
+
+        public static int recoverFile(string[] loginInfo, string[] userInfo)
+        {
+            int response = 0;
+            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
+            response = pxy.recoverFile(loginInfo, userInfo);
             return response;
         }
     }

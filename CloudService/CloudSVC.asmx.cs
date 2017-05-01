@@ -29,7 +29,7 @@ namespace CloudService
             DBConnect objDB;
             SqlCommand objCommand;
             DataSet myDs;
- 
+
 
             objDB = new DBConnect();
             objCommand = new SqlCommand();
@@ -73,7 +73,7 @@ namespace CloudService
                 {
                     response = -1;
                 }
-            }      
+            }
             return response;
         }
 
@@ -83,41 +83,41 @@ namespace CloudService
             int response;
             //if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2)
             //{
-                string name = userInfo[0];
-                string email = userInfo[1];
-                string password = userInfo[2];
-                string phone = userInfo[3];
-                DBConnect objDB;
-                SqlCommand objCommand;
-                DataSet myDs;
+            string name = userInfo[0];
+            string email = userInfo[1];
+            string password = userInfo[2];
+            string phone = userInfo[3];
+            DBConnect objDB;
+            SqlCommand objCommand;
+            DataSet myDs;
 
+            objDB = new DBConnect();
+            objCommand = new SqlCommand();
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "GetCloudUserInfo";
+            objCommand.Parameters.AddWithValue("@email", email);
+            myDs = objDB.GetDataSetUsingCmdObj(objCommand);
+
+            if (myDs.Tables[0].Rows.Count != 0)
+            {
+                response = -1;
+            }
+            else
+            {
                 objDB = new DBConnect();
                 objCommand = new SqlCommand();
                 objCommand.CommandType = CommandType.StoredProcedure;
-                objCommand.CommandText = "GetCloudUserInfo";
+                objCommand.CommandText = "AddCloudUser";
+                objCommand.Parameters.AddWithValue("@name", name);
                 objCommand.Parameters.AddWithValue("@email", email);
-                myDs = objDB.GetDataSetUsingCmdObj(objCommand);
-
-                if (myDs.Tables[0].Rows.Count != 0)
-                {
-                    response = -1;
-                }
-                else
-                {
-                    objDB = new DBConnect();
-                    objCommand = new SqlCommand();
-                    objCommand.CommandType = CommandType.StoredProcedure;
-                    objCommand.CommandText = "AddCloudUser";
-                    objCommand.Parameters.AddWithValue("@name", name);
-                    objCommand.Parameters.AddWithValue("@email", email);
-                    objCommand.Parameters.AddWithValue("@password", password);
-                    objCommand.Parameters.AddWithValue("@phone", phone);
-                    //myDs = objDB.GetDataSetUsingCmdObj(objCommand);
-                    objDB.DoUpdateUsingCmdObj(objCommand);
-                    response = 0;
-                }
+                objCommand.Parameters.AddWithValue("@password", password);
+                objCommand.Parameters.AddWithValue("@phone", phone);
+                //myDs = objDB.GetDataSetUsingCmdObj(objCommand);
+                objDB.DoUpdateUsingCmdObj(objCommand);
+                response = 0;
+            }
             //} 
-           // else
+            // else
             //{
             //    response = -1;
             //}
@@ -174,7 +174,8 @@ namespace CloudService
         [WebMethod]
         public int addFile(string[] loginInfo, string[] fileInfo, byte[] fileData)
         {
-            int response;
+            int response = 0;
+            string transactionType = "Upload";
             if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2)
             {
                 string fileEmail = fileInfo[0];
@@ -187,13 +188,19 @@ namespace CloudService
                 SqlCommand objCommand;
 
                 //Checks to see if file already exists
-                DataSet myDs = checkForFile(loginInfo, fileInfo);
-                if (myDs.Tables[0].Rows.Count != 0)
+                //DataSet myDs = checkForFile(loginInfo, fileInfo);
+                double oldFileSize = checkForFile(loginInfo, fileInfo);
+                //if (myDs.Tables[0].Rows.Count != 0
+                if (oldFileSize != 0)
                 {
-                    string[] file = new string[2];
+                    string[] file = new string[3];
                     file[0] = fileName;
-                    file[1] = fileSize.ToString();
+                    //file[1] = fileSize.ToString();
+                    file[1] = oldFileSize.ToString();
                     deleteFile(loginInfo, file);
+                    transactionType = "Update";
+                    response = 1;
+
                 }
                 //Checks to see if enough storage is available
                 if (fileSize > freeStorage)
@@ -230,12 +237,10 @@ namespace CloudService
                     objCommand.CommandType = CommandType.StoredProcedure;
                     objCommand.CommandText = "AddCloudTransaction";
                     objCommand.Parameters.AddWithValue("@email", fileEmail);
-                    objCommand.Parameters.AddWithValue("@type", "Upload");
+                    objCommand.Parameters.AddWithValue("@type", transactionType);
                     objCommand.Parameters.AddWithValue("@fileName", fileName);
                     objCommand.Parameters.AddWithValue("@time", DateTime.Now);
                     objDB.DoUpdateUsingCmdObj(objCommand);
-
-                    response = 0;
                 }
             }
             else
@@ -246,8 +251,9 @@ namespace CloudService
         }
 
         [WebMethod]
-        public DataSet checkForFile(string[] loginInfo, string[] userInfo)
+        public double checkForFile(string[] loginInfo, string[] userInfo)
         {
+            double size = 0;
             DataSet myDS = null;
             if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2)
             {
@@ -258,8 +264,13 @@ namespace CloudService
                 objCommand.Parameters.AddWithValue("@fileName", userInfo[1]);
                 DBConnect objDB = new DBConnect();
                 myDS = objDB.GetDataSetUsingCmdObj(objCommand);
+                if (myDS.Tables[0].Rows.Count != 0)
+                {
+                    size = Convert.ToDouble(objDB.GetField("File Size", 0));
+                }
             }
-            return myDS;
+            //return myDS;
+            return size;
         }
 
         [WebMethod]
@@ -276,7 +287,7 @@ namespace CloudService
                 myDS = objDB.GetDataSetUsingCmdObj(objCommand);
             }
             return myDS;
-            
+
         }
 
         [WebMethod]
@@ -471,7 +482,41 @@ namespace CloudService
             {
                 SqlCommand objCommand = new SqlCommand();
                 DBConnect objDB = new DBConnect();
+
+                //GET FILE
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "GetFile";
+                objCommand.Parameters.AddWithValue("@email", loginInfo[0]);
+                objCommand.Parameters.AddWithValue("@fileName", userInfo[0]);
+                DataSet myDS = objDB.GetDataSetUsingCmdObj(objCommand);
+
+                string email = objDB.GetField("Email", 0).ToString();
+                string fileName = objDB.GetField("File Name", 0).ToString();
+                string fileType = objDB.GetField("File Type", 0).ToString();
+                double fileSizeOld = Convert.ToDouble(objDB.GetField("File Size", 0));
+                byte[] fileData = (byte[])objDB.GetField("File Data", 0);
+                DateTime timeStamp = DateTime.Now;
+                //byte[] image = (byte[])objDB.GetField("File Image", 0);
+
+                //Put file in trash
+                objDB = new DBConnect();
                 objCommand = new SqlCommand();
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "AddToTrash";
+                objCommand.Parameters.AddWithValue("@email", email);
+                objCommand.Parameters.AddWithValue("@fileName", fileName);
+                objCommand.Parameters.AddWithValue("@fileType", fileType);
+                objCommand.Parameters.AddWithValue("@fileSize", fileSizeOld);
+                objCommand.Parameters.AddWithValue("@fileData", fileData);
+                objCommand.Parameters.AddWithValue("@timeStamp", timeStamp);
+                //objCommand.Parameters.AddWithValue("@image", image);
+                objDB.DoUpdateUsingCmdObj(objCommand);
+
+
+                //Delete File
+                objDB = new DBConnect();
+                objCommand = new SqlCommand();
+
                 objCommand.CommandType = CommandType.StoredProcedure;
                 objCommand.CommandText = "DeleteFile";
                 objCommand.Parameters.AddWithValue("@email", loginInfo[0]);
@@ -491,10 +536,128 @@ namespace CloudService
                 objCommand.Parameters.AddWithValue("@freeStorage", newFreeSpace);
                 objDB.DoUpdateUsingCmdObj(objCommand);
 
+                // add transaction
+                if (userInfo[2] == "delete")
+                {
+                    objDB = new DBConnect();
+                    objCommand = new SqlCommand();
+                    objCommand.CommandType = CommandType.StoredProcedure;
+                    objCommand.CommandText = "AddCloudTransaction";
+                    objCommand.Parameters.AddWithValue("@email", email);
+                    objCommand.Parameters.AddWithValue("@type", "Delete");
+                    objCommand.Parameters.AddWithValue("@fileName", fileName);
+                    objCommand.Parameters.AddWithValue("@time", DateTime.Now);
+                    objDB.DoUpdateUsingCmdObj(objCommand);
+                }
+
                 response = 0;
             }
             return response;
         }
 
-}
+        [WebMethod]
+        public DataSet getUserTrash(string[] loginInfo, string[] userInfo)
+        {
+            DataSet myDS = null;
+            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2)
+            {
+                SqlCommand objCommand = new SqlCommand();
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "GetTrashByUser ";
+                objCommand.Parameters.AddWithValue("@email", userInfo[0]);
+                DBConnect objDB = new DBConnect();
+                myDS = objDB.GetDataSetUsingCmdObj(objCommand);
+            }
+            return myDS;
+        }
+
+        [WebMethod]
+        public int changeStoragePlan(string[] loginInfo, string[] userInfo)
+        {
+            int response = 0;
+            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2)
+            {
+                double freeStorage = getUserFreeStorage(loginInfo, userInfo);
+                double totalStorage = getUserTotalStorage(loginInfo, userInfo);
+                double newTotalStorage = Convert.ToDouble(userInfo[1]);
+                double newFreeStorage = freeStorage + (newTotalStorage - totalStorage);
+                DBConnect objDB = new DBConnect();
+                SqlCommand objCommand = new SqlCommand();
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "ChangeStoragePlan";
+                objCommand.Parameters.AddWithValue("@email", userInfo[0]);
+                objCommand.Parameters.AddWithValue("@freeStorage", newFreeStorage);
+                objCommand.Parameters.AddWithValue("@totalStorage", newTotalStorage);
+                objDB.DoUpdateUsingCmdObj(objCommand);
+            }
+            return response;
+        }
+
+        [WebMethod]
+        public int recoverFile(string[] loginInfo, string[] userInfo)
+        {
+            int response = 0;
+            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2)
+            {
+                DBConnect objDB = new DBConnect();
+                SqlCommand objCommand = new SqlCommand();
+                //GET FILE
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "GetFileFromTrash";
+                objCommand.Parameters.AddWithValue("@id", userInfo[1]);
+                DataSet myDS = objDB.GetDataSetUsingCmdObj(objCommand);
+                string email = objDB.GetField("Email", 0).ToString();
+                string fileName = objDB.GetField("File Name", 0).ToString();
+                fileName += "-R";
+                string fileType = objDB.GetField("File Type", 0).ToString();
+                double fileSizeOld = Convert.ToDouble(objDB.GetField("File Size", 0));
+                byte[] fileData = (byte[])objDB.GetField("File Data", 0);
+                DateTime timeStamp = DateTime.Now;
+
+                //Put file back
+                objDB = new DBConnect();
+                objCommand = new SqlCommand();
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "AddCloudFile";
+                objCommand.Parameters.AddWithValue("@email", email);
+                objCommand.Parameters.AddWithValue("@fileName", fileName);
+                objCommand.Parameters.AddWithValue("@fileType", fileType);
+                objCommand.Parameters.AddWithValue("@fileSize", fileSizeOld);
+                objCommand.Parameters.AddWithValue("@fileData", fileData);
+                objDB.DoUpdateUsingCmdObj(objCommand);
+
+                //Update Free Space
+                double oldFreeSpace = Convert.ToDouble(getUserFreeStorage(loginInfo, loginInfo));
+                double newFreeSpace = oldFreeSpace - fileSizeOld;
+                objDB = new DBConnect();
+                objCommand = new SqlCommand();
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "UpdateFreeSpace";
+                objCommand.Parameters.AddWithValue("@email", loginInfo[0]);
+                objCommand.Parameters.AddWithValue("@freeStorage", newFreeSpace);
+                objDB.DoUpdateUsingCmdObj(objCommand);
+
+                //Delete File From Trash
+                objDB = new DBConnect();
+                objCommand = new SqlCommand();
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "DeleteFileFromTrash";
+                objCommand.Parameters.AddWithValue("@id", userInfo[1]);
+                objDB.DoUpdateUsingCmdObj(objCommand);
+
+                //Add transaction
+                objDB = new DBConnect();
+                objCommand = new SqlCommand();
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "AddCloudTransaction";
+                objCommand.Parameters.AddWithValue("@email", email);
+                objCommand.Parameters.AddWithValue("@type", "Recover");
+                objCommand.Parameters.AddWithValue("@fileName", fileName);
+                objCommand.Parameters.AddWithValue("@time", DateTime.Now);
+                objDB.DoUpdateUsingCmdObj(objCommand);
+
+            }
+            return response;
+        }
+    }
 }

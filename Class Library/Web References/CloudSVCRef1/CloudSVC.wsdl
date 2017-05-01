@@ -77,14 +77,7 @@
       <s:element name="checkForFileResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="checkForFileResult">
-              <s:complexType>
-                <s:sequence>
-                  <s:element ref="s:schema" />
-                  <s:any />
-                </s:sequence>
-              </s:complexType>
-            </s:element>
+            <s:element minOccurs="1" maxOccurs="1" name="checkForFileResult" type="s:double" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -286,6 +279,58 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="getUserTrash">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getUserTrashResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getUserTrashResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="changeStoragePlan">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="changeStoragePlanResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="changeStoragePlanResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="recoverFile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="recoverFileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="recoverFileResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="attemptLoginSoapIn">
@@ -384,6 +429,24 @@
   <wsdl:message name="deleteFileSoapOut">
     <wsdl:part name="parameters" element="tns:deleteFileResponse" />
   </wsdl:message>
+  <wsdl:message name="getUserTrashSoapIn">
+    <wsdl:part name="parameters" element="tns:getUserTrash" />
+  </wsdl:message>
+  <wsdl:message name="getUserTrashSoapOut">
+    <wsdl:part name="parameters" element="tns:getUserTrashResponse" />
+  </wsdl:message>
+  <wsdl:message name="changeStoragePlanSoapIn">
+    <wsdl:part name="parameters" element="tns:changeStoragePlan" />
+  </wsdl:message>
+  <wsdl:message name="changeStoragePlanSoapOut">
+    <wsdl:part name="parameters" element="tns:changeStoragePlanResponse" />
+  </wsdl:message>
+  <wsdl:message name="recoverFileSoapIn">
+    <wsdl:part name="parameters" element="tns:recoverFile" />
+  </wsdl:message>
+  <wsdl:message name="recoverFileSoapOut">
+    <wsdl:part name="parameters" element="tns:recoverFileResponse" />
+  </wsdl:message>
   <wsdl:portType name="CloudSVCSoap">
     <wsdl:operation name="attemptLogin">
       <wsdl:input message="tns:attemptLoginSoapIn" />
@@ -448,6 +511,18 @@
     <wsdl:operation name="deleteFile">
       <wsdl:input message="tns:deleteFileSoapIn" />
       <wsdl:output message="tns:deleteFileSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getUserTrash">
+      <wsdl:input message="tns:getUserTrashSoapIn" />
+      <wsdl:output message="tns:getUserTrashSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="changeStoragePlan">
+      <wsdl:input message="tns:changeStoragePlanSoapIn" />
+      <wsdl:output message="tns:changeStoragePlanSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="recoverFile">
+      <wsdl:input message="tns:recoverFileSoapIn" />
+      <wsdl:output message="tns:recoverFileSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="CloudSVCSoap" type="tns:CloudSVCSoap">
@@ -596,6 +671,33 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="getUserTrash">
+      <soap:operation soapAction="http://tempuri.org/getUserTrash" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="changeStoragePlan">
+      <soap:operation soapAction="http://tempuri.org/changeStoragePlan" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="recoverFile">
+      <soap:operation soapAction="http://tempuri.org/recoverFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="CloudSVCSoap12" type="tns:CloudSVCSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -736,6 +838,33 @@
     </wsdl:operation>
     <wsdl:operation name="deleteFile">
       <soap12:operation soapAction="http://tempuri.org/deleteFile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUserTrash">
+      <soap12:operation soapAction="http://tempuri.org/getUserTrash" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="changeStoragePlan">
+      <soap12:operation soapAction="http://tempuri.org/changeStoragePlan" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="recoverFile">
+      <soap12:operation soapAction="http://tempuri.org/recoverFile" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
