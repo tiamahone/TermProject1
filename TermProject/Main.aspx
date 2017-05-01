@@ -57,6 +57,7 @@
                 <asp:Button ID="btnDeleteFiles" runat="server" Text="Delete Files" OnClick="btnDeleteFiles_Click" Visible="false" />
                 <asp:Button ID="btnAdminEditUser" runat="server" Text="Edit User" OnClick="btnAdminEditUser_Click" Visible="false" />
                 <asp:Button ID="btnUserEditUser" runat="server" Text="Edit Info" OnClick="btnUserEditUser_Click" Visible="false" />
+                <asp:Button ID="btnViewTrash" runat="server" Text="View Trash" OnClick="btnViewTrash_Click" Visible="false" />
                 <asp:Button ID="btnDeleteUser" runat="server" Text="Delete User" OnClick="btnDeleteUser_Click" Visible="false" />
                 <asp:Button ID="btnStorageOptions" runat="server" Text="Storage Options" OnClick="btnStorageOptions_Click" Visible="false" />
                 <asp:Button ID="btnBack" runat="server" Text="Back To Login" OnClick="btnBack_Click" />

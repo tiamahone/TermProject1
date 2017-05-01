@@ -49,6 +49,7 @@ namespace TermProject
             btnMyFiles.Visible = true;
             btnDeleteFiles.Visible = true;
             btnStorageOptions.Visible = true;
+            btnViewTrash.Visible = true;
         }
         public void stateAdmin()
         {
@@ -75,8 +76,14 @@ namespace TermProject
                 string response = Functions.fileUpload(loginInfo, Session["User"].ToString(), fileName, fileType, 
                     fileSize, fileData);
                 lblDisplayText.Text = response;
-
                 stateUser();
+                gvUserFiles.DataSource = Functions.getFilesByUser(loginInfo, Session["User"].ToString());
+                gvUserFiles.DataBind(); gvUserFiles.Visible = true; lblFile.Visible = true; fileUp.Visible = true;
+                lblFreeUserSpace.Visible = true; btnFile.Visible = true;
+                lblFreeUserSpace.Text = "Free Space Remaining: " +
+                Functions.getUserFreeSpace(loginInfo, Session["User"].ToString()) +
+                " Bytes";
+
             }    
         }
 
@@ -294,6 +301,11 @@ namespace TermProject
         protected void btnStorageOptions_Click(object sender, EventArgs e)
         {
             Response.Redirect("StorageOptions.aspx");
+        }
+
+        protected void btnViewTrash_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Trash.aspx");
         }
 
 
