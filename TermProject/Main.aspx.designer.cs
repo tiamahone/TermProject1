@@ -49,6 +49,15 @@ namespace TermProject {
         protected global::System.Web.UI.WebControls.Button btnViewTransactions;
         
         /// <summary>
+        /// btnViewAdminTransactions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnViewAdminTransactions;
+        
+        /// <summary>
         /// btnMyFiles control.
         /// </summary>
         /// <remarks>
@@ -209,6 +218,60 @@ namespace TermProject {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnGetTransactions;
+        
+        /// <summary>
+        /// gvAdminTransaction control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvAdminTransaction;
+        
+        /// <summary>
+        /// lblSelectAdmin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSelectAdmin;
+        
+        /// <summary>
+        /// dropAdmin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList dropAdmin;
+        
+        /// <summary>
+        /// lblSelectTimePeriodAdmin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSelectTimePeriodAdmin;
+        
+        /// <summary>
+        /// dropTimePeriodAdmin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList dropTimePeriodAdmin;
+        
+        /// <summary>
+        /// btnGetAdminTransactions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGetAdminTransactions;
         
         /// <summary>
         /// gvAdminModify control.

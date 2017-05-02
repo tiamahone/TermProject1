@@ -93,7 +93,8 @@
             </tr>
             <tr></tr>
             <tr>
-                <td><asp:Button ID="btnBack" runat="server" Text="Back To login" OnClick="btnBack_Click" /></td>
+                <td><asp:Button ID="btnBackMain" runat="server" Text="Back To Main" OnClick="btnBackMain_Click" /></td>
+                <td><asp:Button ID="btnBackLogin" runat="server" Text="Back to Login" OnClick="btnBackLogin_Click" /></td>
             </tr>
         </table>
      </div>

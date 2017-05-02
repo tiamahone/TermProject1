@@ -48,9 +48,13 @@ namespace Class_Library.CloudSVCRef1 {
         
         private System.Threading.SendOrPostCallback getCloudUsersOperationCompleted;
         
+        private System.Threading.SendOrPostCallback getCloudAdminOperationCompleted;
+        
         private System.Threading.SendOrPostCallback getCloudUsersInfoOperationCompleted;
         
         private System.Threading.SendOrPostCallback getTransactionsOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback getAdminTransactionsOperationCompleted;
         
         private System.Threading.SendOrPostCallback adminUpdateUserOperationCompleted;
         
@@ -128,10 +132,16 @@ namespace Class_Library.CloudSVCRef1 {
         public event getCloudUsersCompletedEventHandler getCloudUsersCompleted;
         
         /// <remarks/>
+        public event getCloudAdminCompletedEventHandler getCloudAdminCompleted;
+        
+        /// <remarks/>
         public event getCloudUsersInfoCompletedEventHandler getCloudUsersInfoCompleted;
         
         /// <remarks/>
         public event getTransactionsCompletedEventHandler getTransactionsCompleted;
+        
+        /// <remarks/>
+        public event getAdminTransactionsCompletedEventHandler getAdminTransactionsCompleted;
         
         /// <remarks/>
         public event adminUpdateUserCompletedEventHandler adminUpdateUserCompleted;
@@ -424,6 +434,35 @@ namespace Class_Library.CloudSVCRef1 {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/getCloudAdmin", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet getCloudAdmin(string[] loginInfo) {
+            object[] results = this.Invoke("getCloudAdmin", new object[] {
+                        loginInfo});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void getCloudAdminAsync(string[] loginInfo) {
+            this.getCloudAdminAsync(loginInfo, null);
+        }
+        
+        /// <remarks/>
+        public void getCloudAdminAsync(string[] loginInfo, object userState) {
+            if ((this.getCloudAdminOperationCompleted == null)) {
+                this.getCloudAdminOperationCompleted = new System.Threading.SendOrPostCallback(this.OngetCloudAdminOperationCompleted);
+            }
+            this.InvokeAsync("getCloudAdmin", new object[] {
+                        loginInfo}, this.getCloudAdminOperationCompleted, userState);
+        }
+        
+        private void OngetCloudAdminOperationCompleted(object arg) {
+            if ((this.getCloudAdminCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.getCloudAdminCompleted(this, new getCloudAdminCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/getCloudUsersInfo", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public System.Data.DataSet getCloudUsersInfo(string[] loginInfo) {
             object[] results = this.Invoke("getCloudUsersInfo", new object[] {
@@ -480,6 +519,37 @@ namespace Class_Library.CloudSVCRef1 {
             if ((this.getTransactionsCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.getTransactionsCompleted(this, new getTransactionsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/getAdminTransactions", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet getAdminTransactions(string[] loginInfo, string[] userInfo) {
+            object[] results = this.Invoke("getAdminTransactions", new object[] {
+                        loginInfo,
+                        userInfo});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void getAdminTransactionsAsync(string[] loginInfo, string[] userInfo) {
+            this.getAdminTransactionsAsync(loginInfo, userInfo, null);
+        }
+        
+        /// <remarks/>
+        public void getAdminTransactionsAsync(string[] loginInfo, string[] userInfo, object userState) {
+            if ((this.getAdminTransactionsOperationCompleted == null)) {
+                this.getAdminTransactionsOperationCompleted = new System.Threading.SendOrPostCallback(this.OngetAdminTransactionsOperationCompleted);
+            }
+            this.InvokeAsync("getAdminTransactions", new object[] {
+                        loginInfo,
+                        userInfo}, this.getAdminTransactionsOperationCompleted, userState);
+        }
+        
+        private void OngetAdminTransactionsOperationCompleted(object arg) {
+            if ((this.getAdminTransactionsCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.getAdminTransactionsCompleted(this, new getAdminTransactionsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -893,6 +963,32 @@ namespace Class_Library.CloudSVCRef1 {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    public delegate void getCloudAdminCompletedEventHandler(object sender, getCloudAdminCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class getCloudAdminCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal getCloudAdminCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
     public delegate void getCloudUsersInfoCompletedEventHandler(object sender, getCloudUsersInfoCompletedEventArgs e);
     
     /// <remarks/>
@@ -930,6 +1026,32 @@ namespace Class_Library.CloudSVCRef1 {
         private object[] results;
         
         internal getTransactionsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    public delegate void getAdminTransactionsCompletedEventHandler(object sender, getAdminTransactionsCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class getAdminTransactionsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal getAdminTransactionsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }

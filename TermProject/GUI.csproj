@@ -80,6 +80,7 @@
   <ItemGroup>
     <Content Include="Registration.aspx" />
     <Content Include="StorageOptions.aspx" />
+    <Content Include="SuperAdmin.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -111,6 +112,13 @@
     </Compile>
     <Compile Include="StorageOptions.aspx.designer.cs">
       <DependentUpon>StorageOptions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SuperAdmin.aspx.cs">
+      <DependentUpon>SuperAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperAdmin.aspx.designer.cs">
+      <DependentUpon>SuperAdmin.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

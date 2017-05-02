@@ -40,7 +40,7 @@ namespace TermProject
             if (Validations())
             {
 
-                if (response == "Success User" || response == "Success Admin")
+                if (response == "Success User" || response == "Success Admin" || response=="Success SuperAdmin")
                 {
                     // Adds cookie if remember me is checked
                     if (chkRemember.Checked)

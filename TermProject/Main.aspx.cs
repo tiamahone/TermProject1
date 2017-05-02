@@ -17,13 +17,18 @@ namespace TermProject
             if (Session["Login"] != null)
             {
                 lblDisplayText.Text = "Welcome " + Session["User"].ToString() + "!";
+
                 if (Session["Login"].ToString() == "Success Admin")
                 {
-                    stateAdmin();                  
+                    stateAdmin();
                 }
-                else if (Session["Login"].ToString() == "Success User")
+                else if(Session["Login"].ToString() == "Success SuperAdmin")
                 {
-                    stateUser();                   
+                    stateSuperAdmin();
+                }
+                else if(Session["Login"].ToString() == "Success User")
+                {
+                    stateUser();
                 }
                 loginInfo[0] = Session["User"].ToString();
                 loginInfo[1] = Session["Password"].ToString();
@@ -51,13 +56,18 @@ namespace TermProject
             btnStorageOptions.Visible = true;
         }
         public void stateAdmin()
+        {         
+            btnViewTransactions.Visible = true;
+            btnAdminEditUser.Visible = true;
+            btnDeleteUser.Visible = true;
+        }
+        public void stateSuperAdmin()
         {
             btnAddAdmin.Visible = true;
             btnViewTransactions.Visible = true;
             btnAdminEditUser.Visible = true;
             btnDeleteUser.Visible = true;
         }
-
         protected void btnFile_Click(object sender, EventArgs e)
         {
             userFormsOff();
@@ -93,11 +103,28 @@ namespace TermProject
             transactionFormOn();       
         }
 
+        protected void btnViewTransactionsAdmin_Click(object sender, EventArgs e)
+        {
+
+            dropAdmin.DataSource = Functions.getCloudAdmin(loginInfo);
+            dropAdmin.DataTextField = "Email";
+            dropAdmin.DataBind();
+
+        }
+
         protected void btnGetTransactions_Click(object sender, EventArgs e)
         {
             gvTransactions.DataSource = Functions.getTransactions(loginInfo, dropUser.SelectedItem.ToString(),
                 dropTimePeriod.SelectedItem.ToString());
             gvTransactions.DataBind();
+            gvTransactions.Visible = true;
+        }
+
+        protected void btnGetAdminTransactions_Click(object sender, EventArgs e)
+        {
+            gvAdminTransaction.DataSource = Functions.getAdminTransactions(loginInfo, dropAdmin.SelectedItem.ToString(), 
+                dropTimePeriodAdmin.SelectedItem.ToString());
+            gvAdminTransaction.DataBind();
             gvTransactions.Visible = true;
         }
         
@@ -107,6 +134,14 @@ namespace TermProject
             dropUser.Visible = true; lblSelectTimePeriod.Visible = true;
             dropTimePeriod.Visible = true;
             btnGetTransactions.Visible = true;
+        }
+
+        public void AdmintransactionFormOn()
+        {
+            lblSelectAdmin.Visible = true;
+            dropAdmin.Visible = true; lblSelectTimePeriod.Visible = true;
+            dropTimePeriodAdmin.Visible = true;
+            btnGetAdminTransactions.Visible = true;
         }
         public void adminFormsOff()
         {
@@ -295,12 +330,6 @@ namespace TermProject
         {
             Response.Redirect("StorageOptions.aspx");
         }
-
-
-
-
-
-
 
 
     }

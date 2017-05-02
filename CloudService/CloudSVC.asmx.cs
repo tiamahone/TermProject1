@@ -29,7 +29,7 @@ namespace CloudService
             DBConnect objDB;
             SqlCommand objCommand;
             DataSet myDs;
- 
+
 
             objDB = new DBConnect();
             objCommand = new SqlCommand();
@@ -57,7 +57,6 @@ namespace CloudService
                 objCommand.CommandText = "GetCloudAdminInfo";
                 objCommand.Parameters.AddWithValue("@email", email);
                 myDs = objDB.GetDataSetUsingCmdObj(objCommand);
-
                 if (myDs.Tables[0].Rows.Count != 0)
                 {
                     if (password != objDB.GetField("Password", 0).ToString())
@@ -71,10 +70,32 @@ namespace CloudService
                 }
                 else
                 {
-                    response = -1;
+                    objDB = new DBConnect();
+                    objCommand = new SqlCommand();
+                    objCommand.CommandType = CommandType.StoredProcedure;
+                    objCommand.CommandText = "GetCloudSuperAdminInfo";
+                    objCommand.Parameters.AddWithValue("@email", email);
+                    myDs = objDB.GetDataSetUsingCmdObj(objCommand);
+
+                    if (myDs.Tables[0].Rows.Count != 0)
+                    {
+                        if (password != objDB.GetField("Password", 0).ToString())
+                        {
+                            response = 0;
+                        }
+                        else
+                        {
+                            response = 3;
+                        }
+                    }
+                    else
+                    {
+                        response = -1;
+                    }
                 }
-            }      
+            }
             return response;
+
         }
 
         [WebMethod]
@@ -128,7 +149,7 @@ namespace CloudService
         public int addAdmin(string[] loginInfo, string[] userInfo)
         {
             int response;
-            if (attemptLogin(loginInfo) == 2)
+            if (attemptLogin(loginInfo) == 2 || attemptLogin(loginInfo) == 3)
             {
                 string name = userInfo[0];
                 string email = userInfo[1];
@@ -175,7 +196,7 @@ namespace CloudService
         public int addFile(string[] loginInfo, string[] fileInfo, byte[] fileData)
         {
             int response;
-            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2)
+            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2 || attemptLogin(loginInfo) == 3)
             {
                 string fileEmail = fileInfo[0];
                 string fileName = fileInfo[1];
@@ -249,7 +270,7 @@ namespace CloudService
         public DataSet checkForFile(string[] loginInfo, string[] userInfo)
         {
             DataSet myDS = null;
-            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2)
+            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2 || attemptLogin(loginInfo) == 3)
             {
                 SqlCommand objCommand = new SqlCommand();
                 objCommand.CommandType = CommandType.StoredProcedure;
@@ -266,7 +287,7 @@ namespace CloudService
         public DataSet getFilesByUser(string[] loginInfo, string[] userInfo)
         {
             DataSet myDS = null;
-            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2)
+            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2 || attemptLogin(loginInfo)== 3)
             {
                 SqlCommand objCommand = new SqlCommand();
                 objCommand.CommandType = CommandType.StoredProcedure;
@@ -283,7 +304,7 @@ namespace CloudService
         public double getUserFreeStorage(string[] loginInfo, string[] userInfo)
         {
             double freeStorage = 0;
-            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2)
+            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2 || attemptLogin(loginInfo)==3)
             {
                 SqlCommand objCommand = new SqlCommand();
                 objCommand.CommandType = CommandType.StoredProcedure;
@@ -300,7 +321,7 @@ namespace CloudService
         public double getUserTotalStorage(string[] loginInfo, string[] userInfo)
         {
             double totalStorage = 0;
-            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2)
+            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2 || attemptLogin(loginInfo) ==3)
             {
                 SqlCommand objCommand = new SqlCommand();
                 objCommand.CommandType = CommandType.StoredProcedure;
@@ -317,7 +338,7 @@ namespace CloudService
         public DataSet getCloudUsers(string[] loginInfo)
         {
             DataSet myDS = null;
-            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2)
+            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2 || attemptLogin(loginInfo) == 3)
             {
                 SqlCommand objCommand = new SqlCommand();
                 objCommand.CommandType = CommandType.StoredProcedure;
@@ -329,10 +350,26 @@ namespace CloudService
         }
 
         [WebMethod]
+        public DataSet getCloudAdmin(string[] loginInfo)
+        {
+            DataSet myDS = null;
+            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2 || attemptLogin(loginInfo) == 3)
+            {
+                SqlCommand objCommand = new SqlCommand();
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "GetCloudAdmin";
+                DBConnect objDB = new DBConnect();
+                myDS = objDB.GetDataSetUsingCmdObj(objCommand);
+            }
+            return myDS;
+
+        }
+
+        [WebMethod]
         public DataSet getCloudUsersInfo(string[] loginInfo)
         {
             DataSet myDS = null;
-            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2)
+            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2 || attemptLogin(loginInfo) == 3)
             {
                 SqlCommand objCommand = new SqlCommand();
                 objCommand.CommandType = CommandType.StoredProcedure;
@@ -347,7 +384,7 @@ namespace CloudService
         public DataSet getTransactions(string[] loginInfo, string[] userInfo)
         {
             DataSet myDS = null;
-            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2)
+            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2 || attemptLogin(loginInfo) == 3)
             {
                 SqlCommand objCommand = new SqlCommand();
                 objCommand.CommandType = CommandType.StoredProcedure;
@@ -380,10 +417,31 @@ namespace CloudService
         }
 
         [WebMethod]
+        public DataSet getAdminTransactions(string[] loginInfo, string[] userInfo)
+        {
+            DataSet myDS = null;
+            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2 || attemptLogin(loginInfo) == 3)
+            {
+                SqlCommand objCommand = new SqlCommand();
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "GetCloudAdminTransactions";
+                objCommand.Parameters.AddWithValue("@email", userInfo[0]);
+                if (userInfo[1] == "All")
+                {
+                    objCommand.Parameters.AddWithValue("@timePeriod", "1/01/1900 12:00:01 AM");
+                }
+
+                DBConnect objDB = new DBConnect();
+                myDS = objDB.GetDataSetUsingCmdObj(objCommand);
+            }
+            return myDS;
+        }
+
+        [WebMethod]
         public int adminUpdateUser(string[] loginInfo, string[] userInfo)
         {
             int response = -1;
-            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2)
+            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2 || attemptLogin(loginInfo) == 3)
             {
                 double freeStorage = getUserFreeStorage(loginInfo, userInfo);
                 double oldTotalStorage = getUserTotalStorage(loginInfo, userInfo);
@@ -410,7 +468,7 @@ namespace CloudService
         public int deleteUser(string[] loginInfo, string[] userInfo)
         {
             int response = -1;
-            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2)
+            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2 || attemptLogin(loginInfo)==3)
             {
                 SqlCommand objCommand = new SqlCommand();
                 DBConnect objDB = new DBConnect();
@@ -428,7 +486,7 @@ namespace CloudService
         public DataSet getSingleUserInfo(string[] loginInfo, string[] userInfo)
         {
             DataSet myDS = null;
-            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2)
+            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2 || attemptLogin(loginInfo) == 3)
             {
                 SqlCommand objCommand = new SqlCommand();
                 objCommand.CommandType = CommandType.StoredProcedure;
@@ -444,7 +502,7 @@ namespace CloudService
         public int userUpdateUser(string[] loginInfo, string[] userInfo)
         {
             int response = -1;
-            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2)
+            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2 || attemptLogin(loginInfo) == 3)
             {
                 SqlCommand objCommand = new SqlCommand();
                 DBConnect objDB = new DBConnect();
@@ -467,7 +525,7 @@ namespace CloudService
         public int deleteFile(string[] loginInfo, string[] userInfo)
         {
             int response = -1;
-            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2)
+            if (attemptLogin(loginInfo) == 1 || attemptLogin(loginInfo) == 2 || attemptLogin(loginInfo) == 3)
             {
                 SqlCommand objCommand = new SqlCommand();
                 DBConnect objDB = new DBConnect();
@@ -495,6 +553,7 @@ namespace CloudService
             }
             return response;
         }
+
 
 }
 }

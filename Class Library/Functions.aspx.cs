@@ -25,7 +25,7 @@ namespace Class_Library
             string[] loginInfo = new string[2];
             string response = "";
             loginInfo[0] = email; loginInfo[1] = password;
-            CloudSVCRef.CloudSVC pxy = new CloudSVCRef.CloudSVC();
+            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
 
             int result = pxy.attemptLogin(loginInfo);
             if (result == -1)
@@ -43,6 +43,10 @@ namespace Class_Library
             else if (result == 2)
             {
                 response = "Success Admin";
+            }
+            else if (result == 3)
+            {
+                response = "Success SuperAdmin";
             }
 
             return response;
@@ -153,11 +157,27 @@ namespace Class_Library
             return myDS;
         }
 
+        public static DataSet getAdminTransactions(string[] loginInfo, string user, string timePeriod)
+        {
+            string[] userInfo = new string[2];
+            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
+            userInfo[0] = user; userInfo[1] = timePeriod;
+            DataSet myDS = pxy.getAdminTransactions(loginInfo, userInfo);
+            return myDS;
+        }
+
         public static DataSet getCloudUsers(string[] loginInfo)
         {
             CloudSVCRef.CloudSVC pxy = new CloudSVCRef.CloudSVC();
             DataSet myDS = pxy.getCloudUsers(loginInfo);
             return myDS;
+        }
+
+        public static DataSet getCloudAdmin(string[] loginInfo)
+        {
+            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
+            DataSet myDs = pxy.getCloudAdmin(loginInfo);
+            return myDs;
         }
         public static DataSet getCloudUsersInfo(string[] loginInfo)
         {

@@ -161,6 +161,27 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="getCloudAdmin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getCloudAdminResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getCloudAdminResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="getCloudUsersInfo">
         <s:complexType>
           <s:sequence>
@@ -194,6 +215,28 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="getTransactionsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAdminTransactions">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getAdminTransactionsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getAdminTransactionsResult">
               <s:complexType>
                 <s:sequence>
                   <s:element ref="s:schema" />
@@ -342,6 +385,12 @@
   <wsdl:message name="getCloudUsersSoapOut">
     <wsdl:part name="parameters" element="tns:getCloudUsersResponse" />
   </wsdl:message>
+  <wsdl:message name="getCloudAdminSoapIn">
+    <wsdl:part name="parameters" element="tns:getCloudAdmin" />
+  </wsdl:message>
+  <wsdl:message name="getCloudAdminSoapOut">
+    <wsdl:part name="parameters" element="tns:getCloudAdminResponse" />
+  </wsdl:message>
   <wsdl:message name="getCloudUsersInfoSoapIn">
     <wsdl:part name="parameters" element="tns:getCloudUsersInfo" />
   </wsdl:message>
@@ -353,6 +402,12 @@
   </wsdl:message>
   <wsdl:message name="getTransactionsSoapOut">
     <wsdl:part name="parameters" element="tns:getTransactionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAdminTransactionsSoapIn">
+    <wsdl:part name="parameters" element="tns:getAdminTransactions" />
+  </wsdl:message>
+  <wsdl:message name="getAdminTransactionsSoapOut">
+    <wsdl:part name="parameters" element="tns:getAdminTransactionsResponse" />
   </wsdl:message>
   <wsdl:message name="adminUpdateUserSoapIn">
     <wsdl:part name="parameters" element="tns:adminUpdateUser" />
@@ -421,6 +476,10 @@
       <wsdl:input message="tns:getCloudUsersSoapIn" />
       <wsdl:output message="tns:getCloudUsersSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="getCloudAdmin">
+      <wsdl:input message="tns:getCloudAdminSoapIn" />
+      <wsdl:output message="tns:getCloudAdminSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="getCloudUsersInfo">
       <wsdl:input message="tns:getCloudUsersInfoSoapIn" />
       <wsdl:output message="tns:getCloudUsersInfoSoapOut" />
@@ -428,6 +487,10 @@
     <wsdl:operation name="getTransactions">
       <wsdl:input message="tns:getTransactionsSoapIn" />
       <wsdl:output message="tns:getTransactionsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getAdminTransactions">
+      <wsdl:input message="tns:getAdminTransactionsSoapIn" />
+      <wsdl:output message="tns:getAdminTransactionsSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="adminUpdateUser">
       <wsdl:input message="tns:adminUpdateUserSoapIn" />
@@ -533,6 +596,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="getCloudAdmin">
+      <soap:operation soapAction="http://tempuri.org/getCloudAdmin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="getCloudUsersInfo">
       <soap:operation soapAction="http://tempuri.org/getCloudUsersInfo" style="document" />
       <wsdl:input>
@@ -544,6 +616,15 @@
     </wsdl:operation>
     <wsdl:operation name="getTransactions">
       <soap:operation soapAction="http://tempuri.org/getTransactions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAdminTransactions">
+      <soap:operation soapAction="http://tempuri.org/getAdminTransactions" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -680,6 +761,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="getCloudAdmin">
+      <soap12:operation soapAction="http://tempuri.org/getCloudAdmin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="getCloudUsersInfo">
       <soap12:operation soapAction="http://tempuri.org/getCloudUsersInfo" style="document" />
       <wsdl:input>
@@ -691,6 +781,15 @@
     </wsdl:operation>
     <wsdl:operation name="getTransactions">
       <soap12:operation soapAction="http://tempuri.org/getTransactions" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAdminTransactions">
+      <soap12:operation soapAction="http://tempuri.org/getAdminTransactions" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

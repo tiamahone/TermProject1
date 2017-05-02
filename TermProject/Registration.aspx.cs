@@ -28,10 +28,15 @@ namespace TermProject
            
         }
 
-        protected void btnBack_Click(object sender, EventArgs e)
+        protected void btnBackLogin_Click(object sender, EventArgs e)
         {
             Session["Login"] = null;
             Response.Redirect("Login.aspx");
+        }
+
+        protected void btnBackMain_Click(object sender, EventArgs e)
+        { 
+            Response.Redirect("Main.aspx");
         }
 
         protected void btnRegister_Click1(object sender, EventArgs e)
