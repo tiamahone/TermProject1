@@ -56,7 +56,7 @@ namespace Class_Library
         {
             string[] userInfo = new string[4];
             string response = "";
-            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
+            CloudSVCRef.CloudSVC pxy = new CloudSVCRef.CloudSVC();
             userInfo[0] = name; userInfo[1] = email;
             userInfo[2] = password; userInfo[3] = phone;
             int result = pxy.addUser(userInfo);
@@ -99,7 +99,7 @@ namespace Class_Library
         {
             string response = "";
             string[] fileInfo = new string[4];
-            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
+            CloudSVCRef.CloudSVC pxy = new CloudSVCRef.CloudSVC();
             fileInfo[0] = email; fileInfo[1] = fileName;
             fileInfo[2] = fileType; fileInfo[3] = fileSize.ToString();
 
@@ -222,7 +222,7 @@ namespace Class_Library
             userInfo[0] = fileName;
             userInfo[1] = fileSize;
             userInfo[2] = "delete";
-            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
+            CloudSVCRef.CloudSVC pxy = new CloudSVCRef.CloudSVC();
             int response = pxy.deleteFile(loginInfo, userInfo);
             return response;
         }
@@ -231,7 +231,7 @@ namespace Class_Library
         {
             string[] userInfo = new string[1];
             userInfo[0] = email;
-            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
+            CloudSVCRef.CloudSVC pxy = new CloudSVCRef.CloudSVC();
             DataSet myDS = pxy.getUserTrash(loginInfo, userInfo);
             return myDS;
         }
@@ -247,7 +247,7 @@ namespace Class_Library
             else if (plan == 4) { storage = 10000000000; }
             else if (plan == 5) { storage = 50000000000; }
             userInfo[0] = email; userInfo[1] = storage.ToString(); ;
-            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
+            CloudSVCRef.CloudSVC pxy = new CloudSVCRef.CloudSVC();
             response = pxy.changeStoragePlan(loginInfo, userInfo);
 
             return response;
@@ -256,21 +256,21 @@ namespace Class_Library
         public static int recoverFile(string[] loginInfo, string[] userInfo)
         {
             int response = 0;
-            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
+            CloudSVCRef.CloudSVC pxy = new CloudSVCRef.CloudSVC();
             response = pxy.recoverFile(loginInfo, userInfo);
             return response;
         }
 
         public static DataSet getQuestions()
         {
-            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
+            CloudSVCRef.CloudSVC pxy = new CloudSVCRef.CloudSVC();
             DataSet myDs = pxy.getQuestions();
             return myDs;
         }
 
         public static void askQuestion(string[] loginInfo, string question)
         {
-            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
+            CloudSVCRef.CloudSVC pxy = new CloudSVCRef.CloudSVC();
             pxy.askQuestion(loginInfo, question);
         }
     }
