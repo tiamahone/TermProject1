@@ -66,6 +66,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="Main.aspx" />
     <Content Include="packages.config" />
@@ -80,10 +81,13 @@
   <ItemGroup>
     <Content Include="Registration.aspx" />
     <Content Include="StorageOptions.aspx" />
-    <Content Include="SuperAdmin.aspx" />
+    <Content Include="Trash.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -113,12 +117,12 @@
     <Compile Include="StorageOptions.aspx.designer.cs">
       <DependentUpon>StorageOptions.aspx</DependentUpon>
     </Compile>
-    <Compile Include="SuperAdmin.aspx.cs">
-      <DependentUpon>SuperAdmin.aspx</DependentUpon>
+    <Compile Include="Trash.aspx.cs">
+      <DependentUpon>Trash.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SuperAdmin.aspx.designer.cs">
-      <DependentUpon>SuperAdmin.aspx</DependentUpon>
+    <Compile Include="Trash.aspx.designer.cs">
+      <DependentUpon>Trash.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

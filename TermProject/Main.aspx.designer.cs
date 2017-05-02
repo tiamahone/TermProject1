@@ -49,15 +49,6 @@ namespace TermProject {
         protected global::System.Web.UI.WebControls.Button btnViewTransactions;
         
         /// <summary>
-        /// btnViewAdminTransactions control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnViewAdminTransactions;
-        
-        /// <summary>
         /// btnMyFiles control.
         /// </summary>
         /// <remarks>
@@ -92,6 +83,24 @@ namespace TermProject {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnUserEditUser;
+        
+        /// <summary>
+        /// btnAdminViewUserFiles control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAdminViewUserFiles;
+        
+        /// <summary>
+        /// btnViewTrash control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnViewTrash;
         
         /// <summary>
         /// btnDeleteUser control.
@@ -220,58 +229,40 @@ namespace TermProject {
         protected global::System.Web.UI.WebControls.Button btnGetTransactions;
         
         /// <summary>
-        /// gvAdminTransaction control.
+        /// gvAdminUserFilesView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvAdminTransaction;
+        protected global::System.Web.UI.WebControls.GridView gvAdminUserFilesView;
         
         /// <summary>
-        /// lblSelectAdmin control.
+        /// lblSelectUserFA control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSelectAdmin;
+        protected global::System.Web.UI.WebControls.Label lblSelectUserFA;
         
         /// <summary>
-        /// dropAdmin control.
+        /// ddlAdminUserFilesView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList dropAdmin;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAdminUserFilesView;
         
         /// <summary>
-        /// lblSelectTimePeriodAdmin control.
+        /// btnGetUserFilesView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSelectTimePeriodAdmin;
-        
-        /// <summary>
-        /// dropTimePeriodAdmin control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList dropTimePeriodAdmin;
-        
-        /// <summary>
-        /// btnGetAdminTransactions control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGetAdminTransactions;
+        protected global::System.Web.UI.WebControls.Button btnGetUserFilesView;
         
         /// <summary>
         /// gvAdminModify control.
