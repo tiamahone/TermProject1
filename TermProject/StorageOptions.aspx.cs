@@ -131,10 +131,32 @@ namespace TermProject
         }
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            // ADD VALIDATION
-            lblDisplayText2.Text = "Plan Successfully changed";
-            paymentFormOff();
-            Functions.changeStoragePlan(loginInfo, email, rdoStorageOptions.SelectedIndex);
+            if (Validations())
+            {
+                lblDisplayText2.Text = "Plan Successfully changed";
+                paymentFormOff();
+                Functions.changeStoragePlan(loginInfo, email, rdoStorageOptions.SelectedIndex);
+            }
+        }
+
+
+        public bool Validations()
+        {
+            if (txtAddress.Text == String.Empty ||
+                txtCardNumber.Text == String.Empty ||
+                txtCity.Text == String.Empty||
+                txtName.Text == String.Empty ||
+                txtSecurityCode.Text == String.Empty ||
+                txtZipCode.Text == String.Empty
+                )
+            {
+                lblDisplayText2.Text = "Enter all fields above!";
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
 
