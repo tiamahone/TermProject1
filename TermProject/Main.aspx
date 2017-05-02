@@ -57,6 +57,7 @@
                 <asp:Button ID="btnDeleteFiles" runat="server" Text="Delete Files" OnClick="btnDeleteFiles_Click" Visible="false" />
                 <asp:Button ID="btnAdminEditUser" runat="server" Text="Edit User" OnClick="btnAdminEditUser_Click" Visible="false" />
                 <asp:Button ID="btnUserEditUser" runat="server" Text="Edit Info" OnClick="btnUserEditUser_Click" Visible="false" />
+                <asp:Button ID="btnAdminViewUserFiles" runat="server" Text="View User Files" OnClick="btnViewUserFiles_Click" Visible="false" />
                 <asp:Button ID="btnViewTrash" runat="server" Text="View Trash" OnClick="btnViewTrash_Click" Visible="false" />
                 <asp:Button ID="btnDeleteUser" runat="server" Text="Delete User" OnClick="btnDeleteUser_Click" Visible="false" />
                 <asp:Button ID="btnStorageOptions" runat="server" Text="Storage Options" OnClick="btnStorageOptions_Click" Visible="false" />
@@ -73,12 +74,17 @@
         <asp:Label ID="lblFreeUserSpace" runat="server" Text="Free Space Remaining: " Style="font-weight: 700;" Visible="false"></asp:Label>
         <asp:GridView ID="gvUserFiles" runat="server" Style="z-index: 1; left: 10px; top: 300px; position: absolute; height: 180px; width: 289px" EmptyDataText="No Files Stored" HeaderText="Cloud Files" Visible="false" AllowPaging="True">
             <EditRowStyle BorderColor="Black" BorderStyle="Solid" />
+            <Columns>
+                <asp:BoundField DataField="File Name" HeaderText="File Name" />
+                <asp:BoundField DataField="File Type" HeaderText="File Type" />
+                <asp:BoundField DataField="File Size" HeaderText="File Size" />
+            </Columns>
         </asp:GridView>
 
 
 
         <%--Transactions Section--%>
-        <asp:GridView ID="gvTransactions" runat="server" Style="z-index: 1; left: 10px; top: 300px; position: absolute; height: 180px; width: 289px" EmptyDataText="No Transactions Found" HeaderText="Transactions" Visible="false" AllowPaging="True" OnSelectedIndexChanged="gvTransactions_SelectedIndexChanged">
+        <asp:GridView ID="gvTransactions" runat="server" Style="z-index: 1; left: 10px; top: 300px; position: absolute; height: 180px; width: 600px" EmptyDataText="No Transactions Found" HeaderText="Transactions" Visible="false" AllowPaging="True" OnSelectedIndexChanged="gvTransactions_SelectedIndexChanged">
             <EditRowStyle BorderColor="Black" BorderStyle="Solid" />
         </asp:GridView>
 
@@ -88,11 +94,20 @@
         <asp:Label ID="lblSelectTimePeriod" runat="server" Text="Time Period:" Style="z-index: 1; left: 300px; top: 280px; position: absolute; font-weight: 700;" Visible="false"></asp:Label>
         <asp:DropDownList ID="dropTimePeriod" runat="server" Style="z-index: 1; left: 400px; top: 280px; position: absolute" Visible="false">
             <asp:ListItem>All</asp:ListItem>
-            <asp:ListItem>Past Day</asp:ListItem>
-            <asp:ListItem>Past Week</asp:ListItem>
-            <asp:ListItem>Past Month</asp:ListItem>
         </asp:DropDownList>
         <asp:Button ID="btnGetTransactions" runat="server" Style="z-index: 1; left: 500px; top: 280px; position: absolute" Text="Get Transactions" OnClick="btnGetTransactions_Click" Visible="false" />
+
+        <%--Admin view user files section--%>
+        <asp:GridView ID="gvAdminUserFilesView" runat="server" Style="z-index: 1; left: 10px; top: 300px; position: absolute; height: 180px; width: 600px" EmptyDataText="No Files Found" HeaderText="Transactions" Visible="false" AllowPaging="True" OnSelectedIndexChanged="gvTransactions_SelectedIndexChanged">
+            <EditRowStyle BorderColor="Black" BorderStyle="Solid" />
+        </asp:GridView>
+
+        <asp:Label ID="lblSelectUserFA" runat="server" Text="User:" Style="z-index: 1; left: 10px; top: 280px; position: absolute; font-weight: 700;" Visible="false"></asp:Label>
+        <asp:DropDownList ID="ddlAdminUserFilesView" runat="server" Style="z-index: 1; left: 100px; top: 280px; position: absolute" Visible="false">
+        </asp:DropDownList>
+        <asp:Button ID="btnGetUserFilesView" runat="server" Style="z-index: 1; left: 500px; top: 280px; position: absolute" Text="View Files" OnClick="btnGetUserFiles_Click" Visible="false" />
+
+
 
         <%--Admin Account tools section--%>
         <asp:GridView ID="gvAdminModify" runat="server" AllowPaging="True" PageSize="10" Style="z-index: 1; left: 10px; top: 300px; position: absolute; height: 180px; width: 289px" Visible="False"

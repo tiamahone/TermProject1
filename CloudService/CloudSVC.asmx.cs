@@ -284,7 +284,7 @@ namespace CloudService
                 objCommand.CommandText = "GetCloudFilesByUser";
                 objCommand.Parameters.AddWithValue("@email", userInfo[0]);
                 DBConnect objDB = new DBConnect();
-                myDS = objDB.GetDataSetUsingCmdObj(objCommand);
+                myDS = objDB.GetDataSetUsingCmdObj(objCommand);        
             }
             return myDS;
 
@@ -614,6 +614,22 @@ namespace CloudService
                 byte[] fileData = (byte[])objDB.GetField("File Data", 0);
                 DateTime timeStamp = DateTime.Now;
 
+                //Update Free Space
+                double oldFreeSpace = Convert.ToDouble(getUserFreeStorage(loginInfo, loginInfo));
+                double newFreeSpace = oldFreeSpace - fileSizeOld;
+                if (oldFreeSpace < fileSizeOld)
+                {
+                    return -1;
+                }
+
+                objDB = new DBConnect();
+                objCommand = new SqlCommand();
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "UpdateFreeSpace";
+                objCommand.Parameters.AddWithValue("@email", loginInfo[0]);
+                objCommand.Parameters.AddWithValue("@freeStorage", newFreeSpace);
+                objDB.DoUpdateUsingCmdObj(objCommand);
+
                 //Put file back
                 objDB = new DBConnect();
                 objCommand = new SqlCommand();
@@ -626,16 +642,6 @@ namespace CloudService
                 objCommand.Parameters.AddWithValue("@fileData", fileData);
                 objDB.DoUpdateUsingCmdObj(objCommand);
 
-                //Update Free Space
-                double oldFreeSpace = Convert.ToDouble(getUserFreeStorage(loginInfo, loginInfo));
-                double newFreeSpace = oldFreeSpace - fileSizeOld;
-                objDB = new DBConnect();
-                objCommand = new SqlCommand();
-                objCommand.CommandType = CommandType.StoredProcedure;
-                objCommand.CommandText = "UpdateFreeSpace";
-                objCommand.Parameters.AddWithValue("@email", loginInfo[0]);
-                objCommand.Parameters.AddWithValue("@freeStorage", newFreeSpace);
-                objDB.DoUpdateUsingCmdObj(objCommand);
 
                 //Delete File From Trash
                 objDB = new DBConnect();

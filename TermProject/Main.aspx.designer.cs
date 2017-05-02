@@ -85,6 +85,15 @@ namespace TermProject {
         protected global::System.Web.UI.WebControls.Button btnUserEditUser;
         
         /// <summary>
+        /// btnAdminViewUserFiles control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAdminViewUserFiles;
+        
+        /// <summary>
         /// btnViewTrash control.
         /// </summary>
         /// <remarks>
@@ -218,6 +227,42 @@ namespace TermProject {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnGetTransactions;
+        
+        /// <summary>
+        /// gvAdminUserFilesView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvAdminUserFilesView;
+        
+        /// <summary>
+        /// lblSelectUserFA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSelectUserFA;
+        
+        /// <summary>
+        /// ddlAdminUserFilesView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlAdminUserFilesView;
+        
+        /// <summary>
+        /// btnGetUserFilesView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGetUserFilesView;
         
         /// <summary>
         /// gvAdminModify control.
