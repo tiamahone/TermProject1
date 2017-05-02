@@ -43,9 +43,13 @@ namespace TermProject
                 string id = gvTrash.Rows[index].Cells[1].Text;
                 string[] userInfo = new string[2];
                 userInfo[0] = Session["User"].ToString(); userInfo[1] = id;
-                Functions.recoverFile(loginInfo, userInfo);
+                int response = Functions.recoverFile(loginInfo, userInfo);
                 gvTrash.DataSource = Functions.getUserTrash(loginInfo, Session["User"].ToString());
                 gvTrash.DataBind();
+                if (response == -1)
+                {
+                    lblDisplayText2.Text = "Not enough free space to recover file.";
+                }
 
             }
         }

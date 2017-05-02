@@ -14,10 +14,13 @@ namespace Class_Library
 {
     public partial class Functions : System.Web.UI.Page
     {
-        
+        CloudStorageObject cloudObj = new CloudStorageObject();
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["cloudObj"] != null)
+            {
+                cloudObj = (CloudStorageObject)Session["cloudObj"];
+            }
         }
 
         public static string attemptLogin(string email, string password)
@@ -124,7 +127,7 @@ namespace Class_Library
             string[] userInfo = new string[1];
             CloudSVCRef.CloudSVC pxy = new CloudSVCRef.CloudSVC();
             userInfo[0] = email;
-            DataSet myDS = pxy.getFilesByUser(loginInfo, userInfo);
+            DataSet myDS = pxy.getFilesByUser(loginInfo, userInfo); 
             return myDS;
         }
 

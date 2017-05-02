@@ -1,6 +1,7 @@
 ﻿using Class_Library;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -12,10 +13,15 @@ namespace TermProject
     public partial class Main : System.Web.UI.Page
     {
         string[] loginInfo = new string[2];
+        CloudStorageObject cloudObj = new CloudStorageObject();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["Login"] != null)
             {
+                if (Session["cloudObj"] != null)
+                {
+                    cloudObj = (CloudStorageObject)Session["cloudObj"];
+                }
                 lblDisplayText.Text = "Welcome " + Session["User"].ToString() + "!";
                 if (Session["Login"].ToString() == "Success Admin")
                 {
@@ -57,6 +63,7 @@ namespace TermProject
             btnViewTransactions.Visible = true;
             btnAdminEditUser.Visible = true;
             btnDeleteUser.Visible = true;
+            btnAdminViewUserFiles.Visible = true;
         }
 
         protected void btnFile_Click(object sender, EventArgs e)
@@ -72,6 +79,14 @@ namespace TermProject
                 fileUp.PostedFile.InputStream.Read(fileData, 0, fileSize);
                 fileName = fileUp.PostedFile.FileName;
                 fileType = fileUp.PostedFile.ContentType;
+
+                File file = new File();
+                file.Email = Session["User"].ToString();
+                file.FileName = fileName;
+                file.FileType = fileType;
+                file.FileSize = fileSize;
+                file.FileData = fileData;
+                cloudObj.Add(file);
 
                 string response = Functions.fileUpload(loginInfo, Session["User"].ToString(), fileName, fileType, 
                     fileSize, fileData);
@@ -125,6 +140,8 @@ namespace TermProject
             gvAdminModify.Visible = false;
             btnDeleteSelection.Visible = false;
             gvDelete.Visible = false;
+            gvAdminUserFilesView.Visible = false; lblSelectUserFA.Visible = false;
+            btnGetUserFilesView.Visible = false;
         }
 
         public void userFormsOff()
@@ -260,7 +277,7 @@ namespace TermProject
             lblFreeUserSpace.Visible = true; btnFile.Visible = true;
             lblFreeUserSpace.Text = "Free Space Remaining: " +
                 Functions.getUserFreeSpace(loginInfo, Session["User"].ToString()) +
-                " Bytes";
+                " Bytes";                           
             gvUserFiles.DataSource = Functions.getFilesByUser(loginInfo, Session["User"].ToString());
             gvUserFiles.DataBind(); gvUserFiles.Visible = true;
         }
@@ -308,6 +325,20 @@ namespace TermProject
             Response.Redirect("Trash.aspx");
         }
 
+        protected void btnViewUserFiles_Click(object sender, EventArgs e)
+        {
+            adminFormsOff();
+            ddlAdminUserFilesView.DataSource = Functions.getCloudUsers(loginInfo);
+            ddlAdminUserFilesView.DataTextField = "Email";
+            ddlAdminUserFilesView.DataBind(); ddlAdminUserFilesView.Visible = true;
+            gvAdminUserFilesView.Visible = true; lblSelectUserFA.Visible = true;
+            btnGetUserFilesView.Visible = true;
+        }
+        protected void btnGetUserFiles_Click(object sender, EventArgs e)
+        {
+            gvAdminUserFilesView.DataSource = Functions.getFilesByUser(loginInfo, ddlAdminUserFilesView.SelectedItem.ToString());
+            gvAdminUserFilesView.DataBind(); gvAdminUserFilesView.Visible = true;
+        }
 
 
 
