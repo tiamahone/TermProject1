@@ -331,6 +331,34 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="getQuestions">
+        <s:complexType />
+      </s:element>
+      <s:element name="getQuestionsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getQuestionsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="askQuestion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginInfo" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="question" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="askQuestionResponse">
+        <s:complexType />
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="attemptLoginSoapIn">
@@ -447,6 +475,18 @@
   <wsdl:message name="recoverFileSoapOut">
     <wsdl:part name="parameters" element="tns:recoverFileResponse" />
   </wsdl:message>
+  <wsdl:message name="getQuestionsSoapIn">
+    <wsdl:part name="parameters" element="tns:getQuestions" />
+  </wsdl:message>
+  <wsdl:message name="getQuestionsSoapOut">
+    <wsdl:part name="parameters" element="tns:getQuestionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="askQuestionSoapIn">
+    <wsdl:part name="parameters" element="tns:askQuestion" />
+  </wsdl:message>
+  <wsdl:message name="askQuestionSoapOut">
+    <wsdl:part name="parameters" element="tns:askQuestionResponse" />
+  </wsdl:message>
   <wsdl:portType name="CloudSVCSoap">
     <wsdl:operation name="attemptLogin">
       <wsdl:input message="tns:attemptLoginSoapIn" />
@@ -523,6 +563,14 @@
     <wsdl:operation name="recoverFile">
       <wsdl:input message="tns:recoverFileSoapIn" />
       <wsdl:output message="tns:recoverFileSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getQuestions">
+      <wsdl:input message="tns:getQuestionsSoapIn" />
+      <wsdl:output message="tns:getQuestionsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="askQuestion">
+      <wsdl:input message="tns:askQuestionSoapIn" />
+      <wsdl:output message="tns:askQuestionSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="CloudSVCSoap" type="tns:CloudSVCSoap">
@@ -698,6 +746,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="getQuestions">
+      <soap:operation soapAction="http://tempuri.org/getQuestions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="askQuestion">
+      <soap:operation soapAction="http://tempuri.org/askQuestion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="CloudSVCSoap12" type="tns:CloudSVCSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -865,6 +931,24 @@
     </wsdl:operation>
     <wsdl:operation name="recoverFile">
       <soap12:operation soapAction="http://tempuri.org/recoverFile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getQuestions">
+      <soap12:operation soapAction="http://tempuri.org/getQuestions" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="askQuestion">
+      <soap12:operation soapAction="http://tempuri.org/askQuestion" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

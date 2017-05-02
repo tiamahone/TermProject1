@@ -665,5 +665,27 @@ namespace CloudService
             }
             return response;
         }
+        [WebMethod]
+        public DataSet getQuestions()
+        {
+            DBConnect objDB = new DBConnect();
+            SqlCommand objCommand = new SqlCommand();
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "GetCloudQuestions";
+            DataSet myDS = objDB.GetDataSetUsingCmdObj(objCommand);
+            return myDS;
+        }
+
+        [WebMethod]
+        public void askQuestion(string[] loginInfo, string question)
+        {
+            DBConnect objDB = new DBConnect();
+            SqlCommand objCommand = new SqlCommand();
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "AskCloudQuestion";
+            objCommand.Parameters.AddWithValue("@email", loginInfo[0]);
+            objCommand.Parameters.AddWithValue("@question", question);
+            objDB.DoUpdateUsingCmdObj(objCommand);
+        }
     }
 }

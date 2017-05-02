@@ -260,5 +260,18 @@ namespace Class_Library
             response = pxy.recoverFile(loginInfo, userInfo);
             return response;
         }
+
+        public static DataSet getQuestions()
+        {
+            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
+            DataSet myDs = pxy.getQuestions();
+            return myDs;
+        }
+
+        public static void askQuestion(string[] loginInfo, string question)
+        {
+            CloudSVCRef1.CloudSVC pxy = new CloudSVCRef1.CloudSVC();
+            pxy.askQuestion(loginInfo, question);
+        }
     }
 }
