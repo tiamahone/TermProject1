@@ -68,6 +68,10 @@ namespace Class_Library.CloudSVCRef1 {
         
         private System.Threading.SendOrPostCallback recoverFileOperationCompleted;
         
+        private System.Threading.SendOrPostCallback getQuestionsOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback askQuestionOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -162,6 +166,12 @@ namespace Class_Library.CloudSVCRef1 {
         
         /// <remarks/>
         public event recoverFileCompletedEventHandler recoverFileCompleted;
+        
+        /// <remarks/>
+        public event getQuestionsCompletedEventHandler getQuestionsCompleted;
+        
+        /// <remarks/>
+        public event askQuestionCompletedEventHandler askQuestionCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/attemptLogin", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -747,6 +757,63 @@ namespace Class_Library.CloudSVCRef1 {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/getQuestions", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet getQuestions() {
+            object[] results = this.Invoke("getQuestions", new object[0]);
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void getQuestionsAsync() {
+            this.getQuestionsAsync(null);
+        }
+        
+        /// <remarks/>
+        public void getQuestionsAsync(object userState) {
+            if ((this.getQuestionsOperationCompleted == null)) {
+                this.getQuestionsOperationCompleted = new System.Threading.SendOrPostCallback(this.OngetQuestionsOperationCompleted);
+            }
+            this.InvokeAsync("getQuestions", new object[0], this.getQuestionsOperationCompleted, userState);
+        }
+        
+        private void OngetQuestionsOperationCompleted(object arg) {
+            if ((this.getQuestionsCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.getQuestionsCompleted(this, new getQuestionsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/askQuestion", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void askQuestion(string[] loginInfo, string question) {
+            this.Invoke("askQuestion", new object[] {
+                        loginInfo,
+                        question});
+        }
+        
+        /// <remarks/>
+        public void askQuestionAsync(string[] loginInfo, string question) {
+            this.askQuestionAsync(loginInfo, question, null);
+        }
+        
+        /// <remarks/>
+        public void askQuestionAsync(string[] loginInfo, string question, object userState) {
+            if ((this.askQuestionOperationCompleted == null)) {
+                this.askQuestionOperationCompleted = new System.Threading.SendOrPostCallback(this.OnaskQuestionOperationCompleted);
+            }
+            this.InvokeAsync("askQuestion", new object[] {
+                        loginInfo,
+                        question}, this.askQuestionOperationCompleted, userState);
+        }
+        
+        private void OnaskQuestionOperationCompleted(object arg) {
+            if ((this.askQuestionCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.askQuestionCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -1258,6 +1325,36 @@ namespace Class_Library.CloudSVCRef1 {
             }
         }
     }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    public delegate void getQuestionsCompletedEventHandler(object sender, getQuestionsCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class getQuestionsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal getQuestionsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    public delegate void askQuestionCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
 }
 
 #pragma warning restore 1591

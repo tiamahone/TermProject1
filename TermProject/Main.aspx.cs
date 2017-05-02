@@ -56,6 +56,7 @@ namespace TermProject
             btnDeleteFiles.Visible = true;
             btnStorageOptions.Visible = true;
             btnViewTrash.Visible = true;
+            btnAskQuestion.Visible = true;
         }
         public void stateAdmin()
         {
@@ -64,6 +65,7 @@ namespace TermProject
             btnAdminEditUser.Visible = true;
             btnDeleteUser.Visible = true;
             btnAdminViewUserFiles.Visible = true;
+            btnAnswerQuestion.Visible = true;
         }
 
         protected void btnFile_Click(object sender, EventArgs e)
@@ -142,6 +144,9 @@ namespace TermProject
             gvDelete.Visible = false;
             gvAdminUserFilesView.Visible = false; lblSelectUserFA.Visible = false;
             btnGetUserFilesView.Visible = false;
+            gvQuestions.Visible = false;
+            lblQuestion.Visible = false;
+            txtQuestions.Visible = false; btnAnswer.Visible = false;
         }
 
         public void userFormsOff()
@@ -152,6 +157,9 @@ namespace TermProject
             gvUserModify.Visible = false;
             btnDeleteFile.Visible = false;
             gvDeleteFile.Visible = false;
+            gvQuestions.Visible = false;
+            lblQuestion.Visible = false;
+            txtQuestions.Visible = false; btnAsk.Visible = false;
         }
 
 
@@ -340,8 +348,38 @@ namespace TermProject
             gvAdminUserFilesView.DataBind(); gvAdminUserFilesView.Visible = true;
         }
 
+        protected void btnaskQuestion_Click(object sender, EventArgs e)
+        {
+            userFormsOff();
+            gvQuestions.Visible = true;
+            gvQuestions.DataSource = Functions.getQuestions();
+            gvQuestions.DataBind();
+            lblQuestion.Visible = true; lblQuestion.Text = "Ask Question: ";
+            txtQuestions.Visible = true; btnAsk.Visible = true;
 
 
+        }
+
+        protected void btnAnswerQuestion_Click(object sender, EventArgs e)
+        {
+            adminFormsOff();
+            gvQuestions.Visible = true;
+            gvQuestions.DataSource = Functions.getQuestions();
+            gvQuestions.DataBind();
+            lblQuestion.Visible = true; lblQuestion.Text = "Answer Question: ";
+            txtQuestions.Visible = true; btnAnswer.Visible = true;
+        }
+        protected void btnAsk_Click(object sender, EventArgs e)
+        {
+            
+            Functions.askQuestion(loginInfo, txtQuestions.Text);
+            gvQuestions.DataSource = Functions.getQuestions();
+            gvQuestions.DataBind();
+        }
+        protected void btnAnswer_Click(object sender, EventArgs e)
+        {
+            
+        }
 
 
 

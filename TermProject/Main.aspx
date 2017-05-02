@@ -57,6 +57,9 @@
                 <asp:Button ID="btnDeleteFiles" runat="server" Text="Delete Files" OnClick="btnDeleteFiles_Click" Visible="false" />
                 <asp:Button ID="btnAdminEditUser" runat="server" Text="Edit User" OnClick="btnAdminEditUser_Click" Visible="false" />
                 <asp:Button ID="btnUserEditUser" runat="server" Text="Edit Info" OnClick="btnUserEditUser_Click" Visible="false" />
+                <asp:Button ID="btnAskQuestion" runat="server" Text="Ask Support Questions" OnClick="btnaskQuestion_Click" Visible="false" />
+                <asp:Button ID="btnAnswerQuestion" runat="server" Text="Answer Support Questions" OnClick="btnAnswerQuestion_Click" Visible="false" />
+
                 <asp:Button ID="btnAdminViewUserFiles" runat="server" Text="View User Files" OnClick="btnViewUserFiles_Click" Visible="false" />
                 <asp:Button ID="btnViewTrash" runat="server" Text="View Trash" OnClick="btnViewTrash_Click" Visible="false" />
                 <asp:Button ID="btnDeleteUser" runat="server" Text="Delete User" OnClick="btnDeleteUser_Click" Visible="false" />
@@ -175,6 +178,20 @@
             </Columns>
         </asp:GridView>
 
+        <%--Questions--%>
+        <p>
+        <asp:GridView ID="gvQuestions" runat="server" Style="z-index: 1; left: 10px; top: 300px; position: absolute; height: 180px; width: 900px" EmptyDataText="No Questions Found" HeaderText="Transactions" Visible="false" AllowPaging="True" OnSelectedIndexChanged="gvTransactions_SelectedIndexChanged">
+            <EditRowStyle BorderColor="Black" BorderStyle="Solid" />
+        </asp:GridView>
+        </p>
+        <p>
+            <asp:Label ID="lblQuestion" runat="server" />
+            <asp:TextBox ID="txtQuestions" runat="server" Visible="false" ></asp:TextBox>
+            <asp:Button ID="btnAsk" runat="server"  Text="Ask Question" OnClick="btnAsk_Click" Visible="false" />
+            <asp:Button ID="btnAnswer" runat="server"  Text="Ask Question" OnClick="btnAnswer_Click" Visible="false" />
+
+        </p>
+        
 
 
     </form>
